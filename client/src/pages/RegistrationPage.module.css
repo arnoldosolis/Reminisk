@@ -1,0 +1,26 @@
+.bg {
+  background-color: #a8d389;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.registrationForm {
+  background-color: rgba(255, 255, 255, 0.952);
+  border-radius: 6px;
+  width: 40vw;
+  height: 80vh;
+  position: absolute;
+  left: 30%;
+  top: 10%;
+}
+
+#back {
+  padding-left: 30px;
+  padding-right: 50px;
+}
+
+/*
+#join {
+  float: right;
+} */
