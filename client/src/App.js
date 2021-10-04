@@ -17,31 +17,18 @@ function App() {
         <Route path="/registration">
           <RegistrationPage />
         </Route>
-        <Route path="/home" >
+        <div>
           <Navbar />
-          <VideoBackground />
+          <Route exact path="/home" component={VideoBackground} />
+          {/* Navbar paths */}
+          {/* <Route exact path="/journal" component{}/> */}
+          {/* <Route exact path="/survey" component{}/> */}
+          {/* <Route exact path="/mapit" component{}/> */}
+          {/* <Route exact path="/profile" component{}/> */}
+          {/* Other paths: Upload Journal, Upload Survey, Journal Log, Survey Record*/}
           <Footer />
-        </Route>
-        <Route path="/journal" >
-          <Navbar />
-          {/* Insert and Import Journal Component */}
-          <Footer />
-        </Route>
-        <Route path="/survey" >
-          <Navbar />
-          {/* Insert and Import Survey Component */}
-          <Footer />
-        </Route>
-        <Route path="/map" >
-          <Navbar />
-          {/* Insert and Import MapIt Component */}
-          <Footer />
-        </Route>
-        <Route path="/profile" >
-          <Navbar />
-          {/* Insert and Import Profile Component */}
-          <Footer />
-        </Route>
+        </div>
+          
       </Switch>
       </Router>
     </div>
