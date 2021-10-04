@@ -30,14 +30,24 @@ function LoginPage() {
               minLength="6"
               maxLength="16"
             ></input>
-            <button>Log In</button>
+            
+            {/* 
+              Testing Start
+              Registration and Authentication code needed here
+              Log In button goes to Home for testing
+            */}
+            <Link to="/home">
+              <button>Log In</button>
+            </Link>
+            {/* Testing End*/}
+
             <Link to="/registration">
               <button type="button" id={styles.register}>Sign Up<i className="material-icons right">arrow_forward</i></button>
             </Link>
           </form>
         </div>
       </div>
-    </div>
+    </div>  
   );
 }
 
