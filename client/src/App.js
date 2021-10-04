@@ -28,7 +28,6 @@ function App() {
           {/* Other paths: Upload Journal, Upload Survey, Journal Log, Survey Record*/}
           <Footer />
         </div>
-          
       </Switch>
       </Router>
     </div>
