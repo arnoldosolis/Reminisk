@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
+import JournalPage from "./pages/JournalPage";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
         </Route>
         <Route path="/registration">
           <RegistrationPage />
+        </Route>
+        <Route path="/journalpage">
+          <JournalPage />
         </Route>
       </Switch>
     </div>
