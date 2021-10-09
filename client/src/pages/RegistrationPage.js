@@ -1,10 +1,35 @@
 import styles from "./RegistrationPage.module.css";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Axios from "axios";
 
 function RegistrationPage() {
+  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+
+  const addUser = () => {
+    //sends post request to local server
+    Axios.post("http://localhost:3001/createUserInfo", {
+      name: name,
+      email: email,
+    }).then(() => {
+      console.log("User information successfully posted");
+    });
+
+    //sends post request to local server
+    Axios.post("http://localhost:3001/createUserCred", {
+      username: username,
+      password: password,
+    }).then(() => {
+      console.log("User credentials successfully posted");
+    });
+  };
+
   return (
     <div className={styles.bg}>
-      <form className={styles.registrationForm}>
+      <form className={styles.registrationForm} onSubmit={addUser}>
         <div>
           <Link to="/">
             <button type="button" id={styles.back}>
@@ -19,7 +44,10 @@ function RegistrationPage() {
           name="name"
           placeholder="Enter Your Name"
           required
-        ></input>
+          onChange={(event) => {
+            setName(event.target.value);
+          }}
+        />
         <label htmlFor="username">Username</label>
         <input
           type="text"
@@ -29,7 +57,10 @@ function RegistrationPage() {
           required
           minLength="2"
           maxLength="16"
-        ></input>
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+        />
         <label htmlFor="password">Password</label>
         <input
           type="password"
@@ -39,7 +70,10 @@ function RegistrationPage() {
           required
           minLength="6"
           maxLength="16"
-        ></input>
+          onChange={(event) => {
+            setPassword(event.target.value);
+          }}
+        />
         <label htmlFor="email">E-Mail</label>
         <input
           type="email"
@@ -47,7 +81,10 @@ function RegistrationPage() {
           name="email"
           placeholder="Enter E-Mail"
           required
-        ></input>
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+        />
         <button id={styles.join}>Join Reminisk</button>
       </form>
     </div>
