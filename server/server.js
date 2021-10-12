@@ -25,11 +25,11 @@ db.connect((err) => {
 app.post("/upload", (req, res) => {
   const date = req.body.date;
   const journal = req.body.journal;
-  const img = req.body.img;
+  const imgURL = req.body.imgURL;
 
   db.query(
     "INSERT INTO journal_log(journal_date, image, journal_entry) VALUES (?,?,?)",
-    [date, [img], journal],
+    [date, imgURL, journal],
     (err, res) => {
       if (err) {
         console.log(err);

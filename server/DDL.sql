@@ -17,7 +17,7 @@ CREATE TABLE journal_log (
   journallog_id INT NOT NULL AUTO_INCREMENT,
   userlogin_id INT,
   journal_date DATE,
-  image LONGBLOB,
+  image TEXT,
   journal_entry TEXT,
   PRIMARY KEY(journallog_id),
   FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id)
