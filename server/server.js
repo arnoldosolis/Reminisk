@@ -31,6 +31,32 @@ app.post("/createUserInfo", (req, res) => {
   );
 });
 
+//server processes post request to update user information
+app.post
+(
+  "/updateUserInfo", (req, res) => 
+  {
+    const name = req.body.name;
+    const email = req.body.email;
+
+    db.query
+    (
+      "UPDATE user_info SET name = ? WHERE email = ?", [name, email],
+      (err, result) =>
+      {
+        if(err) 
+        {
+          console.log(err)
+        }
+        else
+        {
+          res.send(result);
+        }
+      }
+    );
+  }
+);
+
 //server processes post request to insert user login credentials
 app.post("/createUserCred", (req, res) => {
   const username = req.body.username;
