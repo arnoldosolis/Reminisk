@@ -31,8 +31,8 @@ app.post("/createUserInfo", (req, res) => {
   );
 });
 
-//server processes post request to update user information
-app.post
+//server processes put request to update user information
+app.put
 (
   "/updateUserInfo", (req, res) => 
   {
@@ -45,6 +45,30 @@ app.post
       (err, result) =>
       {
         if(err) 
+        {
+          console.log(err)
+        }
+        else
+        {
+          res.send(result);
+        }
+      }
+    );
+  }
+);
+
+//server processes delete request to delete user
+app.delete
+(
+  '/delete/:userinfo_id', (req, res) =>
+  {
+    const userinfo_id = req.params.userinfo_id;
+    
+    db.query
+    (
+      "DELETE FROM user_info WHERE userinfo_id = ?", userinfo_id, (err, result) =>
+      {
+        if(err)
         {
           console.log(err)
         }
