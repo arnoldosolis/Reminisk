@@ -1,4 +1,5 @@
 import React from "react";
+import { Image } from "cloudinary-react";
 import { useState } from "react";
 import { Button } from "@material-ui/core/";
 import Axios from "axios";
@@ -9,15 +10,28 @@ function JournalPage() {
 
   const [date, setDate] = useState("");
   const [journal, setJournal] = useState("");
+  const [imgURL, setImgURL] = useState("");
   const [img, setImg] = useState("");
 
   const [journalList, setJournalList] = useState([]);
 
   const addJournalEntry = () => {
+    const formData = new FormData();
+    formData.append("file", img);
+    formData.append("upload_preset", "fom93swy");
+
+    Axios.post(
+      "https://api.cloudinary.com/v1_1/reminisk/image/upload",
+      formData
+    ).then((response) => {
+      console.log(response.data.url);
+      setImgURL(response.data.url);
+    });
+
     Axios.post("http://localhost:3001/upload", {
       date: date,
       journal: journal,
-      img: img,
+      imgURL: imgURL,
     }).then(() => {
       console.log("Success");
     });
@@ -26,7 +40,6 @@ function JournalPage() {
   const getJournalEntry = () => {
     Axios.get("http://localhost:3001/journals").then((response) => {
       setJournalList(response.data);
-      console.log(response);
     });
   };
 
@@ -43,14 +56,14 @@ function JournalPage() {
           type="date"
           onChange={(e) => {
             setDate(e.target.value);
-            console.log(e.target.value);
+            //console.log(e.target.value);
           }}
         />
         <textarea
           placeholder="How was your day?"
           onChange={(e) => {
             setJournal(e.target.value);
-            console.log(e.target.value);
+            //console.log(e.target.value);
           }}
         />
         <label for="img">
@@ -60,7 +73,7 @@ function JournalPage() {
           type="file"
           accept="image/*"
           onChange={(e) => {
-            console.log(e.target.files[0]);
+            //console.log(e.target.files[0]);
             setImg(e.target.files[0]);
           }}
         />
@@ -76,10 +89,9 @@ function JournalPage() {
       {journalList.map((val, key) => {
         return (
           <div>
-            <h3>{val.journallog_id}</h3>
             <h3>{val.journal_date}</h3>
-            <h3>{val.image.name}</h3>
             <h3>{val.journal_entry}</h3>
+            <Image cloudName="reminisk" publicId={val.image} />
           </div>
         );
       })}
