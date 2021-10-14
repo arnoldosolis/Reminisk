@@ -1,17 +1,25 @@
 import React from "react";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
 import { Image } from "cloudinary-react";
 import { useState } from "react";
 import { Button } from "@material-ui/core/";
 import Axios from "axios";
 import Popup from "../components/Popup";
+import "./JournalPage.css";
 
 function JournalPage() {
   const [buttonPopup, setButtonPopup] = useState(false);
 
   const [date, setDate] = useState("");
   const [journal, setJournal] = useState("");
-  const [imgURL, setImgURL] = useState("");
   const [img, setImg] = useState("");
+  const [imgURL, setImgURL] = useState("");
 
   const [journalList, setJournalList] = useState([]);
 
@@ -27,12 +35,19 @@ function JournalPage() {
       console.log(response.data.url);
       setImgURL(response.data.url);
     });
-
     Axios.post("http://localhost:3001/upload", {
       date: date,
       journal: journal,
       imgURL: imgURL,
     }).then(() => {
+      setJournalList([
+        ...journalList,
+        {
+          date: date,
+          journal: journal,
+          imgURL: imgURL,
+        },
+      ]);
       console.log("Success");
     });
   };
@@ -71,7 +86,6 @@ function JournalPage() {
         </label>
         <input
           type="file"
-          accept="image/*"
           onChange={(e) => {
             //console.log(e.target.files[0]);
             setImg(e.target.files[0]);
@@ -88,10 +102,36 @@ function JournalPage() {
       {getJournalEntry()}
       {journalList.map((val, key) => {
         return (
-          <div>
-            <h3>{val.journal_date}</h3>
-            <h3>{val.journal_entry}</h3>
-            <Image cloudName="reminisk" publicId={val.image} />
+          <div className="journal-entries">
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 650 }} aria-label="caption table">
+                <caption>A basic table example with a caption</caption>
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="center">Date</TableCell>
+                    <TableCell align="center">Entry&nbsp;</TableCell>
+                    <TableCell align="center">Image&nbsp;</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {journalList.map((val, key) => (
+                    <TableRow key={val.journallog_id}>
+                      <TableCell align="center">
+                        {val.journal_date.substring(0, 10)}
+                      </TableCell>
+                      <TableCell align="center">{val.journal_entry}</TableCell>
+                      <TableCell align="center">
+                        <Image
+                          style={{ width: 200, margin: 50 }}
+                          cloudName="reminisk"
+                          publicId={val.image}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </div>
         );
       })}
