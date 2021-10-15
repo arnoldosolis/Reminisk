@@ -129,7 +129,7 @@ function JournalPage() {
                         type="text"
                         id="myInput"
                         onkeyup="myFunction()"
-                        placeholder="Search by date.."
+                        placeholder="Search by date"
                       />
                     </TableCell>
                   </TableRow>
