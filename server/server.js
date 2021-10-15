@@ -22,6 +22,7 @@ db.connect((err) => {
   console.log("Database connected.");
 });
 
+// Uploads journal Entries
 app.post("/upload", (req, res) => {
   const date = req.body.date;
   const journal = req.body.journal;
@@ -37,8 +38,9 @@ app.post("/upload", (req, res) => {
         res.send("Values Inserted");
       }
     }
-    );
+  );
 });
+
 //server processes post request to insert user information
 app.post("/createUserInfo", (req, res) => {
   const name = req.body.name;
@@ -52,12 +54,12 @@ app.post("/createUserInfo", (req, res) => {
         console.log(err);
       } else {
         res.send("User information inserted");
-
       }
     }
   );
 });
 
+// Gets journal entries
 app.get("/journals", (req, res) => {
   db.query("SELECT * FROM journal_log", (err, result) => {
     if (err) {
@@ -67,9 +69,6 @@ app.get("/journals", (req, res) => {
     }
   });
 });
-
-app.listen(3001, () => {
-  console.log("Server is running on port 3001");
 
 //server processes post request to insert user login credentials
 app.post("/createUserCred", (req, res) => {
@@ -89,7 +88,6 @@ app.post("/createUserCred", (req, res) => {
   );
 });
 
-//local server at port 3001 listens to requests
 app.listen(3001, () => {
-  console.log("port 3001 is running");
+  console.log("Server is running on port 3001");
 });
