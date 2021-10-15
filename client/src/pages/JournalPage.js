@@ -12,6 +12,7 @@ import { Button } from "@material-ui/core/";
 import Axios from "axios";
 import Popup from "../components/Popup";
 import "./JournalPage.css";
+import { border } from "@mui/system";
 
 function JournalPage() {
   const [buttonPopup, setButtonPopup] = useState(false);
@@ -104,9 +105,34 @@ function JournalPage() {
         return (
           <div className="journal-entries">
             <TableContainer component={Paper}>
-              <Table sx={{ minWidth: 650 }} aria-label="caption table">
+              <Table
+                align="center"
+                sx={{ maxWidth: 1500, border: 1 }}
+                aria-label="caption table"
+              >
                 <caption>A basic table example with a caption</caption>
                 <TableHead>
+                  <TableRow>
+                    <TableCell align="center">
+                      <lable>Sort by</lable>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Button class="waves-effect waves-light btn-large black">
+                        Recent
+                      </Button>
+                      <Button class="waves-effect waves-light btn-large black">
+                        Oldest
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">
+                      <input
+                        type="text"
+                        id="myInput"
+                        onkeyup="myFunction()"
+                        placeholder="Search by date.."
+                      />
+                    </TableCell>
+                  </TableRow>
                   <TableRow>
                     <TableCell align="center">Date</TableCell>
                     <TableCell align="center">Entry&nbsp;</TableCell>
