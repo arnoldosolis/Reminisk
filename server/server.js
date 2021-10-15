@@ -37,6 +37,24 @@ app.post("/upload", (req, res) => {
         res.send("Values Inserted");
       }
     }
+    );
+});
+//server processes post request to insert user information
+app.post("/createUserInfo", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
+
+  db.query(
+    "INSERT INTO user_info (name, email) VALUES (?,?)",
+    [name, email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("User information inserted");
+
+      }
+    }
   );
 });
 
@@ -52,4 +70,26 @@ app.get("/journals", (req, res) => {
 
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
+
+//server processes post request to insert user login credentials
+app.post("/createUserCred", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.query(
+    "INSERT INTO user_login (username, password) VALUES (?,?)",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("User credentials inserted");
+      }
+    }
+  );
+});
+
+//local server at port 3001 listens to requests
+app.listen(3001, () => {
+  console.log("port 3001 is running");
 });
