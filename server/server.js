@@ -58,7 +58,7 @@ app.put
 );
 
 //server processes delete request to delete user
-app.delete
+/*app.delete
 (
   '/delete/:userinfo_id', (req, res) =>
   {
@@ -79,7 +79,7 @@ app.delete
       }
     );
   }
-);
+);*/
 
 //server processes post request to insert user login credentials
 app.post("/createUserCred", (req, res) => {
