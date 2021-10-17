@@ -1,3 +1,4 @@
+import "./App.css";
 import { Route, Switch } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
@@ -6,6 +7,7 @@ import Footer from "./components/footer_components/Footer";
 import VideoBackground from "./components/homepage_components/VideoBackground";
 import Survey from "./components/surveypage_components/Survey";
 import ScrollToTop from "./components/ScrollToTop";
+import JournalPage from "./pages/JournalPage";
 
 function App() {
   return (
