@@ -4,7 +4,7 @@ import "./VideoBackground.css"
 import { Redirect } from "react-router-dom";
 
 function VideoBackground({authorized}) {
-    if(!authorized){ return <Redirect to="/" />;}    
+    if(!authorized){ return <Redirect to="/" />;}
 
     return (
         <div className="video-container">

@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import VideoBackground from "./components/VideoBackground";
 import { LoginContext } from "./Helper/Context"
 import { useState } from "react";
+import JournalPage from "./pages/JournalPage";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -25,14 +26,16 @@ function App() {
           <Navbar />
           <Route exact path="/home" component={() => <VideoBackground authorized={loggedIn} />} />
           {/* Navbar paths */}
-          {/* <Route exact path="/journal" component{}/> */}
+          <Route exact path="/journal">
+            <JournalPage authorized={loggedIn} />
+          </Route>
           {/* <Route exact path="/survey" component{}/> */}
           {/* <Route exact path="/map" component{}/> */}
           {/* <Route exact path="/profile" component{}/> */}
           {/* Other paths: Upload Journal, Upload Survey, Journal Log, Survey Record*/}
           <Footer />
         </div>
-      </Switch>
+      </Switch> 
       </Router>
     </LoginContext.Provider>
   );
