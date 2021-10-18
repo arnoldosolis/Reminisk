@@ -49,6 +49,28 @@ app.post("/createUserCred", (req, res) => {
   );
 });
 
+//server processes login request
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.query(
+    "SELECT * FROM user_login WHERE username = ? AND password = ?",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+
+      if (result.length>0) {
+        res.send(result);
+      } else {
+        res.send({ error: "Wrong username/password combination!" });
+      }
+    }
+  );
+});
+
 //local server at port 3001 listens to requests
 app.listen(3001, () => {
   console.log("port 3001 is running");

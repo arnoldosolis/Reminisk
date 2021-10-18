@@ -5,10 +5,14 @@ import RegistrationPage from "./pages/RegistrationPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import VideoBackground from "./components/VideoBackground";
+import { LoginContext } from "./Helper/Context"
+import { useState } from "react";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
-    <div>
+    <LoginContext.Provider value={{ loggedIn, setLoggedIn}}>
       <Router>
       <Switch>
         <Route path="/" exact>
@@ -19,18 +23,18 @@ function App() {
         </Route>
         <div>
           <Navbar />
-          <Route exact path="/home" component={VideoBackground} />
+          <Route exact path="/home" component={() => <VideoBackground authorized={loggedIn} />} />
           {/* Navbar paths */}
           {/* <Route exact path="/journal" component{}/> */}
           {/* <Route exact path="/survey" component{}/> */}
-          {/* <Route exact path="/mapit" component{}/> */}
+          {/* <Route exact path="/map" component{}/> */}
           {/* <Route exact path="/profile" component{}/> */}
           {/* Other paths: Upload Journal, Upload Survey, Journal Log, Survey Record*/}
           <Footer />
         </div>
       </Switch>
       </Router>
-    </div>
+    </LoginContext.Provider>
   );
 }
 
