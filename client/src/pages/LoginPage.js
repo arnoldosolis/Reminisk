@@ -2,6 +2,28 @@ import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
 
 function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  //server processes post request to login
+  const login = () =>
+  {
+    Axios.post
+    (
+      "http://localhost:3001/login",
+      {
+        username: username,
+        password: password,
+      } 
+    ).then
+    (
+      (response) => 
+    {
+      console.log(response);
+    }
+    );
+  };
+
   return (
     <div>
       <div className={styles.box}>
@@ -19,6 +41,13 @@ function LoginPage() {
               required
               minLength="2"
               maxLength="16"
+              onChange=
+              {
+                (event) => 
+                {
+                 setUsername(event.target.value);
+                }
+              }
             ></input>
             <label htmlFor="password">Password</label>
             <input
@@ -29,6 +58,13 @@ function LoginPage() {
               required
               minLength="6"
               maxLength="16"
+              onChange=
+              {
+                (event) => 
+                {
+                 setPassword(event.target.value);
+                }
+              }
             ></input>
             
             {/* 
@@ -37,7 +73,7 @@ function LoginPage() {
               Log In button goes to Home for testing
             */}
             <Link to="/home">
-              <button>Log In</button>
+              <button onClick = {login}>Log In</button>
             </Link>
             {/* Testing End*/}
 
