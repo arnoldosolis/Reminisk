@@ -6,6 +6,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+const jwt = require('jsonwebtoken');
+
 const db = mysql.createConnection({
   host: "database-1.cjiqxzmwoa9k.us-east-2.rds.amazonaws.com",
   port: "3306",
@@ -13,6 +15,36 @@ const db = mysql.createConnection({
   password: "classic1",
   database: "reminisk",
 });
+
+//server procceses post request to check user login; if the username/password combo exists, send the result. If not, wrong username/password combo.
+app.post
+(
+  '/login', (req, res) => 
+  {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    db.query
+    (
+      "SELECT * FROM users WHERE username = ? AND password = ?", [username, password],
+      (err, result) =>
+      {
+        if(err)
+        {
+          res.send({err: err});
+        }
+        if(result)
+        {
+          res.send(result);
+        }
+        else 
+        {
+          res.send({message: "Wrong username/password combination!"});
+        }
+      }
+    );
+  }
+);
 
 db.connect((err) => {
   if (err) {
@@ -86,7 +118,7 @@ app.put
 );
 
 //server processes delete request to delete user
-/*app.delete
+app.delete
 (
   '/delete/:userinfo_id', (req, res) =>
   {
@@ -107,7 +139,7 @@ app.put
       }
     );
   }
-);*/
+);
 
 // Gets journal entries
 app.get("/journals", (req, res) => {
