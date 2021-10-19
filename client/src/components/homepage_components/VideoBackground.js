@@ -1,5 +1,4 @@
-import { Button } from "./Button"
-import '../App.css'
+import { Button } from "../Button"
 import "./VideoBackground.css"
 import { Redirect } from "react-router-dom";
 
@@ -13,11 +12,10 @@ function VideoBackground({authorized}) {
             <p>Where your mental health is a priority.</p>
             
             <div className="video-btns">
-                {/* Currently Linked to Profile: May need to change to normal buttons */}
-                <Button className="btns" buttonStyle='btn--outline' buttonSize="btn--large">
+                <Button className="btns" buttonStyle='btn--outline' buttonSize="btn--large" linkTo="/journal">
                     Log Journal Entry
                 </Button>
-                <Button className="btns" buttonStyle='btn--primary' buttonSize="btn--large">
+                <Button className="btns" buttonStyle='btn--primary' buttonSize="btn--large" linkTo="/survey">
                     Fill Out Survey
                 </Button>
             </div>

@@ -6,6 +6,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+const jwt = require("jsonwebtoken");
+
 const db = mysql.createConnection({
   host: "database-1.cjiqxzmwoa9k.us-east-2.rds.amazonaws.com",
   port: "3306",
@@ -60,54 +62,39 @@ app.post("/createUserInfo", (req, res) => {
 });
 
 //server processes put request to update user information
-app.put
-(
-  "/updateUserInfo", (req, res) => 
-  {
-    const name = req.body.name;
-    const email = req.body.email;
+app.put("/updateUserInfo", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
 
-    db.query
-    (
-      "UPDATE user_info SET name = ? WHERE email = ?", [name, email],
-      (err, result) =>
-      {
-        if(err) 
-        {
-          console.log(err)
-        }
-        else
-        {
-          res.send(result);
-        }
+  db.query(
+    "UPDATE user_info SET name = ? WHERE email = ?",
+    [name, email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
       }
-    );
-  }
-);
+    }
+  );
+});
 
 //server processes delete request to delete user
-/*app.delete
-(
-  '/delete/:userinfo_id', (req, res) =>
-  {
-    const userinfo_id = req.params.userinfo_id;
-    
-    db.query
-    (
-      "DELETE FROM user_info WHERE userinfo_id = ?", userinfo_id, (err, result) =>
-      {
-        if(err)
-        {
-          console.log(err)
-        }
-        else
-        {
-          res.send(result);
-        }
+app.delete("/delete/:userinfo_id", (req, res) => {
+  const userinfo_id = req.params.userinfo_id;
+
+  db.query(
+    "DELETE FROM user_info WHERE userinfo_id = ?",
+    userinfo_id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
       }
-    );
-  }
-);*/
+    }
+  );
+});
 
 // Gets journal entries
 app.get("/journals", (req, res) => {
@@ -119,7 +106,6 @@ app.get("/journals", (req, res) => {
     }
   });
 });
-
 
 //server processes post request to insert user login credentials
 app.post("/createUserCred", (req, res) => {
@@ -152,7 +138,7 @@ app.post("/login", (req, res) => {
         res.send({ err: err });
       }
 
-      if (result.length>0) {
+      if (result.length > 0) {
         res.send(result);
       } else {
         res.send({ error: "Wrong username/password combination!" });
