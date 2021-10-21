@@ -13,6 +13,7 @@ function LoginPage() {
   const [showFailModal, setShowFailModal] = useState(false);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   let history = useHistory();
+  const [errMessage, setErrMessage] = useState("");
 
   function login(event) {
     //prevents page from refreshing after form submission
@@ -23,6 +24,7 @@ function LoginPage() {
       password: password,
     }).then((response) => {
       if (response.data.error) {
+        setErrMessage(response.data.error);
         setShowFailModal(true);
       } else {
         setLoggedIn(true);
@@ -78,7 +80,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && <FailLoginModal onClick={closeModal} />}
+      {showFailModal && <FailLoginModal onClick={closeModal} display={errMessage} />}
     </div>
   );
 }
