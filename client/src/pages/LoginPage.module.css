@@ -1,5 +1,5 @@
 .box {
-  background-color: #e7f268;
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   width: 60%;
   height: 100vh;
   float: left;
@@ -9,11 +9,11 @@
   margin: 0px;
   text-align: center;
   line-height: 100vh;
-  color: #ccbd9f;
+  color: #fff;
 }
 
 .box2 {
-  background-color: #a8d389;
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(255, 255, 255) 100%);
   width: 40%;
   height: 100vh;
   position: relative;
@@ -27,36 +27,42 @@
   left: 5%;
   width: 36vw;
   height: 40vh;
-  background-color: rgba(255, 255, 255, 0.952);
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   border-radius: 10px;
 }
 
 label {
   font-size: 20px;
-  color: black;
+  color: white
 }
 
 button {
   padding: 10px 70px;
   margin: 30px 24px;
-  background-color: turquoise;
-  border-color: turquoise;
-  border-radius: 6px;
   font-size: 20px;
   color: white;
   font-weight: bold;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  transition: all 0.3s ease-out;
 }
 
 button:hover {
-  background-color: rgb(62, 168, 158);
-  border-color: rgb(62, 168, 158);
+  background: #fff;
+  color: #242424;
+  transition: 250ms;
 }
 
 button:focus {
-  background-color: rgb(91, 146, 103);
-  border-color: rgb(91, 146, 103);
+  background-color: rgb(179, 179, 179);
+  border-color: rgb(179, 179, 179);
 }
 
 #register {
   padding-right: 40px;
+}
+
+div div div form input {
+  color: white;
 }
