@@ -35,7 +35,8 @@ app.post("/upload", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Values Inserted");
+        console.log("values Insert", res);
+        // res.send("Values Inserted");
       }
     }
   );
@@ -60,30 +61,22 @@ app.post("/createUserInfo", (req, res) => {
 });
 
 //server processes put request to update user information
-app.put
-(
-  "/updateUserInfo", (req, res) => 
-  {
-    const name = req.body.name;
-    const email = req.body.email;
+app.put("/updateUserInfo", (req, res) => {
+  const name = req.body.name;
+  const email = req.body.email;
 
-    db.query
-    (
-      "UPDATE user_info SET name = ? WHERE email = ?", [name, email],
-      (err, result) =>
-      {
-        if(err) 
-        {
-          console.log(err)
-        }
-        else
-        {
-          res.send(result);
-        }
+  db.query(
+    "UPDATE user_info SET name = ? WHERE email = ?",
+    [name, email],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
       }
-    );
-  }
-);
+    }
+  );
+});
 
 //server processes delete request to delete user
 /*app.delete
@@ -119,7 +112,6 @@ app.get("/journals", (req, res) => {
     }
   });
 });
-
 
 //server processes post request to insert user login credentials
 app.post("/createUserCred", (req, res) => {
