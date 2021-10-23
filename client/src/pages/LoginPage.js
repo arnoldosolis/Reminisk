@@ -1,8 +1,8 @@
 import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
-import FailLoginModal from "../components/FailLoginModal";
+import Modal from "../components/Modal";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { LoginContext } from "../Helper/Context";
@@ -13,6 +13,9 @@ function LoginPage() {
   const [showFailModal, setShowFailModal] = useState(false);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   let history = useHistory();
+  const [errMessage, setErrMessage] = useState("");
+
+  Axios.defaults.withCredentials = true;
 
   function login(event) {
     //prevents page from refreshing after form submission
@@ -23,6 +26,7 @@ function LoginPage() {
       password: password,
     }).then((response) => {
       if (response.data.error) {
+        setErrMessage(response.data.error);
         setShowFailModal(true);
       } else {
         setLoggedIn(true);
@@ -34,6 +38,16 @@ function LoginPage() {
   const closeModal = () => {
     setShowFailModal(false);
   };
+
+  //checks if user has logged in before and redirects to home page if so
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").then((response) => {
+      if (response.data.logIn === true) {
+        setLoggedIn(true);
+        history.push("/home");
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -78,7 +92,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && <FailLoginModal onClick={closeModal} />}
+      {showFailModal && <Modal onClick={closeModal} display={errMessage} />}
     </div>
   );
 }
