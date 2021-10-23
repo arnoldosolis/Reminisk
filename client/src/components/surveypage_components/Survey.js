@@ -3,8 +3,9 @@ import Radio from './Radio';
 import Popup from './Popup';
 import { useState } from 'react';
 import Disclaimer from './Disclaimer';
+import { Redirect } from "react-router-dom";
 
-function Survey() {
+function Survey({authorized}) {
   const [responseone, setResponseOne] = useState(false);
   const [responsetwo, setResponseTwo] = useState(false);
   const [responsethree, setResponseThree] = useState(false);
@@ -13,6 +14,8 @@ function Survey() {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [diclaimerButton, setDiclaimerButton] = useState(false)
   const [problems, setProblems] = useState([])
+
+  if(!authorized){ return <Redirect to="/" />;}
 
   const handleInputOne = () => {
     setResponseOne(true);

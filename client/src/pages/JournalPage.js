@@ -12,8 +12,10 @@ import { Button } from "@material-ui/core/";
 import Axios from "axios";
 import Popup from "../components/Popup";
 import "./JournalPage.css";
+import { border } from "@mui/system";
+import { Redirect } from "react-router-dom";
 
-function JournalPage() {
+function JournalPage({ authorized }) {
   const [buttonPopup, setButtonPopup] = useState(false);
 
   const [date, setDate] = useState("");
@@ -21,6 +23,10 @@ function JournalPage() {
   const [img, setImg] = useState([]);
   var imgU = "";
   const [journalList, setJournalList] = useState([]);
+
+  if (!authorized) {
+    return <Redirect to="/" />;
+  }
 
   const addJournalEntry = () => {
     const formData = new FormData();

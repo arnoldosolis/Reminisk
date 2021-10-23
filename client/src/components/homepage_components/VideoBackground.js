@@ -1,7 +1,10 @@
 import { Button } from "../Button"
 import "./VideoBackground.css"
+import { Redirect } from "react-router-dom";
 
-function VideoBackground() {
+function VideoBackground({authorized}) {
+    if(!authorized){ return <Redirect to="/" />;}
+
     return (
         <div className="video-container">
             <video className="video" src="../videos/video-1.mp4" autoPlay loop muted />

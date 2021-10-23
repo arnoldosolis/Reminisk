@@ -6,6 +6,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
+const jwt = require("jsonwebtoken");
+
 const db = mysql.createConnection({
   host: "database-1.cjiqxzmwoa9k.us-east-2.rds.amazonaws.com",
   port: "3306",
@@ -79,28 +81,21 @@ app.put("/updateUserInfo", (req, res) => {
 });
 
 //server processes delete request to delete user
-/*app.delete
-(
-  '/delete/:userinfo_id', (req, res) =>
-  {
-    const userinfo_id = req.params.userinfo_id;
-    
-    db.query
-    (
-      "DELETE FROM user_info WHERE userinfo_id = ?", userinfo_id, (err, result) =>
-      {
-        if(err)
-        {
-          console.log(err)
-        }
-        else
-        {
-          res.send(result);
-        }
+app.delete("/delete/:userinfo_id", (req, res) => {
+  const userinfo_id = req.params.userinfo_id;
+
+  db.query(
+    "DELETE FROM user_info WHERE userinfo_id = ?",
+    userinfo_id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
       }
-    );
-  }
-);*/
+    }
+  );
+});
 
 // Gets journal entries
 app.get("/journals", (req, res) => {
@@ -131,6 +126,29 @@ app.post("/createUserCred", (req, res) => {
   );
 });
 
+//server processes login request
+app.post("/login", (req, res) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  db.query(
+    "SELECT * FROM user_login WHERE username = ? AND password = ?",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      }
+
+      if (result.length > 0) {
+        res.send(result);
+      } else {
+        res.send({ error: "Wrong username/password combination!" });
+      }
+    }
+  );
+});
+
+//local server at port 3001 listens to requests
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
