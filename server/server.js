@@ -37,7 +37,8 @@ app.post("/upload", (req, res) => {
       if (err) {
         console.log(err);
       } else {
-        res.send("Values Inserted");
+        console.log("values Insert", res);
+        // res.send("Values Inserted");
       }
     }
   );
