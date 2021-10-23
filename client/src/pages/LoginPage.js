@@ -2,7 +2,7 @@ import styles from "./LoginPage.module.css";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "axios";
-import FailLoginModal from "../components/FailLoginModal";
+import Modal from "../components/Modal";
 import { useHistory } from "react-router-dom";
 import { useContext } from "react";
 import { LoginContext } from "../Helper/Context";
@@ -92,9 +92,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && (
-        <FailLoginModal onClick={closeModal} display={errMessage} />
-      )}
+      {showFailModal && <Modal onClick={closeModal} display={errMessage} />}
     </div>
   );
 }
