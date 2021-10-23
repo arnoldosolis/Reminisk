@@ -12,7 +12,6 @@ import { Button } from "@material-ui/core/";
 import Axios from "axios";
 import Popup from "../components/Popup";
 import "./JournalPage.css";
-import { border } from "@mui/system";
 import { Redirect } from "react-router-dom";
 
 function JournalPage({ authorized }) {
