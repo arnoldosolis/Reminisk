@@ -175,15 +175,21 @@ app.post("/login", (req, res) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (err, response) => {
           if (response) {
+            const id = result[0].id;
+            const token = jwt.sign({id}, "secrettoken", {
+              expiresIn: 300,
+            })
             req.session.user = result;
+
             console.log(req.session.user);
             res.send(result);
+            res.json({auth: true, token: token, result: result});
           } else {
-            res.send({ error: "Wrong password!" });
+            res.json({auth: false, message: "Wrong username/password combination"});
           }
         });
       } else {
-        res.send({ error: "User doesn't exist!" });
+        res.json({auth: false, message: "User doesn't exist"});
       }
     }
   );
@@ -196,6 +202,36 @@ app.get("/login", (req, res) => {
   } else {
     res.send({ logIn: false });
   }
+});
+
+//function to get the user's token
+const verifyJWT = (req, res, next) =>{
+  const token = req.headers["x-access-token"]
+
+  if(!token)
+  {
+    res.send("There is no token; please give it to us next time.")
+  }
+  else
+  {
+    jwt.verify(token, "secrettoken", (err, decoded) =>{
+      if(err){
+        res.json({auth: false, message: "Authentication failed" });
+      }
+      else
+      {
+        req.userID = decoded.id;
+        next();
+      }
+    });
+  }
+};
+
+//server processes get request to check the user's token
+app.get('/isUserAuth', verifyJWT, (req,res) => {
+  res.send("You are authenticated.");
+  setLoggedIn(true);
+  history.push("/home");
 });
 
 //server deletes session in database, logs user out
