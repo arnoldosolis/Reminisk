@@ -13,7 +13,6 @@ function LoginPage() {
   const [showFailModal, setShowFailModal] = useState(false);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   let history = useHistory();
-  const [errMessage, setErrMessage] = useState("");
 
   Axios.defaults.withCredentials = true;
 
@@ -25,15 +24,28 @@ function LoginPage() {
       username: username,
       password: password,
     }).then((response) => {
-      if (response.data.error) {
-        setErrMessage(response.data.error);
+      if (!response.data.auth) {
+        setLoggedIn(false);
         setShowFailModal(true);
       } else {
-        setLoggedIn(true);
-        history.push("/home");
+        console.log(response.data);
+        localStorage.setItem("token", response.data.token)
+        /*setLoggedIn(true);
+        history.push("/home");*/
       }
     });
   }
+
+  //function to retrieve the token
+  const userAuthenticated = () => {
+    Axios.get("http://localhost:3001/isUserAuth", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
 
   const closeModal = () => {
     setShowFailModal(false);
@@ -92,7 +104,8 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && <Modal onClick={closeModal} display={errMessage} />}
+      <button onClick={userAuthenticated}>Check User Authentication</button>
+      {showFailModal && <Modal onClick={closeModal} display={"There was an error."} />}
     </div>
   );
 }
