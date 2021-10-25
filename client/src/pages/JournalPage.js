@@ -27,6 +27,7 @@ function JournalPage({ authorized }) {
     return <Redirect to="/" />;
   }
 
+  Axios.defaults.withCredentials = false;
   const addJournalEntry = () => {
     const formData = new FormData();
     formData.append("file", img);
