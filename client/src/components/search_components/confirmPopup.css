@@ -1,0 +1,73 @@
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-inner {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: white;
+}
+
+.popup-hdr {
+    font-size: x-large;
+}
+
+.btn-cntr {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.decline-btn {
+    padding: 10px 70px;
+    margin: 30px 40px;
+    background-color: white;
+    border-color: black;
+    border-radius: 6px;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+}
+
+
+
+.accept-btn {
+    padding: 10px 70px;
+    margin: 30px 24px;
+    background-color: black;
+    border-color:  white;
+    border-radius: 6px;
+    font-size: 20px;
+    color:  white;
+    font-weight: bold;
+}
+
+.accept-btn:hover {
+    background-color: rgb(114, 114, 114);
+    border-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+}
+
+.decline-btn:hover {
+    background-color: rgb(114, 114, 114);
+    border-color: white;
+    color: rgb(255, 255, 255);
+}
+  
+.decline-btn:focus, .accept-btn:focus {
+    background-color: rgb(9, 9, 9);
+    border-color: rgb(255, 255, 255);
+}
