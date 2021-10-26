@@ -53,3 +53,10 @@
     border: 1px solid #242424;
     transition: 250ms;
   }
+
+  .btn--outline:focus {   
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid var(--primary);
+    transition: all 0.3s ease-out;
+  }

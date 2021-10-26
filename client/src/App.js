@@ -1,39 +1,43 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
-import VideoBackground from "./components/VideoBackground";
+import Navbar from "./components/navbar_components/Navbar";
+import Footer from "./components/footer_components/Footer";
+import VideoBackground from "./components/homepage_components/VideoBackground";
+import Survey from "./components/surveypage_components/Survey";
+import ScrollToTop from "./components/ScrollToTop";
 import JournalPage from "./pages/JournalPage";
+import { LoginContext } from "./Helper/Context"
+import { useState } from "react";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
-    <div>
-      <Router>
-        <Switch>
-          <Route path="/" exact>
-            <LoginPage />
-          </Route>
-          <Route path="/registration">
-            <RegistrationPage />
-          </Route>
-          <div>
+    <LoginContext.Provider value={{ loggedIn, setLoggedIn}}>
+      <Switch>
+        <Route path="/" exact>
+          <LoginPage />
+        </Route>
+        <Route path="/registration">
+          <RegistrationPage />
+        </Route>
+        <ScrollToTop>
+          <>
             <Navbar />
-            <Route exact path="/home" component={VideoBackground} />
-            {/* Navbar paths */}
+            <Route exact path="/home" component={() => <VideoBackground authorized={loggedIn} />} />
+            <Route exact path="/survey" component={() => <Survey authorized={loggedIn} />} />
             <Route exact path="/journal">
-              <JournalPage />
+              <JournalPage authorized={loggedIn} />
             </Route>
-            {/* <Route exact path="/survey" component{}/> */}
             {/* <Route exact path="/mapit" component{}/> */}
             {/* <Route exact path="/profile" component{}/> */}
-            {/* Other paths: Upload Journal, Upload Survey, Journal Log, Survey Record*/}
             <Footer />
-          </div>
-        </Switch>
-      </Router>
-    </div>
+          </>
+        </ScrollToTop>
+      </Switch>
+    </LoginContext.Provider>
   );
 }
 
