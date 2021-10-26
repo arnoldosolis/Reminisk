@@ -9,6 +9,8 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
+var userID = 0;
+
 app.use(express.json());
 app.use(
   cors({
@@ -58,8 +60,8 @@ app.post("/upload", (req, res) => {
   const imgURL = req.body.imgURL;
 
   db.query(
-    "INSERT INTO journal_log(journal_date, image, journal_entry) VALUES (?,?,?)",
-    [date, imgURL, journal],
+    "INSERT INTO journal_log(userlogin_id, journal_date, image, journal_entry) VALUES (?,?,?,?)",
+    [userID, date, imgURL, journal],
     (err, res) => {
       if (err) {
         console.log(err);
@@ -126,13 +128,17 @@ app.delete("/delete/:userinfo_id", (req, res) => {
 
 // Gets journal entries
 app.get("/journals", (req, res) => {
-  db.query("SELECT * FROM journal_log", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
+  db.query(
+    "SELECT * FROM journal_log WHERE userlogin_id = ?",
+    userID,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
     }
-  });
+  );
 });
 
 //server processes post request to insert user login credentials
@@ -180,7 +186,6 @@ app.post("/login", (req, res) => {
               expiresIn: 300,
             })
             req.session.user = result;
-
             console.log(req.session.user);
             res.send(result);
             res.json({auth: true, token: token, result: result});

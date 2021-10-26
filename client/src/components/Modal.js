@@ -7,7 +7,7 @@ function Modal(props) {
         <div className={styles.message}>
           <h5>{props.display}</h5>
         </div>
-        <button className={styles.button} onClick={props.onClick}>
+        <button onClick={props.onClick}>
           OK
         </button>
       </div>

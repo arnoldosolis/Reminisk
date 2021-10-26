@@ -26,7 +26,8 @@ function JournalPage({ authorized }) {
   if (!authorized) {
     return <Redirect to="/" />;
   }
-
+  // Need this to allow cloudinary
+  Axios.defaults.withCredentials = false;
   const addJournalEntry = () => {
     const formData = new FormData();
     formData.append("file", img);
