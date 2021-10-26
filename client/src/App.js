@@ -8,10 +8,14 @@ import VideoBackground from "./components/homepage_components/VideoBackground";
 import Survey from "./components/surveypage_components/Survey";
 import ScrollToTop from "./components/ScrollToTop";
 import JournalPage from "./pages/JournalPage";
+import { LoginContext } from "./Helper/Context"
+import { useState } from "react";
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
-    <div>
+    <LoginContext.Provider value={{ loggedIn, setLoggedIn}}>
       <Switch>
         <Route path="/" exact>
           <LoginPage />
@@ -22,10 +26,10 @@ function App() {
         <ScrollToTop>
           <>
             <Navbar />
-            <Route exact path="/home" component={VideoBackground} />
-            <Route exact path="/survey" component={Survey} />
+            <Route exact path="/home" component={() => <VideoBackground authorized={loggedIn} />} />
+            <Route exact path="/survey" component={() => <Survey authorized={loggedIn} />} />
             <Route exact path="/journal">
-              <JournalPage />
+              <JournalPage authorized={loggedIn} />
             </Route>
             {/* <Route exact path="/mapit" component{}/> */}
             {/* <Route exact path="/profile" component{}/> */}
@@ -33,7 +37,7 @@ function App() {
           </>
         </ScrollToTop>
       </Switch>
-    </div>
+    </LoginContext.Provider>
   );
 }
 

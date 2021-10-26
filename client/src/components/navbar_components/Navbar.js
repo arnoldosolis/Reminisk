@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import "./Navbar.css";
 import { Button } from '../Button';
+import Axios from "axios";
+import { Redirect } from "react-router-dom";
 
 function Navbar() {
     const [clicked, setClicked] = useState(false);
@@ -27,6 +29,12 @@ function Navbar() {
     }, [])
 
     window.addEventListener('resize', showButton)
+
+    function logOut() {
+        Axios.get("http://localhost:3001/logout").then((response) => {
+            return <Redirect to="/" />;
+        });
+    }
 
     return (
         <>
@@ -58,6 +66,11 @@ function Navbar() {
                         <li className="nav-item">
                                 <Link to="/map" className="nav-links" onClick={closeMobileMenu}>
                                     Map-It
+                                </Link>
+                        </li>
+                        <li className="nav-item">
+                                <Link to="/" className="nav-links" onClick={logOut}>
+                                    Log Out
                                 </Link>
                         </li>
                         <li>
