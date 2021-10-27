@@ -248,3 +248,23 @@ app.get("/logout", (req, res) => {
 app.listen(3001, () => {
   console.log("Server is running on port 3001");
 });
+
+//server processes post request to insert facility information
+app.post("/addFacility", (req, res) => {
+  const f_name = req.body.name;
+  const f_address = req.body.address;
+  const f_phone = req.body.phone;
+  const f_times = req.body.times;
+
+  db.query(
+    "INSERT INTO user_info (f_name, f_address, f_phone, f_times) VALUES (?,?,?,?)",
+    [f_name, f_address, f_phone, f_times],
+    (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        cpnsole.log("Insert: ", res)
+      }
+    }
+  );
+});
