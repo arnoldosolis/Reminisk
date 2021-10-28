@@ -257,7 +257,7 @@ app.post("/addFacility", (req, res) => {
   const f_times = req.body.times;
 
   db.query(
-    "INSERT INTO user_info (f_name, f_address, f_phone, f_times) VALUES (?,?,?,?)",
+    "INSERT INTO facility_info (f_name, f_address, f_phone, f_times) VALUES (?,?,?,?)",
     [f_name, f_address, f_phone, f_times],
     (err, res) => {
       if (err) {
