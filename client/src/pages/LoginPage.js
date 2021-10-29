@@ -30,10 +30,10 @@ function LoginPage() {
         setShowFailModal(true);
       } else {
         console.log(response.data);
-        console.log("testing");
+        //console.log("testing");
         localStorage.setItem("token", response.data.token)
-        /*setLoggedIn(true);
-        history.push("/home");*/
+        setLoggedIn(true);
+        history.push("/home");
       }
     });
   }
