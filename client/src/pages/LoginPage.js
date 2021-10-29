@@ -98,7 +98,6 @@ function LoginPage() {
               }}
             />
             <button>Log In</button>
-            <button onClick={userAuthenticated}>Check User Authentication</button>
             <Link to="/registration">
               <button type="button" id={styles.register}>
                 Sign Up<i className="material-icons right">arrow_forward</i>
