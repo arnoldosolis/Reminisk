@@ -181,20 +181,16 @@ app.post("/login", (req, res) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (err, response) => {
           if (response) {
-            const id = result[0].id;
-            const token = jwt.sign({id}, "secrettoken", {
-              expiresIn: 300,
-            })
             req.session.user = result;
-            console.log(req.session.user);
+            userID = req.session.user[0].userlogin_id;
+            console.log(req.session.user[0].userlogin_id);
             res.send(result);
-            res.json({auth: true, token: token, result: result});
           } else {
-            res.json({auth: false, message: "Wrong username/password combination"});
+            res.send({ error: "Wrong password!" });
           }
         });
       } else {
-        res.json({auth: false, message: "User doesn't exist"});
+        res.send({ error: "User doesn't exist!" });
       }
     }
   );
