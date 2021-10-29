@@ -123,9 +123,9 @@ function JournalPage({ authorized }) {
             setImg(e.target.files[0]);
           }}
         />
-
-
-
+        <label for="maps">Pin a location</label> //change
+        <div id="map" ></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjexxgkitg1lfaWOqau0OIOW0OYBCgrTc"></script>
 
         <br />
         <Button
