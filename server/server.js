@@ -35,6 +35,15 @@ app.use(
   })
 );
 
+app.merge(
+  merge = exec("git merge branchName",
+  function(e, stdout, stderr){
+    console.log("stdout"+stdout);
+    console.log("stderr"+stderr);
+  }
+ )
+);
+
 const jwt = require("jsonwebtoken");
 
 const db = mysql.createConnection({
