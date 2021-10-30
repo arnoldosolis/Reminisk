@@ -71,7 +71,7 @@ function LoginPage() {
       <div className={styles.box2}>
         <div className={styles.loginFormBox}>
           <form onSubmit={login}>
-            <label htmlFor="username">Username</label>
+            <span className={styles.inputLabel}>Username</span>
             <input
               type="text"
               id="username"
@@ -84,7 +84,7 @@ function LoginPage() {
                 setUsername(event.target.value);
               }}
             />
-            <label htmlFor="password">Password</label>
+            <span className={styles.inputLabel}>Password</span>
             <input
               type="password"
               id="password"
@@ -106,7 +106,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && <Modal onClick={closeModal} display={errMessage} />}
+      {showFailModal && <Modal onClick={closeModal} display={"There was an error."} />}
     </div>
   );
 }
