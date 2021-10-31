@@ -113,12 +113,12 @@ function SearchLocation({ handleSearch, handleClick, handleLocation, resetMarker
                         disabled={useAddressBtn}
                     >
                     </input>
-                    <label>{searchLocation !== "" ? ("Current Address Input: " + searchLocation) : "Current Address Input: No input address, Press 'Enter in input'"}</label>
+                    <label className="valid-lbl">{searchLocation !== "" ? ("Current Address Input: " + searchLocation) : "Current Address Input: No input address, Press 'Enter in input'"}</label>
 
                 </span>
                 <button className="location-btn" onClick={handleChange} disabled={useAddressBtn}>Validate Input</button>
                 <br />
-                <label>{geolocation.loaded ? ("Valid address, press 'Center on Address' to center map, or clear to restart search") : "Input a valid address, press enter, then click 'Use Address'"}</label>
+                <label className="valid-lbl">{geolocation.loaded ? ("Valid address, press 'Center on Address' to center map, or clear to restart search") : "Input a valid address, press enter, then click 'Use Address'"}</label>
                 <button className="location-btn" onClick={reverseGeocode} disabled={useCenterBtn}>Center on Address</button>
                 <button className="location-btn" onClick={clearEntries} disabled={useClearBtn}>Clear</button>
             </p>
