@@ -9,6 +9,7 @@ import Survey from "./components/surveypage_components/Survey";
 import ScrollToTop from "./components/ScrollToTop";
 import JournalPage from "./pages/JournalPage";
 import { LoginContext } from "./Helper/Context"
+import Search from "./components/search_components/Search";
 import { useState } from "react";
 
 function App() {
