@@ -31,6 +31,7 @@ function App() {
             <Route exact path="/journal">
               <JournalPage authorized={loggedIn} />
             </Route>
+            <Route exact path="/search" component={() => <Search authorized={loggedIn} />} />
             {/* <Route exact path="/mapit" component{}/> */}
             {/* <Route exact path="/profile" component{}/> */}
             <Footer />
