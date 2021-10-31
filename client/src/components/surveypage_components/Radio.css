@@ -1,0 +1,11 @@
+.response-lbl {
+    margin-left: 5px;
+}
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
+    background-color:rgb(28, 27, 27);
+}
+
+[type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after {
+    border: 2px solid rgb(28, 27, 27);
+}

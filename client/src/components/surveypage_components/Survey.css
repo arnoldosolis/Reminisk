@@ -1,0 +1,90 @@
+.container {
+    max-width: 90%;
+    margin: 30px auto;
+    overflow: auto;
+    min-height: 300px;
+    border: 1px solid black;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.survey-container {
+    max-width: 100%;
+    border: 1px solid black;
+}
+
+.survey-instruction {
+    margin-left: 5px;
+    font-size: large;
+}
+
+.problem-lbl {
+    margin-left: 5px;
+}
+
+[type="checkbox"].filled-in:checked + span:not(.lever):after
+{
+    top: 0;
+    border: 1px solid white;
+    background-color: rgb(28, 27, 27);
+    z-index: 0;
+}
+
+.disclaimer {
+    margin: 5px 5px;
+    padding: 5px 0px;
+    background-color: transparent;
+    color: black;
+    border: transparent;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.disclaimer:hover {
+    background-color: rgb(179, 179, 179);
+    border: transparent;
+    cursor: pointer;
+}
+
+.disclaimer:focus {
+    background-color: rgb(179, 179, 179);
+    border-color: rgb(179, 179, 179);
+  }
+
+.radio-label {
+    margin-left: 5px;
+}
+
+.submit {
+    margin-left: 40%;
+    padding: 10px 70px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(28, 27, 27);
+    border-color: rgb(179, 179, 179);
+}
+
+.submit:hover {
+    background-color: rgb(179, 179, 179);
+    border-color: rgb(179, 179, 179);
+    color: rgb(28, 27, 27);
+  }
+  
+.submit:focus {
+    color: white;
+    background-color: rgb(28, 27, 27);
+    border-color: rgb(179, 179, 179);
+}
+
+@media screen and (max-width: 960px) {
+    .submit {
+        margin-left: 35%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .submit {
+        margin-left: 25%;
+    }
+}

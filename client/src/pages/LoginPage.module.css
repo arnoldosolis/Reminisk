@@ -1,0 +1,73 @@
+.box {
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  width: 60%;
+  height: 100vh;
+  float: left;
+}
+
+.Reminisk {
+  margin: 0px;
+  text-align: center;
+  line-height: 100vh;
+  color: #fff;
+}
+
+.box2 {
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(255, 255, 255) 100%);
+  width: 40%;
+  height: 100vh;
+  position: relative;
+  margin: 0px;
+  float: right;
+}
+
+.loginFormBox {
+  position: absolute;
+  top: 30%;
+  left: 5%;
+  width: 36vw;
+  height: 40vh;
+  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  border-radius: 10px;
+}
+
+label {
+  font-size: 20px;
+  color: white
+}
+
+button {
+  padding: 10px 70px;
+  margin: 30px 24px;
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid #fff;
+  transition: all 0.3s ease-out;
+}
+
+button:hover {
+  background: #fff;
+  color: #242424;
+  transition: 250ms;
+}
+
+button:focus {
+  background-color: rgb(179, 179, 179);
+  border-color: rgb(179, 179, 179);
+}
+
+#register {
+  padding-right: 40px;
+}
+
+div div div form input {
+  color: white;
+}
+
+.inputLabel {
+  color: white;
+  font-size: 20px;
+}
