@@ -14,9 +14,7 @@ function Survey({authorized}) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [diclaimerButton, setDiclaimerButton] = useState(false)
   const [problems, setProblems] = useState([])
-
   if(!authorized){ return <Redirect to="/" />;}
-
   const handleInputOne = () => {
     setResponseOne(true);
   }
@@ -139,7 +137,7 @@ function Survey({authorized}) {
           <input className="submit" type="submit" value="Submit" />
         </form>
         <Disclaimer trigger={diclaimerButton} setTrigger={setDiclaimerButton} />
-        <Popup trigger={buttonPopup} setTrigger={setButtonPopup} />
+        <Popup trigger={buttonPopup} setTrigger={setButtonPopup} searchProblems={problems}/>
       </div>
     </div>
   )

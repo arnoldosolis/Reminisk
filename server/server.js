@@ -246,20 +246,35 @@ app.listen(3001, () => {
 });
 
 //server processes post request to insert facility information
-app.post("/addFacility", (req, res) => {
-  const f_name = req.body.name;
-  const f_address = req.body.address;
-  const f_phone = req.body.phone;
-  const f_times = req.body.times;
+app.post("/facility", (req, res) => {
+  const facility_name = req.body.f_name;
+  const facility_address = req.body.f_address;
+  const facility_phone = req.body.f_phone;
+  const facility_times = req.body.f_times;
 
   db.query(
-    "INSERT INTO facility_info (f_name, f_address, f_phone, f_times) VALUES (?,?,?,?)",
-    [f_name, f_address, f_phone, f_times],
+    "INSERT INTO facility_info (userlogin_id, facility_name, facility_address, facility_phone, facility_times) VALUES (?,?,?,?,?)",
+    [userID, facility_name, facility_address, facility_phone, facility_times],
     (err, res) => {
+      if (err) {
+        console.log("Error: ", err);
+      } else {
+        console.log("Insert: ", res)
+      }
+    }
+  );
+});
+
+// Gets journal entries
+app.get("/facility", (req, res) => {
+  db.query(
+    "SELECT * FROM facility_info WHERE userlogin_id = ?",
+    userID,
+    (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        cpnsole.log("Insert: ", res)
+        res.send(result);
       }
     }
   );

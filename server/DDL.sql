@@ -31,4 +31,5 @@ CREATE TABLE facility_info(
   facility_phone TEXT, 
   facility_times TEXT, 
   PRIMARY KEY(facility_id), 
-  FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id);
+  FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id
+  );

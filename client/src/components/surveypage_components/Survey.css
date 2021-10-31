@@ -20,6 +20,7 @@
 
 .problem-lbl {
     margin-left: 5px;
+    color: black;
 }
 
 [type="checkbox"].filled-in:checked + span:not(.lever):after

@@ -1,7 +1,7 @@
 import './Popup.css'
 import { Link } from 'react-router-dom'
 
-function Popup( { trigger, setTrigger }) {
+function Popup( { trigger, setTrigger, searchProblems }) {
     return (trigger) ? (
         <div className="popup">
             <div className="popup-inner">
@@ -11,7 +11,12 @@ function Popup( { trigger, setTrigger }) {
                 <Link to="/home">
                     <button className="decline-btn" onClick={() => setTrigger(false)}>Decline</button>
                 </Link>
-                <Link to="/search">
+                <Link to={{
+                    pathname: '/search',
+                    state: {
+                        searchFor: searchProblems
+                    }
+                }}>
                     <button className="accept-btn">Accept</button>
                 </Link>
             </div>
