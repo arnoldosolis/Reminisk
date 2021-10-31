@@ -44,5 +44,28 @@ export class MapC extends Component{
 }
 
 export default GoogleApiWrapper({
-  apiKey:'AIzaSyCjexxgkitg1lfaWOqau0OIOW0OYBCgrTc' 
+  apiKey:'AIzaSyCjexxgkitg1lfaWOqau0OIOW0OYBCgrTc'
 }) (MapC)
+
+
+
+    /*
+    <div className="google-map">
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: }}
+        center={currentPosition}
+        defaultZoom={13}
+      >{
+        currentPosition.lat &&
+
+
+
+      }
+
+      </GoogleMapReact>
+    </div>
+    </div>
+  );
+    }
+
+  export default Map */
