@@ -124,9 +124,9 @@ function JournalPage({ authorized }) {
           }}
         />
         //pin location
-        // <label for="maps">Pin a location</label>
-        // <div id="map" ></div>
-        // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjexxgkitg1lfaWOqau0OIOW0OYBCgrTc&callback=myMap"></script>
+        <label for="maps">Pin a location</label>
+        <div id="map" ></div>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjexxgkitg1lfaWOqau0OIOW0OYBCgrTc&callback=myMap"></script>
 
         <br />
         <Button
