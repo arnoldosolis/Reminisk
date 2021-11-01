@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
 );
@@ -190,20 +190,16 @@ app.post("/login", (req, res) => {
       if (result.length > 0) {
         bcrypt.compare(password, result[0].password, (err, response) => {
           if (response) {
-            const id = result[0].id;
-            const token = jwt.sign({id}, "secrettoken", {
-              expiresIn: 300,
-            })
             req.session.user = result;
-            console.log(req.session.user);
+            userID = req.session.user[0].userlogin_id;
+            console.log(req.session.user[0].userlogin_id);
             res.send(result);
-            res.json({auth: true, token: token, result: result});
           } else {
-            res.json({auth: false, message: "Wrong username/password combination"});
+            res.send({ error: "Wrong password!" });
           }
         });
       } else {
-        res.json({auth: false, message: "User doesn't exist"});
+        res.send({ error: "User doesn't exist!" });
       }
     }
   );
@@ -259,20 +255,65 @@ app.listen(3001, () => {
 });
 
 //server processes post request to insert facility information
-app.post("/addFacility", (req, res) => {
-  const f_name = req.body.name;
-  const f_address = req.body.address;
-  const f_phone = req.body.phone;
-  const f_times = req.body.times;
+app.post("/facility", (req, res) => {
+  const facility_name = req.body.f_name;
+  const facility_address = req.body.f_address;
+  const facility_phone = req.body.f_phone;
+  const facility_times = req.body.f_times;
 
   db.query(
-    "INSERT INTO facility_info (f_name, f_address, f_phone, f_times) VALUES (?,?,?,?)",
-    [f_name, f_address, f_phone, f_times],
+    "INSERT INTO facility_info (userlogin_id, facility_name, facility_address, facility_phone, facility_times) VALUES (?,?,?,?,?)",
+    [userID, facility_name, facility_address, facility_phone, facility_times],
     (err, res) => {
+      if (err) {
+        console.log("Error: ", err);
+      } else {
+        console.log("Insert: ", res)
+      }
+    }
+  );
+});
+
+//For profile
+app.get("/userinfo", (req, res) => {
+  db.query(
+    "SELECT name, email FROM user_info WHERE userinfo_id = ?",
+    userID,
+    (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        cpnsole.log("Insert: ", res)
+        res.send(result);
+      }
+    }
+  );
+});
+
+// Get saved facility
+app.get("/facility", (req, res) => {
+  db.query(
+    "SELECT facility_id, facility_name, facility_address, facility_phone, facility_times FROM facility_info WHERE userlogin_id = ?",
+    userID,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+//server processes put request to update user email
+app.put("/updateEmail", (req, res) => {
+  const email = req.body.new_email;
+  db.query(
+    "UPDATE user_info SET email = ? WHERE userinfo_id = ?", [email, userID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Update: ", result)
       }
     }
   );

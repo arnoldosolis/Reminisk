@@ -48,7 +48,7 @@ function RegistrationPage() {
               </button>
             </Link>
           </div>
-          <label htmlFor="name">Name</label>
+          <span className={styles.inputLabel}>Name</span>
           <input
             type="text"
             id="name"
@@ -59,7 +59,7 @@ function RegistrationPage() {
               setName(event.target.value);
             }}
           />
-          <label htmlFor="username">Username</label>
+          <span className={styles.inputLabel}>Username</span>
           <input
             type="text"
             id="username"
@@ -72,7 +72,7 @@ function RegistrationPage() {
               setUsername(event.target.value);
             }}
           />
-          <label htmlFor="password">Password</label>
+          <span className={styles.inputLabel}>Password</span>
           <input
             type="password"
             id="password"
@@ -85,7 +85,7 @@ function RegistrationPage() {
               setPassword(event.target.value);
             }}
           />
-          <label htmlFor="email">E-Mail</label>
+          <span className={styles.inputLabel}>E-Mail</span>
           <input
             type="email"
             id="email"

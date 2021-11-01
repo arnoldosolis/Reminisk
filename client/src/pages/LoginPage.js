@@ -13,6 +13,7 @@ function LoginPage() {
   const [showFailModal, setShowFailModal] = useState(false);
   const { loggedIn, setLoggedIn } = useContext(LoginContext);
   let history = useHistory();
+  const [errMessage, setErrMessage] = useState("");
 
   Axios.defaults.withCredentials = true;
 
@@ -24,14 +25,15 @@ function LoginPage() {
       username: username,
       password: password,
     }).then((response) => {
-      if (!response.data.auth) {
-        setLoggedIn(false);
+      if (response.data.error) {
+        //setLoggedIn(false);
         setShowFailModal(true);
       } else {
         console.log(response.data);
+        //console.log("testing");
         localStorage.setItem("token", response.data.token)
-        /*setLoggedIn(true);
-        history.push("/home");*/
+        setLoggedIn(true);
+        history.push("/home");
       }
     });
   }
@@ -69,7 +71,7 @@ function LoginPage() {
       <div className={styles.box2}>
         <div className={styles.loginFormBox}>
           <form onSubmit={login}>
-            <label htmlFor="username">Username</label>
+            <span className={styles.inputLabel}>Username</span>
             <input
               type="text"
               id="username"
@@ -82,7 +84,7 @@ function LoginPage() {
                 setUsername(event.target.value);
               }}
             />
-            <label htmlFor="password">Password</label>
+            <span className={styles.inputLabel}>Password</span>
             <input
               type="password"
               id="password"
@@ -104,7 +106,6 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      <button onClick={userAuthenticated}>Check User Authentication</button>
       {showFailModal && <Modal onClick={closeModal} display={"There was an error."} />}
     </div>
   );

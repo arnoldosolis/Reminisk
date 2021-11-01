@@ -32,6 +32,14 @@
   margin-left: 10px;
 }
 
+.valid-lbl {
+  color: black;
+}
+
+.buttons-lbl {
+  color: black;
+}
+
 .change-btn {
   margin: 5px 5px;
   padding: 5px 0px;

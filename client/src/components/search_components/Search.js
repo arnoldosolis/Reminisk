@@ -28,25 +28,31 @@ function Search() {
     const [facilityPhone, setFacilityPhone] = useState("")
     const [facilityTimes, setFacilityTimes] = useState("")
 
-   const addFacility = () => {
-       Axios.post(("http://localhost:3001/addFacility", {
-        f_name: facilityName,
-        f_address: facilityAddress,
-        f_phone: facilityPhone,
-        f_times: facilityTimes,
-    })).then(() => {
-        console.log("Facility information saved");
-      });
-   }
+    Axios.defaults.withCredentials = true;
+    const addFacility = () => {
+        Axios.post("http://localhost:3001/facility", {
+            f_name: facilityName,
+            f_address: facilityAddress,
+            fy_phone: facilityPhone,
+            f_times: facilityTimes,
+        })
+            .then((response) => {
+                console.log("Result: ", response);
+            },
+                (error) => {
+                    console.error(error);
+                }
+            )
+        }
 
-    if (searchFor === undefined) { 
+    if (searchFor === undefined) {
         return (
-        <div className="s-cntr">
-            <h1 className="s-hdr">Error: Answer Survey First</h1>
-        </div>)
+            <div className="s-cntr">
+                <h1 className="s-hdr">Error: Answer Survey First</h1>
+            </div>)
     }
 
-    
+
 
     return (
         <div>
@@ -56,64 +62,64 @@ function Search() {
                 <br />
                 <div className="search-cntr"> {
                     centerSearch ?
-                        <SearchNear 
-                        handleSearch={centerSearch} 
-                        handleClick={setCenterSearch} 
-                        centered={location} 
-                        handleLocation={setLocation} 
-                        resetMarkers={setSelectedFacility}
-                        resetSelected={setSelectMarker}
-                        resetKeyword={setFindFacility}
+                        <SearchNear
+                            handleSearch={centerSearch}
+                            handleClick={setCenterSearch}
+                            centered={location}
+                            handleLocation={setLocation}
+                            resetMarkers={setSelectedFacility}
+                            resetSelected={setSelectMarker}
+                            resetKeyword={setFindFacility}
                         /> :
-                        <SearchLocation 
-                        handleSearch={centerSearch} 
-                        handleClick={setCenterSearch} 
-                        handleLocation={setLocation}
-                        resetMarkers={setSelectedFacility}
-                        resetSelected={setSelectMarker}
-                        resetKeyword={setFindFacility}
+                        <SearchLocation
+                            handleSearch={centerSearch}
+                            handleClick={setCenterSearch}
+                            handleLocation={setLocation}
+                            resetMarkers={setSelectedFacility}
+                            resetSelected={setSelectMarker}
+                            resetKeyword={setFindFacility}
                         />}
                 </div>
 
                 <div className="google-fncts">
                     <div className="map">
-                        <Map 
-                        center={location.coordinates} 
-                        searchKeyword={findFacility}
-                        setMarkers={setSelectedFacility}
-                        markers={selectedFacility.length > 0 ? selectedFacility : []}
-                        statusMarker={selectMarker}
-                        selectMarker={setSelectMarker}
-                        setName={setFacilityName}
-                        setAddress={setFacilityAddress}
-                        setPhone={setFacilityPhone}
-                        setTimes={setFacilityTimes}
-                        facilityName={facilityName}
-                        facilityAddress={facilityAddress}
-                        facilityPhone={facilityPhone}
-                        facilityTimes={facilityTimes}
+                        <Map
+                            center={location.coordinates}
+                            searchKeyword={findFacility}
+                            setMarkers={setSelectedFacility}
+                            markers={selectedFacility.length > 0 ? selectedFacility : []}
+                            statusMarker={selectMarker}
+                            selectMarker={setSelectMarker}
+                            setName={setFacilityName}
+                            setAddress={setFacilityAddress}
+                            setPhone={setFacilityPhone}
+                            setTimes={setFacilityTimes}
+                            facilityName={facilityName}
+                            facilityAddress={facilityAddress}
+                            facilityPhone={facilityPhone}
+                            facilityTimes={facilityTimes}
                         />
                     </div>
                     <div className="info">
                         <p>Select an issue to search for respective facility.</p>
                         <p>Then once search box appears, click and make a query</p>
                         {location.loaded ? searchFor.map((value, index) => (
-                            <SearchButtons problem={value} key={index} setFacility={setFindFacility}/>
+                            <SearchButtons problem={value} key={index} setFacility={setFindFacility} />
                         )) : "No selection displayed: Input a valid address"}
-                        <br/>
-                        <button className="save-btn" 
-                        disabled={selectMarker === null ? true : false}
-                        onClick={() => setButtonPopup(true)}
+                        <br />
+                        <button className="save-btn"
+                            disabled={selectMarker === null ? true : false}
+                            onClick={() => setButtonPopup(true)}
                         >
                             {(selectedFacility.length === 0) ? "Input address, then select issue " : (selectedFacility.length > 0 && selectMarker === null) ? "Select a marker" : "Save Information"}
                         </button>
-                        <Confirm trigger={buttonPopup} setTrigger={setButtonPopup} uploadData={addFacility}/>
+                        <Confirm trigger={buttonPopup} setTrigger={setButtonPopup} uploadData={addFacility} />
                     </div>
-                    
+
                 </div>
-                
+
             </div>
-           
+
         </div>
     )
 }
