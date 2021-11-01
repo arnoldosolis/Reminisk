@@ -1,6 +1,6 @@
 import React from 'react'
 import {GoogleApiWrapper, Map, Marker, InfoWindow} from  'google-maps-react'
-import './map.css'
+import './MapIt.css'
 import { Component } from 'react'
 
 export class MapC extends Component{
