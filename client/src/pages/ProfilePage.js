@@ -9,16 +9,6 @@ function ProfilePage({ authorized }) {
     const [email, setEmail] = useState("")
     const [savedFacilities, setSavedFacilities] = useState([])
 
-   
-
-    const getUserInfo = () => {
-        
-    };
-
-    const getSavedFacilities = () => {
-        
-    };
-
     useEffect(() => {
         Axios.get("http://localhost:3001/userinfo").then((response) => {
             setName(response.data[0].name);
