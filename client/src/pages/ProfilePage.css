@@ -1,0 +1,77 @@
+.profile-cntr {
+  max-width: 90%;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.profile-hdr {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.userinfo-cntr {
+  max-width: 90%;
+  margin: 30px auto;
+  overflow: 30px auto;
+  height: fit-content;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.username-lbl {
+  margin-left: 5px;
+  color: black;
+}
+
+.useremail-lbl {
+  margin-left: 5px;
+  color: black;
+}
+
+.facilityinfo-cntr {
+  width: 90%;
+  margin: 30px auto;
+  overflow: 30px auto;
+  height: fit-content;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.facility-lbl {
+  margin-left: 5px;
+  color: black;
+  font-size: medium;
+}
+
+.facilityinfo-hdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hours-p {
+    font-size: medium;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+  color: black;
+}
