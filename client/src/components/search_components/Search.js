@@ -43,10 +43,6 @@ function Search() {
                     console.error(error);
                 }
             )
-        console.log(facilityName);
-        console.log(facilityAddress);
-        console.log(facilityPhone);
-        console.log(facilityTimes);
         }
 
     if (searchFor === undefined) {
