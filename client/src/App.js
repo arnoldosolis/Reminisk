@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import JournalPage from "./pages/JournalPage";
 import { LoginContext } from "./Helper/Context"
 import Search from "./components/search_components/Search";
+import ProfilePage from "./pages/ProfilePage";
 import { useState } from "react";
 
 function App() {
@@ -33,8 +34,8 @@ function App() {
               <JournalPage authorized={loggedIn} />
             </Route>
             <Route exact path="/search" component={() => <Search authorized={loggedIn} />} />
+            <Route exact path="/profile" component={() => <ProfilePage authorized={loggedIn} />} />
             {/* <Route exact path="/mapit" component{}/> */}
-            {/* <Route exact path="/profile" component{}/> */}
             <Footer />
           </>
         </ScrollToTop>
