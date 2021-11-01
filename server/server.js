@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT"],
     credentials: true,
   })
 );
@@ -283,13 +283,28 @@ app.get("/userinfo", (req, res) => {
 // Get saved facility
 app.get("/facility", (req, res) => {
   db.query(
-    "SELECT facility_name, facility_address, facility_phone, facility_times FROM facility_info WHERE userlogin_id = ?",
+    "SELECT facility_id, facility_name, facility_address, facility_phone, facility_times FROM facility_info WHERE userlogin_id = ?",
     userID,
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
         res.send(result);
+      }
+    }
+  );
+});
+
+//server processes put request to update user email
+app.put("/updateEmail", (req, res) => {
+  const email = req.body.new_email;
+  db.query(
+    "UPDATE user_info SET email = ? WHERE userinfo_id = ?", [email, userID],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Update: ", result)
       }
     }
   );
