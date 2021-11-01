@@ -265,10 +265,25 @@ app.post("/facility", (req, res) => {
   );
 });
 
-// Gets journal entries
+//For profile
+app.get("/userinfo", (req, res) => {
+  db.query(
+    "SELECT name, email FROM user_info WHERE userinfo_id = ?",
+    userID,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+// Get saved facility
 app.get("/facility", (req, res) => {
   db.query(
-    "SELECT * FROM facility_info WHERE userlogin_id = ?",
+    "SELECT facility_name, facility_address, facility_phone, facility_times FROM facility_info WHERE userlogin_id = ?",
     userID,
     (err, result) => {
       if (err) {
