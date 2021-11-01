@@ -44,5 +44,5 @@ export class MapC extends Component{
 }
 
 export default GoogleApiWrapper({
-  apiKey:'AIzaSyCjexxgkitg1lfaWOqau0OIOW0OYBCgrTc'
+  apiKey:'AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM'
 }) (MapC)
