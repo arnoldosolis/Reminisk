@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT"],
+    methods: ["GET", "POST", "PUT", "DELETE",],
     credentials: true,
   })
 );
@@ -206,21 +206,18 @@ app.get("/login", (req, res) => {
 });
 
 //function to get the user's token
-const verifyJWT = (req, res, next) =>{
+const verifyJWT = (req, res, next) => {
   const token = req.headers["x-access-token"]
 
-  if(!token)
-  {
+  if (!token) {
     res.send("There is no token; please give it to us next time.")
   }
-  else
-  {
-    jwt.verify(token, "secrettoken", (err, decoded) =>{
-      if(err){
-        res.json({auth: false, message: "Authentication failed" });
+  else {
+    jwt.verify(token, "secrettoken", (err, decoded) => {
+      if (err) {
+        res.json({ auth: false, message: "Authentication failed" });
       }
-      else
-      {
+      else {
         req.userID = decoded.id;
         next();
       }
@@ -229,7 +226,7 @@ const verifyJWT = (req, res, next) =>{
 };
 
 //server processes get request to check the user's token
-app.get('/isUserAuth', verifyJWT, (req,res) => {
+app.get('/isUserAuth', verifyJWT, (req, res) => {
   res.send("You are authenticated.");
   setLoggedIn(true);
   history.push("/home");
@@ -305,6 +302,22 @@ app.put("/updateEmail", (req, res) => {
         console.log(err);
       } else {
         console.log("Update: ", result)
+      }
+    }
+  );
+});
+
+//server process delete request to delete facility information
+app.delete(`/deletefacility/:facilityid`, (req, res) => {
+  console.log(req.params.facilityid)
+  const facility_id = req.params.facilityid;
+  db.query(
+    "DELETE FROM facility_info WHERE facility_id = ?", [facility_id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Delete: ", result)
       }
     }
   );
