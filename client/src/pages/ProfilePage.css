@@ -47,16 +47,17 @@
   border: 1px solid black;
   padding: 10px 20px;
   border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: left;
+ 
 }
 
 .facility-lbl {
   margin-left: 5px;
   color: black;
   font-size: medium;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
 }
 
 .facilityinfo-hdr {
@@ -98,7 +99,6 @@
   border: rgb(179, 179, 179);
   font-size: 15px;
   font-weight: bold;
-  
 }
 
 .cancel-btn {
@@ -111,7 +111,24 @@
   font-weight: bold;
 }
 
-.edit-btn:hover, .cancel-btn:hover, .confirm-btn:hover {
+.editfacility-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  padding: 10px;
+  background-color: rgb(179, 179, 179);
+  color: black;
+  border: rgb(179, 179, 179);
+  font-size: 15px;
+  font-weight: bold;
+  width: 80px;
+}
+
+.edit-btn:hover,
+.cancel-btn:hover,
+.confirm-btn:hover,
+.editfacility-btn:hover {
   cursor: pointer;
   padding: 10px;
   background-color: black;
@@ -143,4 +160,24 @@
 
 .edit-p {
   text-align: center;
+}
+
+.fa-minus-square {
+  font-size: 1.8rem;
+  color: #000;
+}
+
+.fa-minus-square:hover {
+  cursor: pointer;
+  color: grey;
+  font-size: 1.8rem;
+
+}
+
+.nofacility-hdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
 }
