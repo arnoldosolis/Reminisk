@@ -13,8 +13,7 @@ import Axios from "axios";
 import Popup from "../components/Popup";
 import "./JournalPage.css";
 import { Redirect } from "react-router-dom";
-const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let labelIndex = 0;
+
 
 
 function JournalPage({ authorized }) {

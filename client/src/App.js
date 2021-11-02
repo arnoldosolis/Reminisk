@@ -36,7 +36,7 @@ function App() {
             </Route>
             <Route exact path="/search" component={() => <Search authorized={loggedIn} />} />
             <Route exact path="/profile" component={() => <ProfilePage authorized={loggedIn} />} />
-            {/* <Route exact path="/mapit" component{}/> */}
+            <Route exact path="/mapit" component={() => <MapIt authorized={loggedIn} />} />
             <Footer />
           </>
         </ScrollToTop>
