@@ -11,6 +11,9 @@ function ProfilePage({ authorized }) {
 
     const [edit, setEdit] = useState(false)
     const [newEmail, setNewEmail] = useState("")
+    const [editFacility, setEditFacility] = useState(false)
+    const [changes, setChanges] = useState(false)
+
     useEffect(() => {
         Axios.get("http://localhost:3001/userinfo").then((response) => {
             setName(response.data[0].name);
@@ -19,7 +22,8 @@ function ProfilePage({ authorized }) {
         Axios.get("http://localhost:3001/facility").then((response) => {
             setSavedFacilities(response.data)
         });
-    }, []);
+        setChanges(false)
+    }, [changes]);
 
     Axios.defaults.withCredentials = true;
     const editInfo = () => {
@@ -38,6 +42,17 @@ function ProfilePage({ authorized }) {
         setEdit(false)
     }
 
+    const deleteFacility = ( facility ) => {
+        Axios.delete(`http://localhost:3001/deletefacility/${facility}`, {
+            data: facility 
+        }).then((response) => {
+            console.log(response);
+          }, (error) => {
+            console.error("Error:", error);
+        });
+        setChanges(true);
+        };
+
     if (!authorized) {
         return <Redirect to="/" />;
     }
@@ -53,7 +68,8 @@ function ProfilePage({ authorized }) {
                         <p className="edit-p">
                             <label className="edit-lbl">Edit Email:</label>
                             <input className="update-inp" placeholder="Input New Email" onChange={(e) => {
-            setNewEmail(e.target.value)}}/>
+                                setNewEmail(e.target.value)
+                            }} />
                             <button className="confirm-btn" onClick={editInfo}>Confirm Edit</button>
                             <button className="cancel-btn" onClick={() => setEdit(false)}>Cancel Edit</button>
                         </p>
@@ -66,6 +82,7 @@ function ProfilePage({ authorized }) {
                 </div>
                 <div className="facilityinfo-cntr">
                     <h4 className="facilityinfo-hdr">Saved Facility Information</h4>
+                    <button className="editfacility-btn" onClick={() => { setEditFacility(!editFacility) }}>{editFacility === false ? "Edit" : "Cancel"}</button>
                     {savedFacilities.length !== 0 ?
                         savedFacilities.map((val, index) => (
                             <div className="facilityinfo-cntr" key={index}>
@@ -78,12 +95,19 @@ function ProfilePage({ authorized }) {
                                     ))
                                         : "N/A"}
                                 </label>
+                                {editFacility === true ?
+                                    
+                                        <div className="delete-icon" onClick={() => {deleteFacility(val.facility_id)}}>
+                                        <i className="fas fa-minus-square" >
+                                        </i>
+                                        </div>
+                                    : ""}
                             </div>
 
 
                         ))
                         :
-                        <h2>No Facilities Saved</h2>
+                        <h2 className="nofacility-hdr">No Facilities Saved</h2>
                     }
                 </div>
             </div>
