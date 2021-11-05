@@ -8,7 +8,7 @@ import SearchButtons from './searchButtons';
 import Confirm from "./confirmPopup";
 import Axios from 'axios'
 
-function Search() {
+function Search({ authorized }) {
     const currentPage = useLocation();
     const { searchFor } = currentPage.state || [];
     const [buttonPopup, setButtonPopup] = useState(false);
@@ -43,8 +43,14 @@ function Search() {
                     console.error(error);
                 }
             )
-        }
+    }
 
+    //If user isnt logged in redirect them to log in
+    if (!authorized) {
+        return <Redirect to="/" />;
+    }
+
+    //If user is logged in, show "Error: Answer Survey First"
     if (searchFor === undefined) {
         return (
             <div className="s-cntr">
