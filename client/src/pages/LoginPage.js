@@ -106,7 +106,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && <Modal onClick={closeModal} display={"There was an error."} />}
+      {showFailModal && <Modal onClick={closeModal} display={"Wrong username/password combination"} />}
     </div>
   );
 }

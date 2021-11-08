@@ -30,7 +30,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 1000 * 60 * 60 * 24, //unit is milliseconds, cookie lasts for 24 hours
+      expires: 1000 * 60 * 60 * 24 //unit is milliseconds, cookie lasts for 24 hours
     },
   })
 );
@@ -233,8 +233,11 @@ app.get('/isUserAuth', verifyJWT, (req, res) => {
 });
 
 //server deletes session in database, logs user out
-app.get("/logout", (req, res) => {
-  req.session.destroy();
+app.post("/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) throw err;
+      res.redirect("/");
+    })
 });
 
 //local server at port 3001 listens to requests
