@@ -7,6 +7,7 @@ import Map from './GoogleMapComponent';
 import SearchButtons from './searchButtons';
 import Confirm from "./confirmPopup";
 import Axios from 'axios'
+import { Redirect } from "react-router-dom";
 
 function Search({ authorized }) {
     const currentPage = useLocation();
@@ -47,15 +48,15 @@ function Search({ authorized }) {
 
     //If user isnt logged in redirect them to log in
     if (!authorized) {
+        console.log(authorized)
         return <Redirect to="/" />;
+        
     }
 
     //If user is logged in, show "Error: Answer Survey First"
-    if (searchFor === undefined) {
-        return (
-            <div className="s-cntr">
-                <h1 className="s-hdr">Error: Answer Survey First</h1>
-            </div>)
+    if (searchFor === undefined && authorized) {
+        console.log("AUTHORIZATION BUT EMPTY ARRAY")
+        return <Redirect to="/survey" />;
     }
 
 
