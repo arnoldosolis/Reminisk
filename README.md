@@ -36,7 +36,12 @@
       <ul>
         <li><a href="#prerequisites">Available Scripts in Client Directory</a></li>
       </ul>
+    </li>
+    <li>
       <a href="#getting-started-express">Getting Started with Express</a>
+      <ul>
+        <li><a href="#prerequisites">Available Scripts in Server Directory</a></li>
+      </ul>
     </li>
   </ol>
 </details>
@@ -102,7 +107,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-### Learn More
+#### Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
@@ -132,14 +137,18 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
+<p align="right">(<a href="#top">back to top</a>)</p>
+
 ## Getting Started with Express
 Fast, unopinionated, minimalist web framework for node.(https://github.com/expressjs/express)
+<p align="right">(<a href="#top">back to top</a>)</p>
 
-## Available Scripts in Server Directory
+### Available Scripts in Server Directory
 
 In the 'server' directory, you can run:
 
-### `npm start`
+#### `npm start`
+<p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/badge/Contributors-5-blue
