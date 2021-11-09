@@ -48,18 +48,13 @@ function Search({ authorized }) {
 
     //If user isnt logged in redirect them to log in
     if (!authorized) {
-        console.log(authorized)
         return <Redirect to="/" />;
-        
     }
 
     //If user is logged in, show "Error: Answer Survey First"
     if (searchFor === undefined && authorized) {
-        console.log("AUTHORIZATION BUT EMPTY ARRAY")
         return <Redirect to="/survey" />;
     }
-
-
 
     return (
         <div>
