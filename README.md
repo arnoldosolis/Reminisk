@@ -146,3 +146,5 @@ In the 'server' directory, you can run:
 [contributors-url]: https://github.com/arnoldosolis/Reminisk/graphs/contributors
 [issues-shield]: https://img.shields.io/badge/Issues-1-red
 [issues-url]: https://github.com/arnoldosolis/Reminisk/issues
+
+
