@@ -23,7 +23,7 @@ CREATE TABLE journal_log (
   FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id)
 );
 
-CREATE TABLE facility_info(
+CREATE TABLE facility_info (
   userlogin_id INT, 
   facility_id INT AUTO_INCREMENT, 
   facility_name TEXT,
@@ -31,5 +31,5 @@ CREATE TABLE facility_info(
   facility_phone TEXT, 
   facility_times TEXT, 
   PRIMARY KEY(facility_id), 
-  FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id
+  FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id)
   );

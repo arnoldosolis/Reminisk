@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Image } from "cloudinary-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@material-ui/core/";
 import Axios from "axios";
 import Popup from "../components/Popup";
@@ -40,6 +40,11 @@ function addMarker(location, map) {
 } */
 
 function JournalPage({ authorized }) {
+  useEffect(() => {
+    Axios.get("http://localhost:3001/journals").then((response) => {
+      setJournalList(response.data);
+    });
+  }, [])
   const [buttonPopup, setButtonPopup] = useState(false);
 
   const [date, setDate] = useState("");
@@ -85,11 +90,6 @@ function JournalPage({ authorized }) {
     }, 1000);
   };
 
-  const getJournalEntry = () => {
-    Axios.get("http://localhost:3001/journals").then((response) => {
-      setJournalList(response.data);
-    });
-  };
 
   return (
     <div class="center-align">
@@ -139,7 +139,7 @@ function JournalPage({ authorized }) {
           Done
         </Button>
       </Popup>
-      {getJournalEntry()}
+
       <div className="journal-entries">
         <TableContainer component={Paper}>
           <Table
