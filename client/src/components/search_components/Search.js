@@ -53,12 +53,13 @@ function Search({ authorized }) {
 
     //If user is logged in, show "Error: Answer Survey First"
     if (searchFor === undefined && authorized) {
-        return <Redirect to="/survey" />;
+        return (<div className="s-cntr">
+        <h1 className="s-hdr">Error: Answer Survey First</h1>
+    </div>);
     }
 
     return (
         <div>
-            {/* <button onClick={consoleLog}>Check problem</button> */}
             <div className="s-cntr">
                 <h1 className="s-hdr">Search for a Facility</h1>
                 <br />
