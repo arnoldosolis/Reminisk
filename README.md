@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/arnoldosolis/Reminisk">
-    <img src="images/reminisk_logo.png" alt="Logo" width="80" height="80">
+    <img src="/client/public/images/reminisk_logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Reminisk</h3>
