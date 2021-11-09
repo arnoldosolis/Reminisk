@@ -60,6 +60,7 @@ function LoginPage() {
         setLoggedIn(true);
         history.push("/home");
       }
+      else{ setLoggedIn(false); }
     });
   }, []);
 
