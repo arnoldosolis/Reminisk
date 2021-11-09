@@ -45,24 +45,37 @@
     </li>
   </ol>
 </details>
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Reminisk is a website that is designed to help individuals with everyday struggles with the following features.
+Reminisk is a website that is designed to help and act as an outlet for individuals that experience different struggles. These following features are included in the website.
 * Personal Profiles - individuals can sign up and use their own Reminisk profile.
 * Journal - individuals can access and upload their own photos or log into a journal.
 * Survey - individuals can answer a series of questions and self assess themselves regarding their well-being.
 * Search - individuals can search for various facilities to help them in their respective problems.
-* Map-It - a map that individuals can interact and see the photos that they have uploaded.
+* (W.I.P) Map-It - a map that individuals can interact and see the photos that they have uploaded.
 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This project utilizes the following frameworks/libraries.
 
 * [React.js](https://reactjs.org/)
+* [Express.js](https://expressjs.com/)
+* [Materializecss](https://materializecss.com/)
+* [MaterialUI](https://mui.com/)
+* [reactrouterdom](https://reactrouter.com/)
+* [Cloudinary](https://cloudinary.com/)
+* [react-google-maps/api](https://www.npmjs.com/package/@react-google-maps/api)
+* [use-places-auto-complete](https://www.npmjs.com/package/use-places-autocomplete)
+* [react-geocode](https://www.npmjs.com/package/react-geocode)
+* [cors](https://www.npmjs.com/package/cors)
+* [axios](https://axios-http.com/)
+* [mysql](https://www.npmjs.com/package/mysql)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -141,6 +154,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Getting Started with Express
 Fast, unopinionated, minimalist web framework for node.(https://github.com/expressjs/express)
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Available Scripts in Server Directory
@@ -148,6 +162,7 @@ Fast, unopinionated, minimalist web framework for node.(https://github.com/expre
 In the 'server' directory, you can run:
 
 #### `npm start`
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
