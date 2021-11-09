@@ -32,15 +32,15 @@
       </ul>
     </li>
     <li>
-      <a href="#getting-started-react">Getting Started with Create React App</a>
+      <a href="#getting-started-with-create-react-app">Getting Started with Create React App</a>
       <ul>
-        <li><a href="#prerequisites">Available Scripts in Client Directory</a></li>
+        <li><a href="#available-scripts-in-client-directory">Available Scripts in Client Directory</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started-express">Getting Started with Express</a>
+      <a href="#getting-started-with-express">Getting Started with Express</a>
       <ul>
-        <li><a href="#prerequisites">Available Scripts in Server Directory</a></li>
+        <li><a href="#available-scripts-in-server-directory">Available Scripts in Server Directory</a></li>
       </ul>
     </li>
   </ol>
