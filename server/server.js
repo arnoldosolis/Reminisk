@@ -233,11 +233,11 @@ app.get('/isUserAuth', verifyJWT, (req, res) => {
 });
 
 //server deletes session in database, logs user out
-app.post("/logout", (req, res) => {
-    req.session.destroy((err) => {
-      if (err) throw err;
-      res.redirect("/");
-    })
+app.post("/logout", (req, res) => {  
+  req.session.destroy((err) => {
+    if (err) throw err;
+    res.redirect("/");
+  })
 });
 
 //local server at port 3001 listens to requests

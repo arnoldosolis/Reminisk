@@ -31,9 +31,8 @@ function Navbar() {
     window.addEventListener('resize', showButton)
 
     function logOut() {
-        Axios.post("http://localhost:3001/logout").then((response) => {
-            return <Redirect to="/" />
-        });
+        Axios.defaults.withCredentials = true;
+        Axios.post("http://localhost:3001/logout");
     }
 
     return (
