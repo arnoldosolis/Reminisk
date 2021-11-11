@@ -26,14 +26,28 @@ function LoginPage() {
       password: password,
     }).then((response) => {
       if (response.data.error) {
-        setErrMessage(response.data.error);
+        //setLoggedIn(false);
         setShowFailModal(true);
       } else {
+        console.log(response.data);
+        //console.log("testing");
+        localStorage.setItem("token", response.data.token)
         setLoggedIn(true);
         history.push("/home");
       }
     });
   }
+
+  //function to retrieve the token
+  const userAuthenticated = () => {
+    Axios.get("http://localhost:3001/isUserAuth", {
+      headers: {
+        "x-access-token": localStorage.getItem("token"),
+      },
+    }).then((response) => {
+      console.log(response);
+    });
+  };
 
   const closeModal = () => {
     setShowFailModal(false);
@@ -46,6 +60,7 @@ function LoginPage() {
         setLoggedIn(true);
         history.push("/home");
       }
+      else{ setLoggedIn(false); }
     });
   }, []);
 
@@ -57,7 +72,7 @@ function LoginPage() {
       <div className={styles.box2}>
         <div className={styles.loginFormBox}>
           <form onSubmit={login}>
-            <label htmlFor="username">Username</label>
+            <span className={styles.inputLabel}>Username</span>
             <input
               type="text"
               id="username"
@@ -70,7 +85,7 @@ function LoginPage() {
                 setUsername(event.target.value);
               }}
             />
-            <label htmlFor="password">Password</label>
+            <span className={styles.inputLabel}>Password</span>
             <input
               type="password"
               id="password"
@@ -92,7 +107,7 @@ function LoginPage() {
           </form>
         </div>
       </div>
-      {showFailModal && <Modal onClick={closeModal} display={errMessage} />}
+      {showFailModal && <Modal onClick={closeModal} display={"Wrong username/password combination"} />}
     </div>
   );
 }

@@ -1,0 +1,183 @@
+.profile-cntr {
+  max-width: 90%;
+  margin: 30px auto;
+  overflow: auto;
+  min-height: 300px;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.profile-hdr {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.userinfo-cntr {
+  max-width: 90%;
+  margin: 30px auto;
+  overflow: 30px auto;
+  height: fit-content;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.username-lbl {
+  margin-left: 5px;
+  color: black;
+}
+
+.useremail-lbl {
+  margin-left: 5px;
+  color: black;
+}
+
+.facilityinfo-cntr {
+  width: 90%;
+  margin: 30px auto;
+  overflow: 30px auto;
+  height: fit-content;
+  border: 1px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+ 
+}
+
+.facility-lbl {
+  margin-left: 5px;
+  color: black;
+  font-size: medium;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.facilityinfo-hdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hours-p {
+  font-size: medium;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+  color: black;
+}
+
+.edit-btn {
+  margin-left: auto;
+  padding: 10px;
+  background-color: rgb(179, 179, 179);
+  color: black;
+  border: rgb(179, 179, 179);
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+}
+
+.confirm-btn {
+  float: left;
+  padding: 10px;
+  background-color: rgb(179, 179, 179);
+  color: black;
+  border: rgb(179, 179, 179);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.cancel-btn {
+  float: right;
+  padding: 10px;
+  background-color: rgb(179, 179, 179);
+  color: black;
+  border: rgb(179, 179, 179);
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.editfacility-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  padding: 10px;
+  background-color: rgb(179, 179, 179);
+  color: black;
+  border: rgb(179, 179, 179);
+  font-size: 15px;
+  font-weight: bold;
+  width: 80px;
+}
+
+.edit-btn:hover,
+.cancel-btn:hover,
+.confirm-btn:hover,
+.editfacility-btn:hover {
+  cursor: pointer;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border: black;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.edit-lbl {
+  margin-left: 5px;
+  font-size: 20px !important;
+  color: black;
+  font-size: medium;
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: left;
+}
+
+.update-inp {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: left;
+  margin-left: 10px !important;
+  width: 400px !important;
+}
+
+.edit-p {
+  text-align: center;
+}
+
+.fa-minus-square {
+  font-size: 1.8rem;
+  color: #000;
+}
+
+.fa-minus-square:hover {
+  cursor: pointer;
+  color: grey;
+  font-size: 1.8rem;
+
+}
+
+.nofacility-hdr {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}

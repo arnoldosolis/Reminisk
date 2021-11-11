@@ -1,12 +1,11 @@
 .container {
     max-width: 90%;
+    margin: 30px auto;
     overflow: auto;
     min-height: 300px;
     border: 1px solid black;
     padding: 10px 20px;
     border-radius: 5px;
-
-    justify-content: left;
 }
 
 .survey-container {
@@ -21,6 +20,7 @@
 
 .problem-lbl {
     margin-left: 5px;
+    color: black;
 }
 
 [type="checkbox"].filled-in:checked + span:not(.lever):after

@@ -2,9 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Available Scripts in Client Directory
 
-In the project directory, you can run:
+In the 'client' directory, you can run:
 
 ### `npm start`
 
@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Getting Started with Express
+Fast, unopinionated, minimalist web framework for node.(https://github.com/expressjs/express)
+
+## Available Scripts in Server Directory
+
+In the 'server' directory, you can run:
+
+### `npm start`

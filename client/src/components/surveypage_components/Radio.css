@@ -1,5 +1,6 @@
 .response-lbl {
     margin-left: 5px;
+    color: black;
 }
 
 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after {
