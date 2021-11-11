@@ -65,8 +65,10 @@ function JournalPage({ authorized }) {
   const [open1, setOpen1] = useState(false);
   const [date, setDate] = useState("");
   const [journal, setJournal] = useState("");
+  const [entry, setEntry] = useState("");
   const [img, setImg] = useState([]);
   var imgU = "";
+  var selectedJournal = 0;
   const [journalList, setJournalList] = useState([]);
 
   if (!authorized) {
@@ -123,16 +125,22 @@ function JournalPage({ authorized }) {
   };
 
   const handleClickOpen1 = () => {
+    const uEntry = [];
+    for (let i = 0; i < journalList.length; i++) {
+      if (selectedJournal === journalList[i].journallog_id) {
+        uEntry.push(journalList[i]);
+        console.log(uEntry);
+        setEntry(journalList[i]);
+      }
+      // console.log(journalList[i].journallog_id);
+    }
+    //console.log(journalList);
     setOpen1(true);
   };
 
   const handleClose1 = () => {
     setOpen1(false);
   };
-
-    renderJournalEntry(id) {
-        return
-    }
 
   return (
     <div class="center-align">
@@ -248,7 +256,11 @@ function JournalPage({ authorized }) {
                 <TableRow
                   hover
                   key={val.journallog_id}
-                  onClick={handleClickOpen1}
+                  onClick={() => {
+                    selectedJournal = val.journallog_id;
+                    console.log(selectedJournal);
+                    handleClickOpen1();
+                  }}
                 >
                   <TableCell align="center">
                     {val.journal_date.substring(0, 10)}
@@ -273,14 +285,14 @@ function JournalPage({ authorized }) {
                       >
                         <Toolbar></Toolbar>
                       </AppBar>
-                      <List>{val.journallog_id}</List>
-                      <List>{val.journal_entry}</List>
-                      <List>{val.journal_date.substring(0, 10)}</List>
+                      <List>{entry.journallog_id}</List>
+                      <List>{entry.journal_date.substring(0, 10)}</List>
+                      <List>{entry.journal_entry}</List>
                       <List>
                         <Image
-                          style={{ width: "400px", margin: "50px" }}
+                          style={{ width: 400, margin: 20 }}
                           cloudName="reminisk"
-                          publicId={val.image}
+                          publicId={entry.image}
                         />
                       </List>
                       <Button

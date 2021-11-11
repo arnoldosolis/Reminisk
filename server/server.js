@@ -325,4 +325,3 @@ app.delete(`/deletefacility/:facilityid`, (req, res) => {
     }
   );
 });
-
