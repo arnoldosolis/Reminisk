@@ -6,6 +6,23 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import Slide from "@mui/material/Slide";
+
+import ListItemText from "@mui/material/ListItemText";
+import ListItem from "@mui/material/ListItem";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+
 import { Image } from "cloudinary-react";
 import { useState } from "react";
 import { Button } from "@material-ui/core/";
@@ -39,9 +56,13 @@ function addMarker(location, map) {
   });
 } */
 
-function JournalPage({ authorized }) {
-  const [buttonPopup, setButtonPopup] = useState(false);
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
 
+function JournalPage({ authorized }) {
+  const [open, setOpen] = useState(false);
+  const [open1, setOpen1] = useState(false);
   const [date, setDate] = useState("");
   const [journal, setJournal] = useState("");
   const [img, setImg] = useState([]);
@@ -51,8 +72,10 @@ function JournalPage({ authorized }) {
   if (!authorized) {
     return <Redirect to="/" />;
   }
+
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;
+
   const addJournalEntry = () => {
     const formData = new FormData();
     formData.append("file", img);
@@ -91,54 +114,85 @@ function JournalPage({ authorized }) {
     });
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleClickOpen1 = () => {
+    setOpen1(true);
+  };
+
+  const handleClose1 = () => {
+    setOpen1(false);
+  };
+
+    renderJournalEntry(id) {
+        return
+    }
+
   return (
     <div class="center-align">
+      {/*Dialog for uploading a journal entry*/}
       <Button
         class="waves-effect waves-light btn-large black"
-        onClick={() => setButtonPopup(true)}
+        onClick={handleClickOpen}
       >
-        Upload
+        UPLOAD
       </Button>
-      <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-        <input
-          type="date"
-          onChange={(e) => {
-            setDate(e.target.value);
-            //console.log(e.target.value);
-          }}
-        />
-        <textarea
-          placeholder="How was your day?"
-          onChange={(e) => {
-            setJournal(e.target.value);
-            //console.log(e.target.value);
-          }}
-        />
-        <label for="img">
-          Chose any picture that you would like to remember today by:
-        </label>
-        <input
-          type="file"
-          onChange={(e) => {
-            //console.log(e.target.files[0]);
-            setImg(e.target.files[0]);
-          }}
-        />
+      <Dialog
+        open={open}
+        TransitionComponent={Transition}
+        keepMounted
+        onClose={handleClose}
+      >
+        <DialogTitle>{"Journal Entry"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-slide-description">
+            <input
+              type="date"
+              onChange={(e) => {
+                setDate(e.target.value);
+                //console.log(e.target.value);
+              }}
+            />
+            <textarea
+              placeholder="How was your day?"
+              onChange={(e) => {
+                setJournal(e.target.value);
+                //console.log(e.target.value);
+              }}
+            />
+            <label for="img">
+              Chose any picture that you would like to remember today by:
+            </label>
+            <input
+              type="file"
+              onChange={(e) => {
+                //console.log(e.target.files[0]);
+                setImg(e.target.files[0]);
+              }}
+            />
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            class="waves-effect waves-light btn-large black"
+            onClick={() => {
+              addJournalEntry();
+              imgU = "";
+              handleClose();
+            }}
+          >
+            Done
+          </Button>
+        </DialogActions>
+      </Dialog>
 
-
-
-
-        <br />
-        <Button
-          class="waves-effect waves-light btn-large black"
-          onClick={() => {
-            addJournalEntry();
-            imgU = "";
-          }}
-        >
-          Done
-        </Button>
-      </Popup>
+      {/*Display Journal Entries*/}
       {getJournalEntry()}
       <div className="journal-entries">
         <TableContainer component={Paper}>
@@ -150,7 +204,7 @@ function JournalPage({ authorized }) {
             <TableHead>
               <TableRow>
                 <TableCell align="center">
-                  <label>Sort by</label>
+                  <label style={{ color: "black" }}>Sort by</label>
                 </TableCell>
                 <TableCell align="center">
                   <Button class="waves-effect waves-light btn-large black">
@@ -162,31 +216,82 @@ function JournalPage({ authorized }) {
                 </TableCell>
                 <TableCell align="center">
                   <input
-                    type="text"
+                    type="date"
                     id="myInput"
                     placeholder="Search by date"
                   />
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell align="center">Date</TableCell>
-                <TableCell align="center">Entry&nbsp;</TableCell>
-                <TableCell align="center">Image&nbsp;</TableCell>
+                <TableCell
+                  align="center"
+                  style={{ backgroundColor: "black", color: "white" }}
+                >
+                  Date
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ backgroundColor: "black", color: "white" }}
+                >
+                  Entry&nbsp;
+                </TableCell>
+                <TableCell
+                  align="center"
+                  style={{ backgroundColor: "black", color: "white" }}
+                >
+                  Image&nbsp;
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {journalList.map((val, key) => (
-                <TableRow key={val.journallog_id}>
+                <TableRow
+                  hover
+                  key={val.journallog_id}
+                  onClick={handleClickOpen1}
+                >
                   <TableCell align="center">
                     {val.journal_date.substring(0, 10)}
                   </TableCell>
                   <TableCell align="center">{val.journal_entry}</TableCell>
                   <TableCell align="center">
                     <Image
-                      style={{ width: 200, margin: 50 }}
+                      style={{ width: 100, margin: 50 }}
                       cloudName="reminisk"
                       publicId={val.image}
                     />
+
+                    {/*Dialog for viewing entries at fullscreen*/}
+                    <Dialog
+                      fullScreen
+                      open={open1}
+                      onClose={handleClose1}
+                      TransitionComponent={Transition}
+                    >
+                      <AppBar
+                        sx={{ position: "relative", backgroundColor: "black" }}
+                      >
+                        <Toolbar></Toolbar>
+                      </AppBar>
+                      <List>{val.journallog_id}</List>
+                      <List>{val.journal_entry}</List>
+                      <List>{val.journal_date.substring(0, 10)}</List>
+                      <List>
+                        <Image
+                          style={{ width: "400px", margin: "50px" }}
+                          cloudName="reminisk"
+                          publicId={val.image}
+                        />
+                      </List>
+                      <Button
+                        autoFocus
+                        onClick={handleClose}
+                        style={{ width: "200px" }}
+                        class="waves-effect waves-light btn-large black"
+                      >
+                        Exit
+                      </Button>
+                    </Dialog>
                   </TableCell>
                 </TableRow>
               ))}
