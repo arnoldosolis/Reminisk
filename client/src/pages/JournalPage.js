@@ -61,11 +61,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function JournalPage({ authorized }) {
+  const [journalList, setJournalList] = useState([]);
   useEffect(() => {
     Axios.get("http://localhost:3001/journals").then((response) => {
       setJournalList(response.data);
     });
-  }, []);
+  }, [journalList]);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [date, setDate] = useState("");
@@ -74,18 +75,11 @@ function JournalPage({ authorized }) {
   const [img, setImg] = useState([]);
   var imgU = "";
   var selectedJournal = 0;
-  const [journalList, setJournalList] = useState([]);
-  var plsClose = true;
+
   if (!authorized) {
     return <Redirect to="/" />;
   }
 
-  setTimeout(() => {
-    if (plsClose === false) {
-      setOpen1(false);
-      plsClose = true;
-    }
-  }, 0);
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;
 
@@ -146,6 +140,7 @@ function JournalPage({ authorized }) {
   const handleClose1 = () => {
     setOpen1(false);
   };
+
   return (
     <div class="center-align">
       {/*Dialog for uploading a journal entry*/}
@@ -226,9 +221,7 @@ function JournalPage({ authorized }) {
             <List>{entry.journal_entry}</List>
           </List>
           <Button
-            onClick={() => {
-              plsClose = false;
-            }}
+            onClick={handleClose1}
             style={{ width: "200px" }}
             class="waves-effect waves-light btn-large black"
           >
