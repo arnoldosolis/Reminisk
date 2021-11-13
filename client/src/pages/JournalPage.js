@@ -80,7 +80,7 @@ function JournalPage({ authorized }) {
       setOpen1(false);
       plsClose = true;
     }
-  }, 50);
+  }, 0);
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;
 
@@ -137,6 +137,7 @@ function JournalPage({ authorized }) {
           0,
           10
         );
+        console.log("handleClickOpen1", journalList[i]);
         setEntry(journalList[i]);
       }
     }
@@ -146,16 +147,9 @@ function JournalPage({ authorized }) {
   const handleClose1 = () => {
     setOpen1(false);
   };
-
   return (
     <div class="center-align">
       {/*Dialog for uploading a journal entry*/}
-      <Button
-        class="waves-effect waves-light btn-large black"
-        onClick={handleClickOpen}
-      >
-        UPLOAD
-      </Button>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -205,6 +199,45 @@ function JournalPage({ authorized }) {
         </DialogActions>
       </Dialog>
 
+      {/*Dialog for viewing entries at fullscreen*/}
+      <Dialog
+        fullScreen
+        open={open1}
+        onClose={handleClose1}
+        TransitionComponent={Transition}
+      >
+        <AppBar sx={{ position: "relative", backgroundColor: "black" }}>
+          <Toolbar></Toolbar>
+        </AppBar>
+        <div
+          style={{
+            display: "flex",
+            justifyItems: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <List>
+            <Image
+              style={{ width: 500, margin: 20 }}
+              cloudName="reminisk"
+              publicId={entry.image}
+            />
+            <List>{entry.journal_date}</List>
+            <List>{entry.journal_entry}</List>
+          </List>
+          <Button
+            onClick={() => {
+              plsClose = false;
+            }}
+            style={{ width: "200px" }}
+            class="waves-effect waves-light btn-large black"
+          >
+            Exit
+          </Button>
+        </div>
+      </Dialog>
+
       {/*Display Journal Entries*/}
       {getJournalEntry()}
       <div className="journal-entries">
@@ -222,6 +255,12 @@ function JournalPage({ authorized }) {
                 <TableCell align="center">
                   <Button class="waves-effect waves-light btn-large black">
                     Recent
+                  </Button>
+                  <Button
+                    class="waves-effect waves-light btn-large black"
+                    onClick={handleClickOpen}
+                  >
+                    UPLOAD
                   </Button>
                   <Button class="waves-effect waves-light btn-large black">
                     Oldest
@@ -263,62 +302,22 @@ function JournalPage({ authorized }) {
                   key={val.journallog_id}
                   onClick={() => {
                     selectedJournal = val.journallog_id;
-                    //console.log(selectedJournal);
+                    console.log(selectedJournal);
                     handleClickOpen1();
                   }}
                 >
                   <TableCell align="center">
                     {val.journal_date.substring(0, 10)}
                   </TableCell>
-                  <TableCell align="center">{val.journal_entry}</TableCell>
+                  <TableCell align="center">
+                    {val.journal_entry.substring(0, 20)}
+                  </TableCell>
                   <TableCell align="center">
                     <Image
                       style={{ width: 100, margin: 50 }}
                       cloudName="reminisk"
                       publicId={val.image}
                     />
-
-                    {/*Dialog for viewing entries at fullscreen*/}
-                    <Dialog
-                      fullScreen
-                      open={open1}
-                      onClose={handleClose1}
-                      TransitionComponent={Transition}
-                    >
-                      <AppBar
-                        sx={{ position: "relative", backgroundColor: "black" }}
-                      >
-                        <Toolbar></Toolbar>
-                      </AppBar>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyItems: "center",
-                          alignItems: "center",
-                          flexDirection: "column",
-                        }}
-                      >
-                        <List>{entry.journallog_id}</List>
-                        <List>{entry.journal_date}</List>
-                        <List>{entry.journal_entry}</List>
-                        <List>
-                          <Image
-                            style={{ width: 400, margin: 20 }}
-                            cloudName="reminisk"
-                            publicId={entry.image}
-                          />
-                        </List>
-                      </div>
-                      <Button
-                        onClick={() => {
-                          plsClose = false;
-                        }}
-                        style={{ width: "200px" }}
-                        class="waves-effect waves-light btn-large black"
-                      >
-                        Exit
-                      </Button>
-                    </Dialog>
                   </TableCell>
                 </TableRow>
               ))}
