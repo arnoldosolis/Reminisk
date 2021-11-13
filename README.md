@@ -168,7 +168,7 @@ In the 'server' directory, you can run:
 <!-- MARKDOWN LINKS & IMAGES -->
 [contributors-shield]: https://img.shields.io/badge/Contributors-5-blue
 [contributors-url]: https://github.com/arnoldosolis/Reminisk/graphs/contributors
-[issues-shield]: https://img.shields.io/badge/Issues-1-red
+[issues-shield]: https://img.shields.io/badge/Issues-0-red
 [issues-url]: https://github.com/arnoldosolis/Reminisk/issues
 
 

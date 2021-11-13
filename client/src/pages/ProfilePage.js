@@ -1,4 +1,5 @@
 import "./ProfilePage.css"
+import Facilities from "./Facilities"
 import { Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "axios";
@@ -14,6 +15,7 @@ function ProfilePage({ authorized }) {
     const [editFacility, setEditFacility] = useState(false)
     const [changes, setChanges] = useState(false)
 
+    Axios.defaults.withCredentials = true;
     useEffect(() => {
         Axios.get("http://localhost:3001/userinfo").then((response) => {
             setName(response.data[0].name);
@@ -22,10 +24,14 @@ function ProfilePage({ authorized }) {
         Axios.get("http://localhost:3001/facility").then((response) => {
             setSavedFacilities(response.data)
         });
-        setChanges(false)
+        return () => {
+            setName("")
+            setEmail("")
+            setSavedFacilities([])
+        }
     }, [changes]);
 
-    Axios.defaults.withCredentials = true;
+    
     const editInfo = () => {
         Axios.put("http://localhost:3001/updateEmail", {
             new_email: newEmail
@@ -50,12 +56,13 @@ function ProfilePage({ authorized }) {
           }, (error) => {
             console.error("Error:", error);
         });
-        setChanges(true);
+        setChanges(!changes);
         };
 
     if (!authorized) {
         return <Redirect to="/" />;
     }
+
     return (
         <div>
             <div className="profile-cntr" >
@@ -82,30 +89,13 @@ function ProfilePage({ authorized }) {
                 </div>
                 <div className="facilityinfo-cntr">
                     <h4 className="facilityinfo-hdr">Saved Facility Information</h4>
-                    <button className="editfacility-btn" onClick={() => { setEditFacility(!editFacility) }}>{editFacility === false ? "Edit" : "Cancel"}</button>
+                   
                     {savedFacilities.length !== 0 ?
-                        savedFacilities.map((val, index) => (
-                            <div className="facilityinfo-cntr" key={index}>
-                                <label className="facility-lbl">Facility Name: {val.facility_name !== null ? val.facility_name : "N/A"}</label>
-                                <label className="facility-lbl">Facility Address: {val.facility_address !== null ? val.facility_address : "N/A"}</label>
-                                <label className="facility-lbl">Facility Phone: {val.facility_phone !== null ? val.facility_phone : "N/A"}</label>
-                                <label className="facility-lbl">Facility Times:
-                                    {val.facility_times !== null ? val.facility_times.split(',').map((times, index) => (
-                                        <label className="hours-p" key={index}>{times}</label>
-                                    ))
-                                        : "N/A"}
-                                </label>
-                                {editFacility === true ?
-                                    
-                                        <div className="delete-icon" onClick={() => {deleteFacility(val.facility_id)}}>
-                                        <i className="fas fa-minus-square" >
-                                        </i>
-                                        </div>
-                                    : ""}
-                            </div>
-
-
-                        ))
+                        <>
+                         <button className="editfacility-btn" onClick={() => { setEditFacility(!editFacility) }}>{editFacility === false ? "Edit" : "Cancel"}</button>
+                        {savedFacilities.map((val, index) => (
+                            <Facilities facility={val} key={index} deleteFacility={deleteFacility} editFacility={editFacility}/>
+                        ))}</>
                         :
                         <h2 className="nofacility-hdr">No Facilities Saved</h2>
                     }
