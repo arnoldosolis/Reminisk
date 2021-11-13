@@ -24,7 +24,7 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 
 import { Image } from "cloudinary-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@material-ui/core/";
 import Axios from "axios";
 import Popup from "../components/Popup";
@@ -61,6 +61,11 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function JournalPage({ authorized }) {
+  useEffect(() => {
+    Axios.get("http://localhost:3001/journals").then((response) => {
+      setJournalList(response.data);
+    });
+  }, []);
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [date, setDate] = useState("");
@@ -114,12 +119,6 @@ function JournalPage({ authorized }) {
         ]);
       });
     }, 1000);
-  };
-
-  const getJournalEntry = () => {
-    Axios.get("http://localhost:3001/journals").then((response) => {
-      setJournalList(response.data);
-    });
   };
 
   const handleClickOpen = () => {
@@ -239,7 +238,6 @@ function JournalPage({ authorized }) {
       </Dialog>
 
       {/*Display Journal Entries*/}
-      {getJournalEntry()}
       <div className="journal-entries">
         <TableContainer component={Paper}>
           <Table

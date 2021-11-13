@@ -1,10 +1,11 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GoogleMap, useLoadScript, StandaloneSearchBox, Marker, InfoWindow, } from '@react-google-maps/api';
 import { MAPS_API_KEY } from '../../config'
 import MapStyles from './MapStyles';
 import './Search.css'
 import { getDetails } from 'use-places-autocomplete';
+
 
 const libraries = ["places"];
 
@@ -37,7 +38,6 @@ function GoogleMapComponent({ center, searchKeyword, setMarkers, markers,
     }, []);
 
     const handleChange = () => {
-        // console.log('map bounds', rfMap.current.getBounds());
         setBounds(rfMap.current.getBounds())
     }
 
@@ -47,14 +47,8 @@ function GoogleMapComponent({ center, searchKeyword, setMarkers, markers,
     }, []);
 
     const onInputChange = () => {
-        //  Testing Outputs
-        // setMarkers(rfSearchBox.current.getPlaces())
-        // console.log(markerArray);
-        // console.log(rfSearchBox.current.getPlaces())
         var markerArray = [];
-
         let results = rfSearchBox.current.getPlaces();
-        // console.log(results)
         for (let i = 0; i < results.length; i++) {
             let place = results[i].geometry.location
             let locations = {
@@ -64,8 +58,9 @@ function GoogleMapComponent({ center, searchKeyword, setMarkers, markers,
             }
             markerArray.push(locations);
         }
-        // console.log(markerArray)
+
         setMarkers(markerArray)
+        selectMarker(null)
     }
 
     function markerChosen(chosenMarker) {
@@ -73,42 +68,43 @@ function GoogleMapComponent({ center, searchKeyword, setMarkers, markers,
         setAddress("")
         setPhone("")
         setTimes("")
-        // console.log(chosenMarker)
+
         const parameter = {
             placeId: chosenMarker.place_id,
             fields: ["name", "formatted_address", "international_phone_number", "opening_hours"],
         };
-        // console.log(parameter);
+
         getDetails(parameter).then(
             (details) => {
                 let selectedMarkerArray = Object.keys(details)
                 //Set name
                 if (selectedMarkerArray.find(field => field === "name")) {
-                    // console.log(details["name"])
+
                     setName(details["name"])
                 } else {
                     setName("N/A")
                 }
                 //Set address
                 if (selectedMarkerArray.find(field => field === "formatted_address")) {
-                    // console.log(details["formatted_address"])
                     setAddress(details["formatted_address"])
                 } else {
                     setAddress("N/A")
                 }
+                //Set phone
                 if (selectedMarkerArray.find(field => field === "international_phone_number")) {
-                    // console.log(details["international_phone_number"])
+
                     setPhone(details["international_phone_number"])
                 } else {
                     setPhone("N/A")
                 }
+                //Set hours
                 if (selectedMarkerArray.find(field => field === "opening_hours")) {
-                    // console.log(details["opening_hours"]["weekday_text"])
+
                     setTimes(details["opening_hours"]["weekday_text"].toString())
                 } else {
                     setTimes("N/A")
                 }
-                // console.log("Details: ", details);
+
             })
             .catch((error) => {
                 console.log("Error: ", error);
@@ -178,58 +174,8 @@ function GoogleMapComponent({ center, searchKeyword, setMarkers, markers,
                     </InfoWindow>
                 ) : null}
             </GoogleMap>
-            
-            {/* Testing Button
-            <button onClick={consoleLog}>Test</button> */}
         </div>
     )
 }
 
 export default GoogleMapComponent
-
-
-    // CONSOLE LOG TESTING
-    // const consoleLog = () => {
-    //     //Testing place_id : markers[5].place_id
-    //     const parameter = {
-    //         placeId: markers[5].place_id,
-    //         fields: ["name", "formatted_address", "international_phone_number", "opening_hours",],
-    //     };
-    //     // console.log(parameter);
-    //     getDetails(parameter).then(
-    //         (details) => {
-    //             let selectedMarkerArray = Object.keys(details)
-    //             //Set name
-    //             if (selectedMarkerArray.find(field => field === "name")) {
-    //                 // console.log(details[selectedMarkerArray.find(field => field === "name")])
-    //                 setName(details["name"])
-    //             } else {
-    //                 setName("N/A")
-    //             }
-    //             //Set address
-    //             if (selectedMarkerArray.find(field => field === "formatted_address")) {
-    //                 // console.log(details[selectedMarkerArray.find(field => field === "name")])
-    //                 setAddress(details["formatted_address"])
-    //             } else {
-    //                 setAddress("N/A")
-    //             }
-    //             //Set phone
-    //             if (selectedMarkerArray.find(field => field === "international_phone_number")) {
-    //                 // console.log(details[selectedMarkerArray.find(field => field === "name")])
-    //                 setPhone(details["international_phone_number"])
-    //             } else {
-    //                 setPhone("N/A")
-    //             }
-    //             //Set Hours
-    //             if (selectedMarkerArray.find(field => field === "opening_hours")) {
-    //                 // console.log(details["opening_hours"]["weekday_text"].toString())
-    //                 setTimes(details["opening_hours"]["weekday_text"].toString())
-    //             } else {
-    //                 setTimes("N/A")
-    //             }
-    //             console.log("Details: ", details);
-    //         })
-    //         .catch((error) => {
-    //             console.log("Error: ", error);
-    //         });
-    // }
