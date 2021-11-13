@@ -9,7 +9,7 @@ function VideoBackground({authorized}) {
         <div className="video-container">
             <video className="video" src="../videos/video-1.mp4" autoPlay loop muted />
             <h1>Reminisk</h1>
-            <p>Where your mental health is a priority.</p>
+            <p>Where your mental health and well-being is a priority.</p>
             
             <div className="video-btns">
                 <Button className="btns" buttonStyle='btn--outline' buttonSize="btn--large" linkTo="/journal">
