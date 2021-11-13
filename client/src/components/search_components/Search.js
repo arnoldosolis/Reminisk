@@ -55,10 +55,7 @@ function Search({ authorized }) {
     useEffect(() => {
         Axios.get("http://localhost:3001/facility").then((response) => {
             const facilities_address = new Set();
-            for (let i = 0; i < response.data.length; i++) {
-                facilities_address.add(response.data[i].facility_address);
-            }
-            console.log(facilities_address)
+            response.data.forEach(item => facilities_address.add(item.facility_address))
             setSavedFacilities(facilities_address)
         });
         return () => {

@@ -21,16 +21,19 @@ function ProfilePage({ authorized }) {
             setName(response.data[0].name);
             setEmail(response.data[0].email);
         });
-        Axios.get("http://localhost:3001/facility").then((response) => {
-            setSavedFacilities(response.data)
-        });
+        
         return () => {
             setName("")
             setEmail("")
             setSavedFacilities([])
         }
-    }, [changes]);
+    }, []);
 
+    useEffect(() => {
+        Axios.get("http://localhost:3001/facility").then((response) => {
+            setSavedFacilities(response.data)
+        });
+    }, [changes])
     
     const editInfo = () => {
         Axios.put("http://localhost:3001/updateEmail", {
