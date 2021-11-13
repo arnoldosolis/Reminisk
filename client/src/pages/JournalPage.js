@@ -70,11 +70,17 @@ function JournalPage({ authorized }) {
   var imgU = "";
   var selectedJournal = 0;
   const [journalList, setJournalList] = useState([]);
-
+  var plsClose = true;
   if (!authorized) {
     return <Redirect to="/" />;
   }
 
+  setTimeout(() => {
+    if (plsClose === false) {
+      setOpen1(false);
+      plsClose = true;
+    }
+  }, 50);
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;
 
@@ -125,16 +131,15 @@ function JournalPage({ authorized }) {
   };
 
   const handleClickOpen1 = () => {
-    const uEntry = [];
     for (let i = 0; i < journalList.length; i++) {
       if (selectedJournal === journalList[i].journallog_id) {
-        uEntry.push(journalList[i]);
-        console.log(uEntry);
+        journalList[i].journal_date = journalList[i].journal_date.substring(
+          0,
+          10
+        );
         setEntry(journalList[i]);
       }
-      // console.log(journalList[i].journallog_id);
     }
-    //console.log(journalList);
     setOpen1(true);
   };
 
@@ -258,7 +263,7 @@ function JournalPage({ authorized }) {
                   key={val.journallog_id}
                   onClick={() => {
                     selectedJournal = val.journallog_id;
-                    console.log(selectedJournal);
+                    //console.log(selectedJournal);
                     handleClickOpen1();
                   }}
                 >
@@ -285,19 +290,29 @@ function JournalPage({ authorized }) {
                       >
                         <Toolbar></Toolbar>
                       </AppBar>
-                      <List>{entry.journallog_id}</List>
-                      <List>{entry.journal_date.substring(0, 10)}</List>
-                      <List>{entry.journal_entry}</List>
-                      <List>
-                        <Image
-                          style={{ width: 400, margin: 20 }}
-                          cloudName="reminisk"
-                          publicId={entry.image}
-                        />
-                      </List>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyItems: "center",
+                          alignItems: "center",
+                          flexDirection: "column",
+                        }}
+                      >
+                        <List>{entry.journallog_id}</List>
+                        <List>{entry.journal_date}</List>
+                        <List>{entry.journal_entry}</List>
+                        <List>
+                          <Image
+                            style={{ width: 400, margin: 20 }}
+                            cloudName="reminisk"
+                            publicId={entry.image}
+                          />
+                        </List>
+                      </div>
                       <Button
-                        autoFocus
-                        onClick={handleClose}
+                        onClick={() => {
+                          plsClose = false;
+                        }}
                         style={{ width: "200px" }}
                         class="waves-effect waves-light btn-large black"
                       >
