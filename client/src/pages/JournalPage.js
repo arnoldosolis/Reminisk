@@ -216,20 +216,21 @@ function JournalPage({ authorized }) {
         <div
           style={{
             display: "flex",
-            justifyItems: "center",
             alignItems: "center",
+            justifyContent: "center",
             flexDirection: "column",
+            margin: "100px",
           }}
         >
           <List>
             <Image
-              style={{ width: 500, margin: 20 }}
+              style={{ width: 500, margin: 10 }}
               cloudName="reminisk"
               publicId={entry.image}
             />
-            <List>{entry.journal_date}</List>
-            <List>{entry.journal_entry}</List>
           </List>
+          <List>{entry.journal_date}</List>
+          <List>{entry.journal_entry}</List>
           <Button
             onClick={handleClose1}
             style={{ width: "200px" }}
