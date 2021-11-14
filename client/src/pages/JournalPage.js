@@ -14,24 +14,18 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
 
-import ListItemText from "@mui/material/ListItemText";
-import ListItem from "@mui/material/ListItem";
 import List from "@mui/material/List";
-import Divider from "@mui/material/Divider";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
 
 import { Image } from "cloudinary-react";
 import { useState, useEffect } from "react";
 import { Button } from "@material-ui/core/";
 import Axios from "axios";
-import Popup from "../components/Popup";
 import "./JournalPage.css";
 import { Redirect } from "react-router-dom";
-const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let labelIndex = 0;
+//const labels = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+// let labelIndex = 0;
 
 /*
 function Map() {
@@ -66,7 +60,8 @@ function JournalPage({ authorized }) {
     Axios.get("http://localhost:3001/journals").then((response) => {
       setJournalList(response.data);
     });
-  }, [journalList]);
+  }, []);
+
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
   const [date, setDate] = useState("");
@@ -75,7 +70,6 @@ function JournalPage({ authorized }) {
   const [img, setImg] = useState([]);
   var imgU = "";
   var selectedJournal = 0;
-
   if (!authorized) {
     return <Redirect to="/" />;
   }
@@ -139,6 +133,21 @@ function JournalPage({ authorized }) {
 
   const handleClose1 = () => {
     setOpen1(false);
+  };
+
+  const sorting = (order) => {
+    if (order === "Oldest") {
+      const sorted = [...journalList].sort((a, b) =>
+        a[journalList.journal_date] > b[journalList.journal_date] ? 1 : -1
+      );
+      setJournalList(sorted);
+    }
+    if (order === "Recent") {
+      const sorted = [...journalList].sort((a, b) =>
+        a[journalList.journal_date] < b[journalList.journal_date] ? 1 : -1
+      );
+      setJournalList(sorted);
+    }
   };
 
   return (
@@ -244,7 +253,12 @@ function JournalPage({ authorized }) {
                   <label style={{ color: "black" }}>Sort by</label>
                 </TableCell>
                 <TableCell align="center">
-                  <Button class="waves-effect waves-light btn-large black">
+                  <Button
+                    class="waves-effect waves-light btn-large black"
+                    onClick={() => {
+                      sorting("Recent");
+                    }}
+                  >
                     Recent
                   </Button>
                   <Button
@@ -253,7 +267,12 @@ function JournalPage({ authorized }) {
                   >
                     UPLOAD
                   </Button>
-                  <Button class="waves-effect waves-light btn-large black">
+                  <Button
+                    class="waves-effect waves-light btn-large black"
+                    onClick={() => {
+                      sorting("Oldest");
+                    }}
+                  >
                     Oldest
                   </Button>
                 </TableCell>
