@@ -68,6 +68,7 @@ function JournalPage({ authorized }) {
   const [journal, setJournal] = useState("");
   const [entry, setEntry] = useState("");
   const [img, setImg] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   var imgU = "";
   var selectedJournal = 0;
   if (!authorized) {
@@ -281,6 +282,9 @@ function JournalPage({ authorized }) {
                     type="date"
                     id="myInput"
                     placeholder="Search by date"
+                    onChange={(e) => {
+                      setSearchTerm(e.target.value);
+                    }}
                   />
                 </TableCell>
               </TableRow>
@@ -306,31 +310,39 @@ function JournalPage({ authorized }) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {journalList.map((val, key) => (
-                <TableRow
-                  hover
-                  key={val.journallog_id}
-                  onClick={() => {
-                    selectedJournal = val.journallog_id;
-                    console.log(selectedJournal);
-                    handleClickOpen1();
-                  }}
-                >
-                  <TableCell align="center">
-                    {val.journal_date.substring(0, 10)}
-                  </TableCell>
-                  <TableCell align="center">
-                    {val.journal_entry.substring(0, 20)}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Image
-                      style={{ width: 100, margin: 50 }}
-                      cloudName="reminisk"
-                      publicId={val.image}
-                    />
-                  </TableCell>
-                </TableRow>
-              ))}
+              {journalList
+                .filter((val) => {
+                  if (searchTerm === "") {
+                    return val;
+                  } else if (val.journal_date.includes(searchTerm)) {
+                    return val;
+                  }
+                })
+                .map((val, key) => (
+                  <TableRow
+                    hover
+                    key={val.journallog_id}
+                    onClick={() => {
+                      selectedJournal = val.journallog_id;
+                      console.log(selectedJournal);
+                      handleClickOpen1();
+                    }}
+                  >
+                    <TableCell align="center">
+                      {val.journal_date.substring(0, 10)}
+                    </TableCell>
+                    <TableCell align="center">
+                      {val.journal_entry.substring(0, 20)}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Image
+                        style={{ width: 100, margin: 50 }}
+                        cloudName="reminisk"
+                        publicId={val.image}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </TableContainer>
