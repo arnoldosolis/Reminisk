@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import './Search.css';
 import SearchNear from './SearchNear.js';
@@ -8,13 +8,15 @@ import SearchButtons from './searchButtons';
 import Confirm from "./confirmPopup";
 import Axios from 'axios'
 import { Redirect } from "react-router-dom";
+import Warning from "./WarningPopup";
 
 function Search({ authorized }) {
     const currentPage = useLocation();
     const { searchFor } = currentPage.state || [];
     const [buttonPopup, setButtonPopup] = useState(false);
-
-    const [centerSearch, setCenterSearch] = useState(false)
+    const [warning, setWarning] = useState(false);
+    const [changes, setChanges] = useState(false)
+    const [centerSearch, setCenterSearch] = useState(false);
     const [location, setLocation] = useState({
         loaded: false,
         coordinates: { lat: 0.0, lng: 0.0 }
@@ -29,6 +31,8 @@ function Search({ authorized }) {
     const [facilityPhone, setFacilityPhone] = useState("")
     const [facilityTimes, setFacilityTimes] = useState("")
 
+    const [savedFacilities, setSavedFacilities] = useState(null)
+    
     Axios.defaults.withCredentials = true;
     const addFacility = () => {
         Axios.post("http://localhost:3001/facility", {
@@ -39,13 +43,42 @@ function Search({ authorized }) {
         })
             .then((response) => {
                 console.log("Result: ", response);
+                
             },
                 (error) => {
                     console.error(error);
                 }
             )
+            setChanges(!changes)
     }
 
+    useEffect(() => {
+        Axios.get("http://localhost:3001/facility").then((response) => {
+            const facilities_address = new Set();
+            response.data.forEach(item => facilities_address.add(item.facility_address))
+            setSavedFacilities(facilities_address)
+        });
+        return () => {
+            setSavedFacilities(null);
+        }
+    }, [changes])
+
+    const determinePopup = () => {
+        //If not null, check if value in set
+        if (savedFacilities !== null) {
+            if (savedFacilities.has(facilityAddress)) {
+                setWarning(true);
+            } else {
+                setButtonPopup(true);
+            }
+        }
+        //Is not, add first facility
+        else {
+            setButtonPopup(true);
+        }
+  
+        
+    }
     //If user isnt logged in redirect them to log in
     if (!authorized) {
         return <Redirect to="/" />;
@@ -54,8 +87,8 @@ function Search({ authorized }) {
     //If user is logged in, show "Error: Answer Survey First"
     if (searchFor === undefined && authorized) {
         return (<div className="s-cntr">
-        <h1 className="s-hdr">Error: Answer Survey First</h1>
-    </div>);
+            <h1 className="s-hdr">Error: Answer Survey First</h1>
+        </div>);
     }
 
     return (
@@ -112,17 +145,15 @@ function Search({ authorized }) {
                         <br />
                         <button className="save-btn"
                             disabled={selectMarker === null ? true : false}
-                            onClick={() => setButtonPopup(true)}
+                            onClick={determinePopup}
                         >
                             {(selectedFacility.length === 0) ? "Input address, then select issue " : (selectedFacility.length > 0 && selectMarker === null) ? "Select a marker" : "Save Information"}
                         </button>
+                        <Warning trigger={warning} setTrigger={setWarning} />
                         <Confirm trigger={buttonPopup} setTrigger={setButtonPopup} uploadData={addFacility} />
                     </div>
-
                 </div>
-
             </div>
-
         </div>
     )
 }

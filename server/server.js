@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(
   cors({
     origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE",],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
@@ -30,7 +30,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 1000 * 60 * 60 * 24 //unit is milliseconds, cookie lasts for 24 hours
+      expires: 1000 * 60 * 60 * 24, //unit is milliseconds, cookie lasts for 24 hours
     },
   })
 );
@@ -207,17 +207,15 @@ app.get("/login", (req, res) => {
 
 //function to get the user's token
 const verifyJWT = (req, res, next) => {
-  const token = req.headers["x-access-token"]
+  const token = req.headers["x-access-token"];
 
   if (!token) {
-    res.send("There is no token; please give it to us next time.")
-  }
-  else {
+    res.send("There is no token; please give it to us next time.");
+  } else {
     jwt.verify(token, "secrettoken", (err, decoded) => {
       if (err) {
         res.json({ auth: false, message: "Authentication failed" });
-      }
-      else {
+      } else {
         req.userID = decoded.id;
         next();
       }
@@ -226,18 +224,18 @@ const verifyJWT = (req, res, next) => {
 };
 
 //server processes get request to check the user's token
-app.get('/isUserAuth', verifyJWT, (req, res) => {
+app.get("/isUserAuth", verifyJWT, (req, res) => {
   res.send("You are authenticated.");
   setLoggedIn(true);
   history.push("/home");
 });
 
 //server deletes session in database, logs user out
-app.post("/logout", (req, res) => {  
+app.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) throw err;
     res.redirect("/");
-  })
+  });
 });
 
 //local server at port 3001 listens to requests
@@ -259,7 +257,7 @@ app.post("/facility", (req, res) => {
       if (err) {
         console.log("Error: ", err);
       } else {
-        console.log("Insert: ", res)
+        console.log("Insert: ", res);
       }
     }
   );
@@ -299,12 +297,13 @@ app.get("/facility", (req, res) => {
 app.put("/updateEmail", (req, res) => {
   const email = req.body.new_email;
   db.query(
-    "UPDATE user_info SET email = ? WHERE userinfo_id = ?", [email, userID],
+    "UPDATE user_info SET email = ? WHERE userinfo_id = ?",
+    [email, userID],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("Update: ", result)
+        console.log("Update: ", result);
       }
     }
   );
@@ -312,15 +311,16 @@ app.put("/updateEmail", (req, res) => {
 
 //server process delete request to delete facility information
 app.delete(`/deletefacility/:facilityid`, (req, res) => {
-  console.log(req.params.facilityid)
+  console.log(req.params.facilityid);
   const facility_id = req.params.facilityid;
   db.query(
-    "DELETE FROM facility_info WHERE facility_id = ?", [facility_id],
+    "DELETE FROM facility_info WHERE facility_id = ?",
+    [facility_id],
     (err, result) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("Delete: ", result)
+        console.log("Delete: ", result);
       }
     }
   );
