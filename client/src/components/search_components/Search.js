@@ -15,23 +15,20 @@ function Search({ authorized }) {
     const { searchFor } = currentPage.state || [];
     const [buttonPopup, setButtonPopup] = useState(false);
     const [warning, setWarning] = useState(false);
-    const [changes, setChanges] = useState(false)
     const [centerSearch, setCenterSearch] = useState(false);
     const [location, setLocation] = useState({
         loaded: false,
         coordinates: { lat: 0.0, lng: 0.0 }
-    })
+    });
 
-    const [findFacility, setFindFacility] = useState("")
-    const [selectedFacility, setSelectedFacility] = useState([])
-    const [selectMarker, setSelectMarker] = useState(null)
+    const [findFacility, setFindFacility] = useState("");
+    const [selectedFacility, setSelectedFacility] = useState([]);
+    const [selectMarker, setSelectMarker] = useState(null);
 
-    const [facilityName, setFacilityName] = useState("")
-    const [facilityAddress, setFacilityAddress] = useState("")
-    const [facilityPhone, setFacilityPhone] = useState("")
-    const [facilityTimes, setFacilityTimes] = useState("")
-
-    const [savedFacilities, setSavedFacilities] = useState(null)
+    const [facilityName, setFacilityName] = useState("");
+    const [facilityAddress, setFacilityAddress] = useState("");
+    const [facilityPhone, setFacilityPhone] = useState("");
+    const [facilityTimes, setFacilityTimes] = useState("");
     
     Axios.defaults.withCredentials = true;
     const addFacility = () => {
@@ -43,42 +40,31 @@ function Search({ authorized }) {
         })
             .then((response) => {
                 console.log("Result: ", response);
-                
             },
                 (error) => {
                     console.error(error);
                 }
             )
-            setChanges(!changes)
     }
-
-    useEffect(() => {
-        Axios.get("http://localhost:3001/facility").then((response) => {
-            const facilities_address = new Set();
-            response.data.forEach(item => facilities_address.add(item.facility_address))
-            setSavedFacilities(facilities_address)
-        });
-        return () => {
-            setSavedFacilities(null);
-        }
-    }, [changes])
 
     const determinePopup = () => {
-        //If not null, check if value in set
-        if (savedFacilities !== null) {
-            if (savedFacilities.has(facilityAddress)) {
+        Axios.get(`http://localhost:3001/findfacility/${facilityAddress}`, {
+            data: facilityAddress 
+        }).then((response) => {
+            // Facility already saved
+            if (response.data.length > 0) {
                 setWarning(true);
-            } else {
-                setButtonPopup(true);
             }
-        }
-        //Is not, add first facility
-        else {
-            setButtonPopup(true);
-        }
-  
-        
-    }
+            // Facility is not saved 
+            else {
+                setButtonPopup(true)
+            }
+            //Error
+          }, (error) => {
+            console.error("Error:", error);
+        });
+
+    };
     //If user isnt logged in redirect them to log in
     if (!authorized) {
         return <Redirect to="/" />;
