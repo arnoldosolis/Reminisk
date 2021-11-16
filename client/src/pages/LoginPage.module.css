@@ -1,8 +1,19 @@
+.bg {
+  background-image: url("LoginBG.jpg"); 
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .box {
-  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  background: linear-gradient(90deg, rgba(28, 27, 27, 0.8), rgba(26, 23, 23, 0.32));
   width: 60%;
   height: 100vh;
   float: left;
+  z-index: 2;
 }
 
 .Reminisk {
@@ -13,12 +24,13 @@
 }
 
 .box2 {
-  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(255, 255, 255) 100%);
+  background: linear-gradient(90deg, rgba(28, 27, 27, 0.32), rgba(26, 23, 23, 0));
   width: 40%;
   height: 100vh;
   position: relative;
   margin: 0px;
   float: right;
+  z-index: 2;
 }
 
 .loginFormBox {
@@ -27,13 +39,8 @@
   left: 5%;
   width: 36vw;
   height: 40vh;
-  background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
+  background-color: rgba(0,0,0,0.5);
   border-radius: 10px;
-}
-
-label {
-  font-size: 20px;
-  color: white
 }
 
 button {
@@ -52,6 +59,7 @@ button:hover {
   background: #fff;
   color: #242424;
   transition: 250ms;
+  cursor: pointer;
 }
 
 button:focus {
@@ -70,4 +78,12 @@ div div div form input {
 .inputLabel {
   color: white;
   font-size: 20px;
+}
+
+input:hover {
+  cursor: pointer;
+}
+
+.loginForm{
+  padding: 8px;
 }
