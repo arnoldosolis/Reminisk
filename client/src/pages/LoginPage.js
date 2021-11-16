@@ -65,13 +65,13 @@ function LoginPage() {
   }, []);
 
   return (
-    <div>
+    <div className={styles.bg}>
       <div className={styles.box}>
         <h1 className={styles.Reminisk}>Reminisk</h1>
       </div>
       <div className={styles.box2}>
         <div className={styles.loginFormBox}>
-          <form onSubmit={login}>
+          <form className={styles.loginForm} onSubmit={login}>
             <span className={styles.inputLabel}>Username</span>
             <input
               type="text"
@@ -86,7 +86,7 @@ function LoginPage() {
               }}
             />
             <span className={styles.inputLabel}>Password</span>
-            <input
+            <input className={styles.loginInput}
               type="password"
               id="password"
               name="password"
