@@ -30,11 +30,13 @@
 }
 
 .username-lbl {
+  font-size: large;
   margin-left: 5px;
   color: black;
 }
 
 .useremail-lbl {
+  font-size: large;
   margin-left: 5px;
   color: black;
 }
