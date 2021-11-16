@@ -171,7 +171,7 @@
 
 .fa-minus-square:hover {
   cursor: pointer;
-  color: grey;
+  color: red;
   font-size: 1.8rem;
 
 }
@@ -185,7 +185,7 @@
 }
 
 .show-btn {
-  margin-right: auto;
+  margin-left: 0%;
   padding: 10px;
   background-color: rgb(179, 179, 179);
   color: black;
