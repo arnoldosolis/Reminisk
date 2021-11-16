@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router';
 import './Search.css';
 import SearchNear from './SearchNear.js';
