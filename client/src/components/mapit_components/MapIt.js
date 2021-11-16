@@ -1,127 +1,173 @@
-import React from 'react';
-import { useLocation } from 'react-router';
-import { useState, useEffect, useRef } from 'react';
-//import { MAPS_API_KEY } from '../../config'
-import { getDetails } from 'use-places-autocomplete';
-//import Confirm from "./confirmPopup";
-import Axios from 'axios'
-import { LoadScript, useLoadScript, GoogleMap, Marker, InfoWindow, Maps, StandaloneSearchBox} from "@react-google-maps/api";
-import Button from '@material-ui/core/Button';
-const MapContainer = ({ array, isAdding, getLocation }) => {
+// MyGoogleMaps.js
+import React, { Component } from 'react';
 
-  const [ selected, setSelected ] = useState({});
-  const [ currentPosition, setCurrentPosition ] = useState({});
+import GoogleMapReact from 'google-map-react';
 
-  const markerRef = useRef(null);
+import styled from 'styled-components';
 
-  const defaultCenter = {
-    lat: 41.3851, lng: 2.1734
-  }
+import AutoComplete from './Autocomplete';
+import Marker from './Marker';
 
-  const onSelect = item => {
-    setSelected(item);
-  }
+const Wrapper = styled.main`
+  width: 100%;
+  height: 100%;
+`;
 
-  const success = (position) => {
-    const latitude  = position.coords.latitude;
-    const longitude = position.coords.longitude;
-    const currentPosition = {
-      lat: latitude,
-      lng: longitude
+class MyGoogleMap extends Component {
+
+
+    state = {
+        mapApiLoaded: false,
+        mapInstance: null,
+        mapApi: null,
+        geoCoder: null,
+        places: [],
+        center: [],
+        zoom: 9,
+        address: '',
+        draggable: true,
+        lat: null,
+        lng: null
+    };
+
+    componentWillMount() {
+        this.setCurrentLocation();
     }
-    setCurrentPosition(currentPosition);
-  }
 
-  const onMarkerDragEnd = (e) => {
-    const lat = e.latLng.lat();
-    const lng = e.latLng.lng();
-    setCurrentPosition({ lat, lng})
-  };
 
-  const footer = (
-    <div className="footer">
-      <div className="inner-footer">
-      <span className="location-text">Choose location and press</span>
-      <Button variant="contained" color="primary" onClick={() => getLocation(currentPosition)}>
-        Next
-      </Button>
-      </div>
-    </div>
-  );
-
-  const mapStyles = () => {
-    if (!isAdding) {
-      return {
-        marginTop: "-20px",
-        height: "100vh",
-        width: "100%"
-      }
-    } else {
-      return {
-        marginTop: "-20px",
-        height: "80vh",
-        width: "100%"
-      }
+    onMarkerInteraction = (childKey, childProps, mouse) => {
+        this.setState({
+            draggable: false,
+            lat: mouse.lat,
+            lng: mouse.lng
+        });
     }
-  }
+    onMarkerInteractionMouseUp = (childKey, childProps, mouse) => {
+        this.setState({ draggable: true });
+        this._generateAddress();
+    }
 
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(success);
-  })
+    _onChange = ({ center, zoom }) => {
+        this.setState({
+            center: center,
+            zoom: zoom,
+        });
 
-     return (
-    <>
-      <LoadScript
-        id="script-loader"
-        googleMapsApiKey='AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM'
-      >
-        <GoogleMap
-          id='example-map'
-          mapContainerStyle={mapStyles()}
-          draggable={true}
-          zoom={13}
-          center={currentPosition.lat ? currentPosition : defaultCenter}
-        >
-          {
-            array ?
-            array.map(item => {
-              return (
-              <Marker
-              key={item.id}
-              position={item.location}
-              onClick={() => onSelect(item)}
-              />
-              )
-            }) : null
-          }
-          {
-            isAdding ?
-            <Marker
-            position={currentPosition}
-            ref={() => markerRef}
-            onDragEnd={(e) => onMarkerDragEnd(e)}
-            draggable={true} /> :
-            null
-          }
-          {
-            selected.location ?
-            (
-              <InfoWindow
-              position={selected.location}
-              onCloseClick={() => setSelected({})}
-            >
-            </InfoWindow>
-            ) : null
-          }
-        </GoogleMap>
-      </LoadScript>
-      {
-        isAdding ?
-        footer :
-        null
-      }
-    </>
-     )
-  }
+    }
 
-export default MapContainer;
+    _onClick = (value) => {
+        this.setState({
+            lat: value.lat,
+            lng: value.lng
+        });
+    }
+
+    apiHasLoaded = (map, maps) => {
+        this.setState({
+            mapApiLoaded: true,
+            mapInstance: map,
+            mapApi: maps,
+        });
+
+        this._generateAddress();
+    };
+
+    addPlace = (place) => {
+        this.setState({
+            places: [place],
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng()
+        });
+        this._generateAddress()
+    };
+
+    _generateAddress() {
+        const {
+            mapApi
+        } = this.state;
+
+        const geocoder = new mapApi.Geocoder;
+
+        geocoder.geocode({ 'location': { lat: this.state.lat, lng: this.state.lng } }, (results, status) => {
+            console.log(results);
+            console.log(status);
+            if (status === 'OK') {
+                if (results[0]) {
+                    this.zoom = 12;
+                    this.setState({ address: results[0].formatted_address });
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+
+        });
+    }
+
+    // Get Current Location Coordinates
+    setCurrentLocation() {
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition((position) => {
+                this.setState({
+                    center: [position.coords.latitude, position.coords.longitude],
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                });
+            });
+        }
+    }
+
+    render() {
+        const {
+            places, mapApiLoaded, mapInstance, mapApi,
+        } = this.state;
+
+
+        return (
+            <Wrapper>
+                {mapApiLoaded && (
+                    <div>
+                        <AutoComplete map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
+                    </div>
+                )}
+                <GoogleMapReact
+                    center={this.state.center}
+                    zoom={this.state.zoom}
+                    draggable={this.state.draggable}
+                    onChange={this._onChange}
+                    onChildMouseDown={this.onMarkerInteraction}
+                    onChildMouseUp={this.onMarkerInteractionMouseUp}
+                    onChildMouseMove={this.onMarkerInteraction}
+                    onChildClick={() => console.log('child click')}
+                    onClick={this._onClick}
+                    bootstrapURLKeys={{
+                        key: 'AIzaSyAM9uE4Sy2nWFfP-Ha6H8ZC6ghAMKJEKps',
+                        libraries: ['places', 'geometry'],
+                    }}
+                    yesIWantToUseGoogleMapApiInternals
+                    onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
+                >
+
+                    <Marker
+                        text={this.state.address}
+                        lat={this.state.lat}
+                        lng={this.state.lng}
+                    />
+
+
+                </GoogleMapReact>
+
+                <div className="info-wrapper">
+                    <div className="map-details">Latitude: <span>{this.state.lat}</span>, Longitude: <span>{this.state.lng}</span></div>
+                    <div className="map-details">Zoom: <span>{this.state.zoom}</span></div>
+                    <div className="map-details">Address: <span>{this.state.address}</span></div>
+                </div>
+
+
+            </Wrapper >
+        );
+    }
+}
+
+export default MyGoogleMap;
