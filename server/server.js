@@ -270,7 +270,7 @@ app.get("/userinfo", (req, res) => {
     userID,
     (err, result) => {
       if (err) {
-        console.log(err);
+        res.send(err);
       } else {
         res.send(result);
       }
@@ -285,7 +285,7 @@ app.get("/facility", (req, res) => {
     userID,
     (err, result) => {
       if (err) {
-        console.log(err);
+        res.send(err);
       } else {
         res.send(result);
       }
@@ -311,7 +311,6 @@ app.put("/updateEmail", (req, res) => {
 
 //server process delete request to delete facility information
 app.delete(`/deletefacility/:facilityid`, (req, res) => {
-  console.log(req.params.facilityid);
   const facility_id = req.params.facilityid;
   db.query(
     "DELETE FROM facility_info WHERE facility_id = ?",
@@ -319,8 +318,24 @@ app.delete(`/deletefacility/:facilityid`, (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        res.send(err);
       } else {
         console.log("Delete: ", result);
+      }
+    }
+  );
+});
+
+app.get(`/findfacility/:facilityaddress`, (req, res) => {
+  const facility_address = req.params.facilityaddress;
+  db.query(
+    "SELECT facility_address FROM facility_info WHERE facility_address = ?",
+    [facility_address],
+    (err, result) => {
+      if (err) {
+        res.send(err);
+      } else {
+        res.send(result);
       }
     }
   );
