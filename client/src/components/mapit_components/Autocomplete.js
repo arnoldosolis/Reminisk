@@ -1,4 +1,3 @@
-// Autocomplete.js
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
@@ -7,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 20px;
+  padding: 18px;
   text-align:center;
 `;
 
@@ -19,10 +18,8 @@ class AutoComplete extends Component {
 
     componentDidMount({ map, mapApi } = this.props) {
         const options = {
-            // restrict your search to a specific type of result
+//restricts search to address
             types: ['address'],
-            // restrict your search to a specific country, or an array of countries
-            // componentRestrictions: { country: ['gb', 'us'] },
         };
         this.autoComplete = new mapApi.places.Autocomplete(
             this.searchInput,
