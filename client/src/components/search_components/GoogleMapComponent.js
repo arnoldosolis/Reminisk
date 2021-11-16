@@ -162,10 +162,11 @@ function GoogleMapComponent({ center, searchKeyword, setMarkers, markers,
                     >
                         <div>
                         <p className="facility-p">Facility Info</p>
-                        <p>Name: {facilityName}</p>
-                        <p>Address: {facilityAddress}</p>
-                        <p>Business Phone: {facilityPhone}</p>
-                        <p>Weekly Hours:</p>
+                        <hr/>
+                        <p className="name-lbl">Name: {facilityName}</p>
+                        <p className="address-lbl">Address: {facilityAddress}</p>
+                        <p className="phone-lbl">Business Phone: {facilityPhone}</p>
+                        <p className="times-lbl">Weekly Hours:</p>
                         {facilityTimes !== "" ?  facilityTimes.split(',').map((times, index) => (
                             <p className="hours-p" key={index}>{times}</p>
                         ))
