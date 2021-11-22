@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegistrationPage from "./pages/RegistrationPage";
 import Navbar from "./components/navbar_components/Navbar";
 import Footer from "./components/footer_components/Footer";
-import VideoBackground from "./components/homepage_components/VideoBackground";
+import Home from "./pages/Home";
 import Survey from "./components/surveypage_components/Survey";
 import ScrollToTop from "./components/ScrollToTop";
 import JournalPage from "./pages/JournalPage";
@@ -28,7 +28,7 @@ function App() {
         <ScrollToTop>
           <>
             <Navbar />
-            <Route exact path="/home" component={() => <VideoBackground authorized={loggedIn} />} />
+            <Route exact path="/home" component={() => <Home authorized={loggedIn} />} />
             <Route exact path="/survey" component={() => <Survey authorized={loggedIn} />} />
             <Route exact path="/journal">
               <JournalPage authorized={loggedIn} />

@@ -1,0 +1,79 @@
+.shortcut {
+  padding: 4rem;
+  /* background: rgb(150, 150, 150); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.shortcut-cntr {
+  background-color: rgb(184, 184, 184);
+  width: 70%;
+  overflow: auto;
+  min-height: 300px;
+  border: 3px solid black;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+
+.shortcut-line {
+  height: 4px;
+  width: 100%;
+  color: black;
+  background-color: black;
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:after {
+  background-color: rgb(28, 27, 27);
+}
+
+[type="radio"]:checked + span:after,
+[type="radio"].with-gap:checked + span:before,
+[type="radio"].with-gap:checked + span:after {
+  border: 2px solid rgb(28, 27, 27);
+}
+
+.shortcut-hdr {
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-cntr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.accept-btn {
+  background-color: black;
+  color: rgb(179, 179, 179);
+  border: black;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.accept-btn:hover {
+  background-color: rgb(179, 179, 179);
+  border: transparent;
+  cursor: pointer;
+}
+
+.accept-btn[disabled],
+.accept-btn[disabled]:hover {
+  background-color: rgb(184, 184, 184);
+  color: black;
+  border: rgb(179, 179, 179);
+  font-size: 15px;
+  font-weight: bold;
+  cursor: default;
+}
+
+.problem-lbl {
+  margin-left: 5px;
+  color: black;
+  font-weight: bold;
+}
