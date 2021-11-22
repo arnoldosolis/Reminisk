@@ -69,11 +69,15 @@ function JournalPage({ authorized }) {
   const [entry, setEntry] = useState("");
   const [img, setImg] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [upVal, setUpVal] = useState("");
+  const [col, setCol] = useState("");
+  const [fillInput, setFillInput] = useState("");
   var imgU = "";
   var selectedJournal = 0;
-  if (!authorized) {
-    return <Redirect to="/" />;
-  }
+  const [jid, setJid] = useState(0);
+  //if (!authorized) {
+  //  return <Redirect to="/" />;
+  // }
 
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;
@@ -150,6 +154,13 @@ function JournalPage({ authorized }) {
       setJournalList(sorted);
     }
   };
+  const updateJournalEntry = () => {
+    Axios.put("http://localhost:3001/update", {
+      upVal: upVal,
+      journallog_id: jid,
+      col: col,
+    });
+  };
 
   return (
     <div class="center-align">
@@ -172,6 +183,7 @@ function JournalPage({ authorized }) {
             />
             <textarea
               placeholder="How was your day?"
+              style={{ width: "553px", height: "300px" }}
               onChange={(e) => {
                 setJournal(e.target.value);
                 //console.log(e.target.value);
@@ -180,6 +192,7 @@ function JournalPage({ authorized }) {
             <label for="img">
               Chose any picture that you would like to remember today by:
             </label>
+            <br />
             <input
               type="file"
               onChange={(e) => {
@@ -196,6 +209,9 @@ function JournalPage({ authorized }) {
               addJournalEntry();
               imgU = "";
               handleClose();
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
             }}
           >
             Done
@@ -229,14 +245,52 @@ function JournalPage({ authorized }) {
               publicId={entry.image}
             />
           </List>
-          <List>{entry.journal_date}</List>
-          <List>{entry.journal_entry}</List>
+          <List
+            onClick={() => {
+              setCol("journal_date");
+              setFillInput(entry.journal_date);
+            }}
+          >
+            {entry.journal_date}
+          </List>
+          <List
+            style={{ hover: "pointer" }}
+            onClick={() => {
+              setCol("journal_entry");
+              setFillInput(entry.journal_entry);
+            }}
+          >
+            {entry.journal_entry}
+          </List>
           <Button
             onClick={handleClose1}
             style={{ width: "200px" }}
             class="waves-effect waves-light btn-large black"
           >
             Exit
+          </Button>
+          <label>
+            Click on a field and then change or remove anything. Press update to
+            make change.
+          </label>
+          <input
+            type="text"
+            style={{ width: "630px" }}
+            placeholder={fillInput}
+            onChange={(event) => {
+              setUpVal(event.target.value);
+            }}
+          />
+          <Button
+            style={{ width: "200px" }}
+            class="waves-effect waves-light btn-large black"
+            onClick={() => {
+              updateJournalEntry();
+              handleClose1();
+              window.location.reload();
+            }}
+          >
+            Update
           </Button>
         </div>
       </Dialog>
@@ -325,6 +379,7 @@ function JournalPage({ authorized }) {
                     key={val.journallog_id}
                     onClick={() => {
                       selectedJournal = val.journallog_id;
+                      setJid(val.journallog_id);
                       console.log(selectedJournal);
                       handleClickOpen1();
                     }}
