@@ -5,6 +5,8 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+require("dotenv").config();
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
@@ -288,7 +290,7 @@ app.post("/logout", (req, res) => {
 });
 
 //local server at port 3001 listens to requests
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Server is running on port 3001");
 });
 
