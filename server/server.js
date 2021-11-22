@@ -126,6 +126,55 @@ app.delete("/delete/:userinfo_id", (req, res) => {
   );
 });
 
+// Update a journal entry
+app.put("/update", (req, res) => {
+  const journallog_id = req.body.journallog_id;
+  const col = req.body.col;
+  const upVal = req.body.upVal;
+  if (col == "journal_entry") {
+    db.query(
+      "UPDATE journal_log SET journal_entry = ? WHERE journallog_id = ?",
+      [upVal, journallog_id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  }
+  if (col == "journal_date") {
+    db.query(
+      "UPDATE journal_log SET journal_date = ? WHERE journallog_id = ?",
+      [upVal, journallog_id],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(result);
+        }
+      }
+    );
+  }
+});
+// Delete a journal entry
+app.delete("/removeentry", (req, res) => {
+  const journallog_id = req.body.journallog_id;
+
+  db.query(
+    "DELETE FROM journal_log where journallog_id = ?",
+    journallog_id,
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 // Gets journal entries
 app.get("/journals", (req, res) => {
   db.query(
