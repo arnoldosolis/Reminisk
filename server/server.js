@@ -361,6 +361,27 @@ app.put("/updateEmail", (req, res) => {
   );
 });
 
+app.get(`/updateEmailAuth/:auth`, (req, res) => {
+  const pass = req.params.auth;
+  console.log(pass)
+  db.query("SELECT password FROM user_login WHERE userlogin_id = ?", 
+  [userID],
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        res.send(err)
+      } else if (result.length > 0) {
+        bcrypt.compare(pass, result[0].password, (err, response) => {
+          if (response) {
+            res.send(true);
+          } else {
+            res.send(false);
+          }
+        });
+      }
+    }
+)});
+
 //server process delete request to delete facility information
 app.delete(`/deletefacility/:facilityid`, (req, res) => {
   const facility_id = req.params.facilityid;
