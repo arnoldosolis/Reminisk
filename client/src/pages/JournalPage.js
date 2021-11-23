@@ -129,7 +129,7 @@ function JournalPage({ authorized }) {
           0,
           10
         );
-        console.log("handleClickOpen1", journalList[i]);
+        // console.log("handleClickOpen1", journalList[i]);
         setEntry(journalList[i]);
       }
     }
@@ -160,6 +160,10 @@ function JournalPage({ authorized }) {
       journallog_id: jid,
       col: col,
     });
+  };
+
+  const deleteJournalEntry = (id) => {
+    Axios.delete(`http://localhost:3001/rentry/${id}`);
   };
 
   return (
@@ -291,6 +295,17 @@ function JournalPage({ authorized }) {
             }}
           >
             Update
+          </Button>
+          <Button
+            style={{ width: "200px" }}
+            class="waves-effect waves-light btn-large black"
+            onClick={() => {
+              deleteJournalEntry(jid);
+              handleClose1();
+              window.location.reload();
+            }}
+          >
+            Delete
           </Button>
         </div>
       </Dialog>

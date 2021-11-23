@@ -12,6 +12,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 var userID = 0;
+console.log(userID);
 
 app.use(express.json());
 app.use(
@@ -160,13 +161,13 @@ app.put("/update", (req, res) => {
     );
   }
 });
-// Delete a journal entry
-app.delete("/removeentry", (req, res) => {
-  const journallog_id = req.body.journallog_id;
 
+// Delete a journal entry
+app.delete("/rentry/:id", (req, res) => {
+  const id = req.params.id;
   db.query(
     "DELETE FROM journal_log where journallog_id = ?",
-    journallog_id,
+    id,
     (err, result) => {
       if (err) {
         console.log(err);
