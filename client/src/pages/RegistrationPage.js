@@ -39,15 +39,12 @@ function RegistrationPage() {
   }
 
   return (
-      <div className={styles.bg}>
-        <form className={styles.registrationForm} onSubmit={addUser}>
-          <div>
-            <Link to="/">
-              <button type="button" id={styles.back}>
-                <i className="material-icons left">arrow_back</i>Back
-              </button>
-            </Link>
-          </div>
+      <div id={styles.bg}>
+        <button type="button" id={styles.back} onClick={() => history.push("/")}>
+          <i className="material-icons left">arrow_back</i>Back
+        </button>
+        <form id={styles.registrationForm} onSubmit={addUser}>
+          <div id={styles.formName}>Create Reminisk Account</div>
           <span className={styles.inputLabel}>Name</span>
           <input
             type="text"
@@ -96,7 +93,7 @@ function RegistrationPage() {
               setEmail(event.target.value);
             }}
           />
-          <button id={styles.join}>Join Reminisk</button>
+          <button>Join Reminisk</button>
         </form>
         {regSuccessModal && <Modal onClick={redirectToLogin} display={"Registration Successful!"} />}
       </div> 
