@@ -1,5 +1,4 @@
 import styles from "./LoginPage.module.css";
-import { Redirect } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import Modal from "../components/Modal";

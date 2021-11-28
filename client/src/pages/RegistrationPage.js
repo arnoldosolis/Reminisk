@@ -1,5 +1,4 @@
 import styles from "./RegistrationPage.module.css";
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import Axios from "axios";
 import Modal from "../components/Modal";
@@ -74,10 +73,11 @@ function RegistrationPage() {
             type="password"
             id="password"
             name="password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number, one lowercase letter, one uppercase letter, and must be at least 8 or more characters"
             placeholder="Enter Password"
+            maxLength="255"
             required
-            minLength="6"
-            maxLength="16"
             onChange={(event) => {
               setPassword(event.target.value);
             }}
@@ -95,7 +95,7 @@ function RegistrationPage() {
           />
           <button>Join Reminisk</button>
         </form>
-        {regSuccessModal && <Modal onClick={redirectToLogin} display={"Registration Successful!"} />}
+        {regSuccessModal && <Modal onClick={redirectToLogin} display={"Registration Successful!"} />}   
       </div> 
   );
 }
