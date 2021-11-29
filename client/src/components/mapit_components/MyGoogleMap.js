@@ -15,7 +15,6 @@ const Wrapper = styled.main`
 
 class MyGoogleMap extends Component {
 
-
     state = {
         mapApiLoaded: false,
         mapInstance: null,
@@ -106,6 +105,7 @@ class MyGoogleMap extends Component {
     }
 
     // Get Current Location Coordinates
+    //in wrapper it prints out the coords using setstate
     setCurrentLocation() {
         if ('geolocation' in navigator) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -163,8 +163,6 @@ class MyGoogleMap extends Component {
                     <div className="map-details">Zoom: <span>{this.state.zoom}</span></div>
                     <div className="map-details">Address: <span>{this.state.address}</span></div>
                 </div>
-
-
             </Wrapper >
         );
     }
