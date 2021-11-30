@@ -17,6 +17,7 @@ import Slide from "@mui/material/Slide";
 import List from "@mui/material/List";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import ListItemButton from "@mui/material/ListItemButton";
 
 import { Image } from "cloudinary-react";
 import { useState, useEffect } from "react";
@@ -259,15 +260,15 @@ function JournalPage({ authorized }) {
               publicId={entry.image}
             />
           </List>
-          <List
+          <ListItemButton
             onClick={() => {
               setCol("journal_date");
               setFillInput(entry.journal_date);
             }}
           >
             {entry.journal_date}
-          </List>
-          <List
+          </ListItemButton>
+          <ListItemButton
             style={{ hover: "pointer" }}
             onClick={() => {
               setCol("journal_entry");
@@ -275,7 +276,7 @@ function JournalPage({ authorized }) {
             }}
           >
             {entry.journal_entry}
-          </List>
+          </ListItemButton>
           <Button
             onClick={handleClose1}
             style={{ width: "200px" }}
