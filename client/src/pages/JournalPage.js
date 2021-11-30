@@ -68,6 +68,7 @@ function JournalPage({ authorized }) {
   const [journal, setJournal] = useState("");
   const [entry, setEntry] = useState("");
   const [img, setImg] = useState([]);
+  const [location, setLocation] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [upVal, setUpVal] = useState("");
   const [col, setCol] = useState("");
@@ -108,6 +109,7 @@ function JournalPage({ authorized }) {
             date: date,
             journal: journal,
             imgURL: imgU,
+            location: location,
           },
         ]);
       });
@@ -202,6 +204,14 @@ function JournalPage({ authorized }) {
               onChange={(e) => {
                 //console.log(e.target.files[0]);
                 setImg(e.target.files[0]);
+              }}
+            />
+            <input
+              type="text"
+              placeholder="Address of image that was taken..."
+              onChange={(e) => {
+                //console.log(e.target.files[0]);
+                setLocation(e.target.value);
               }}
             />
           </DialogContentText>

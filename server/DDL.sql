@@ -19,6 +19,7 @@ CREATE TABLE journal_log (
   journal_date DATE,
   image TEXT,
   journal_entry TEXT,
+  location TEXT,
   PRIMARY KEY(journallog_id),
   FOREIGN KEY(userlogin_id) REFERENCES user_login(userlogin_id)
 );
