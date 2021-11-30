@@ -2,6 +2,7 @@ import "./ProfilePage.css"
 import Facilities from "./Facilities"
 import { Redirect } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Pagination from "../components/Pagination.js"
 import Axios from "axios";
 
 
@@ -9,6 +10,8 @@ function ProfilePage({ authorized }) {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [savedFacilities, setSavedFacilities] = useState([])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [facilityPerPage] = useState(5)
 
     const [edit, setEdit] = useState(false)
     const [newEmail, setNewEmail] = useState("")
@@ -67,6 +70,11 @@ function ProfilePage({ authorized }) {
         setChanges(!changes);
     };
 
+    const indexOfLastPost = currentPage * facilityPerPage;
+    const indexOfFirstPost = indexOfLastPost - facilityPerPage;
+    const currentFacilities = savedFacilities.slice(indexOfFirstPost, indexOfLastPost);
+
+    const paginate = pageNumber => setCurrentPage(pageNumber);
     const authChange = () => {
         if (authPass === confirmAuth) {
             Axios.get(`http://localhost:3001/updateEmailAuth/${authPass}`, {
@@ -93,12 +101,16 @@ function ProfilePage({ authorized }) {
         setWrongPass(false)
         setSame(true)
     }
+    const Test = () => {
+        console.log(currentFacilities);
+    }
     if (!authorized) {
         return <Redirect to="/" />;
     }
 
     return (
         <div>
+            <button onClick={Test}>Test</button>
             <div className="profile-cntr" >
                 <h1 className="profile-hdr">Profile Page</h1>
                 <br />
@@ -142,9 +154,19 @@ function ProfilePage({ authorized }) {
                     {savedFacilities.length !== 0 ?
                         <>
                             <button className="editfacility-btn" onClick={() => { setEditFacility(!editFacility) }}>{editFacility === false ? "Edit" : "Cancel"}</button>
-                            {savedFacilities.map((val, index) => (
+                            {/* {savedFacilities.map((val, index) => (
                                 <Facilities facility={val} key={index} deleteFacility={deleteFacility} editFacility={editFacility} />
-                            ))}
+                            ))} */}
+                            <Facilities 
+                            facilities={currentFacilities} 
+                            deleteFacility={deleteFacility}
+                            editFacility={editFacility}
+                            />
+                            <Pagination 
+                            facilitiesPerPage={facilityPerPage} 
+                            totalFacilities={savedFacilities.length} 
+                            paginate={paginate}
+                            />
                         </>
                         :
                         <h2 className="nofacility-hdr">No Facilities Saved</h2>
