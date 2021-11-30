@@ -109,6 +109,7 @@ function JournalPage({ authorized }) {
             date: date,
             journal: journal,
             imgURL: imgU,
+            location: location,
           },
         ]);
       });
