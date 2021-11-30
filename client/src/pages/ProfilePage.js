@@ -101,16 +101,13 @@ function ProfilePage({ authorized }) {
         setWrongPass(false)
         setSame(true)
     }
-    const Test = () => {
-        console.log(currentFacilities);
-    }
+
     if (!authorized) {
         return <Redirect to="/" />;
     }
 
     return (
         <div>
-            <button onClick={Test}>Test</button>
             <div className="profile-cntr" >
                 <h1 className="profile-hdr">Profile Page</h1>
                 <br />
