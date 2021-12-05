@@ -38,7 +38,7 @@ class MyGoogleMap extends Component {
     }
 
 
-    onMarkerInteraction = (childKey, childProps, mouse) => {
+    onMarkerInteraction = (childKey, childProps, mouse, props) => {
         this.setState({
             draggable: false,
             lat: mouse.lat,
