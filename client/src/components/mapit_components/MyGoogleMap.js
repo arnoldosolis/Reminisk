@@ -1,12 +1,13 @@
 // MyGoogleMaps.js
 import React, { Component } from 'react';
-
 import GoogleMapReact from 'google-map-react';
-
+import Button from './button';
 import styled from 'styled-components';
 
 import AutoComplete from './Autocomplete';
 import Marker from './Marker';
+
+const libraries = ["places"];
 
 const Wrapper = styled.main`
   width: 100%;
@@ -17,7 +18,9 @@ class MyGoogleMap extends Component {
 
     state = {
         mapApiLoaded: false,
+        showingInfoWindow: false,
         mapInstance: null,
+        clickMe: false,
         mapApi: null,
         geoCoder: null,
         places: [],
@@ -26,7 +29,8 @@ class MyGoogleMap extends Component {
         address: '',
         draggable: true,
         lat: null,
-        lng: null
+        lng: null,
+        label: null
     };
 
     componentWillMount() {
@@ -57,7 +61,7 @@ class MyGoogleMap extends Component {
     _onClick = (value) => {
         this.setState({
             lat: value.lat,
-            lng: value.lng
+            lng: value.lng,
         });
     }
 
@@ -70,6 +74,10 @@ class MyGoogleMap extends Component {
 
         this._generateAddress();
     };
+    clickMe = (click) =>{
+      alert("The address has been added to the journal page!");
+    };
+
 
     addPlace = (place) => {
         this.setState({
@@ -118,9 +126,10 @@ class MyGoogleMap extends Component {
         }
     }
 
+
     render() {
         const {
-            places, mapApiLoaded, mapInstance, mapApi,
+            places, mapApiLoaded, mapInstance, mapApi,clickMe,
         } = this.state;
 
 
@@ -153,15 +162,18 @@ class MyGoogleMap extends Component {
                         text={this.state.address}
                         lat={this.state.lat}
                         lng={this.state.lng}
+                        label={this.state.address}
                     />
+
 
 
                 </GoogleMapReact>
 
                 <div className="info-wrapper">
                     <div className="map-details">Latitude: <span>{this.state.lat}</span>, Longitude: <span>{this.state.lng}</span></div>
-                    <div className="map-details">Zoom: <span>{this.state.zoom}</span></div>
                     <div className="map-details">Address: <span>{this.state.address}</span></div>
+                    <div className="button"><Button onClick={clickMe}>Add to journal</Button>
+                    </div>
                 </div>
             </Wrapper >
         );
