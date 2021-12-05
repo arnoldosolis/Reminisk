@@ -13,6 +13,11 @@ const Wrapper = styled.main`
   height: 75%;
 `;
 
+const getPixelPositionOffset = (width, height) => ({
+  x: -(width / 2),
+  y: -(height / 2)
+});
+
 class MyGoogleMap extends Component {
   state = {
     journalList: [],
@@ -181,7 +186,7 @@ class MyGoogleMap extends Component {
             Address: <span>{this.state.address}</span>
           </div>
           <div className="button">
-            <Button onClick={clickMe}>Add to journal</Button>
+            <Button id = "show Button" onClick>Clikc here to add {this.onClick} {this.state.address} to journal</Button>
           </div>
         </div>
       </Wrapper>
