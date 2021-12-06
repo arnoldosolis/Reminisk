@@ -77,9 +77,9 @@ function JournalPage({ authorized }) {
   var imgU = "";
   var selectedJournal = 0;
   const [jid, setJid] = useState(0);
-  //if (!authorized) {
-  //  return <Redirect to="/" />;
-  // }
+  if (!authorized) {
+    return <Redirect to="/redirectJournal" />;
+  }
 
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;

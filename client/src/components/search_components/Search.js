@@ -65,9 +65,9 @@ function Search({ authorized }) {
         });
 
     };
-    //If user isnt logged in redirect them to log in
+    //If user isn't logged in redirect them to log in
     if (!authorized) {
-        return <Redirect to="/" />;
+        return <Redirect to="/redirectSearch" />;
     }
 
     //If user is logged in, show "Error: Answer Survey First"

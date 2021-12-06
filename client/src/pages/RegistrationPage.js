@@ -1,8 +1,10 @@
 import styles from "./RegistrationPage.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import Modal from "../components/Modal";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "../Helper/Context";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
@@ -10,7 +12,10 @@ function RegistrationPage() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [regSuccessModal, setRegSuccessModal] = useState(false);
+  const { loggedIn, setLoggedIn } = useContext(LoginContext);
   let history = useHistory();
+
+  Axios.defaults.withCredentials = true;
 
   function addUser (event) {
     //prevents page from refreshing after form submission
@@ -36,6 +41,17 @@ function RegistrationPage() {
   function redirectToLogin() {
     history.push("/");
   }
+
+  //checks if user has logged in before and redirects to home page if so
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").then((response) => {
+      if (response.data.logIn === true) {
+        setLoggedIn(true);
+        history.push("/home");
+      }
+      else{ setLoggedIn(false); }
+    });
+  }, []);
 
   return (
       <div id={styles.bg}>

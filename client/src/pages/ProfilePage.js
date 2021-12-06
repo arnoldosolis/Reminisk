@@ -103,7 +103,7 @@ function ProfilePage({ authorized }) {
     }
 
     if (!authorized) {
-        return <Redirect to="/" />;
+        return <Redirect to="/redirectProfile" />;
     }
 
     return (
