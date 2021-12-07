@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Axios from "axios";
 import AutoComplete from "./Autocomplete";
 import Marker from "./Marker";
+import OtherMarker from "./Marker2"
 
 const libraries = ["places"];
 const Wrapper = styled.main`
@@ -17,6 +18,8 @@ const getPixelPositionOffset = (width, height) => ({
   x: -(width / 2),
   y: -(height / 2)
 });
+
+
 
 class MyGoogleMap extends Component {
   state = {
@@ -45,10 +48,14 @@ class MyGoogleMap extends Component {
     lat: null,
     lng: null,
     label: null,
+    othermarkers: []
   };
 
   componentWillMount() {
     this.setCurrentLocation();
+    this.setState({
+      othermarkers: [{lat: 40.827179863162286, lng: -73.25738684140624, img_src:'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Right-Azure.png'}]
+    })
   }
 
   onMarkerInteraction = (childKey, childProps, mouse) => {
@@ -175,6 +182,12 @@ class MyGoogleMap extends Component {
             label={this.state.address}
             journal={this.state.journalList}
           />
+          <OtherMarker
+           lat={this.state.othermarkers.lat}
+           lng={this.state.othermarkers.lng}
+            />
+          }
+
         </GoogleMapReact>
 
         <div className="info-wrapper">
