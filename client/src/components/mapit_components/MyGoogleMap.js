@@ -35,6 +35,7 @@ class MyGoogleMap extends Component {
 
   componentWillMount() {
     this.setCurrentLocation();
+    this.forNewJournalList();
     // this.geocode();
   }
   onMarkerInteraction = (childKey, childProps, mouse) => {
@@ -124,30 +125,40 @@ class MyGoogleMap extends Component {
     Axios.get("http://localhost:3001/journals").then((response) => {
       const list = response.data;
       this.setState({ journalList: list });
-      console.log(this.state.journalList);
     });
   }
 
   geocode(loc) {
-    var location = "22 Main st Boston MA";
+    console.log("here");
     Axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
       params: {
-        address: loc,
+        address: loc.location,
         key: "AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM",
       },
     }).then((response) => {
-      console.log(response.data.results[0].geometry.location.lat);
-      console.log(response.data.results[0].geometry.location.lng);
+      // console.log(response.data);
+      let obj = {
+        id: loc.journallog_id,
+        lat: response.data.results[0].geometry.location.lat,
+        lon: response.data.results[0].geometry.location.lng,
+      };
+      // console.log(obj);
+      this.setState({ newjournalList: [...this.state.newjournalList, obj] });
+
+      // console.log(response.data.results[0].geometry.location.lat);
+      // console.log(response.data.results[0].geometry.location.lng);
     });
   }
 
+  forNewJournalList() {
+    this.state.journalList.map((data) => this.geocode(data));
+  }
   mapMarkers = () => {
-    return this.state.journalList.map((data) => {
-      this.geocode(data.location);
+    this.state.newjournalList.map((data) => {
       return (
         <Marker
           key={data.id}
-          coordinate={{ latitude: data.lat, longitude: data.lng }}
+          coordinate={{ latitude: data.lat, longitude: data.lon }}
         ></Marker>
       );
     });
@@ -183,6 +194,7 @@ class MyGoogleMap extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
+<<<<<<< HEAD
         <Marker
           text={this.state.address}
           lat={this.state.lat}
@@ -191,6 +203,8 @@ class MyGoogleMap extends Component {
           journal={this.state.journalList}
         />
 
+=======
+>>>>>>> 7e8dd6ce034f4fc37f872041589041b56831ebc5
           {this.mapMarkers()}
         </GoogleMapReact>
 
