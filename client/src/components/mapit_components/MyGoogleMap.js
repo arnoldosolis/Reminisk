@@ -129,12 +129,23 @@ class MyGoogleMap extends Component {
     });
   }
   mapMarkers = () => {
+    const { mapApi } = this.state;
+    const geocoder = new mapApi.Geocoder();
+    const address = document.getElementById("address").value;
+    geocoder.geocode({address: address } ,
+      (results, status) => {
+        console.log(results);
+        console.log(status);
+      }
+
+
     return this.state.journalList.map((data) => (
       <Marker
         key={data.id}
         coordinate={{ latitude: data.lat, longitude: data.lng }}
       ></Marker>
     ));
+  );
   };
   render() {
     const { places, mapApiLoaded, mapInstance, mapApi, clickMe } = this.state;
@@ -174,11 +185,9 @@ class MyGoogleMap extends Component {
             label={this.state.address}
             journal={this.state.journalList}
           />
-<<<<<<< HEAD
 
-=======
           {this.mapMarkers()}
->>>>>>> a68358d88e1a1ddba9ff26e249db03b770b3a808
+
         </GoogleMapReact>
 
         <div className="info-wrapper">
