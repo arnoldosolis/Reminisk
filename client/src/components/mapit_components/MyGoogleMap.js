@@ -35,7 +35,7 @@ class MyGoogleMap extends Component {
 
   componentWillMount() {
     this.setCurrentLocation();
-    this.geocode();
+    // this.geocode();
   }
   onMarkerInteraction = (childKey, childProps, mouse) => {
     this.setState({
@@ -130,11 +130,11 @@ class MyGoogleMap extends Component {
     });
   }
 
-  geocode(location) {
+  geocode(loc) {
     var location = "22 Main st Boston MA";
     Axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
       params: {
-        address: location,
+        address: loc,
         key: "AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM",
       },
     }).then((response) => {
@@ -142,13 +142,17 @@ class MyGoogleMap extends Component {
       console.log(response.data.results[0].geometry.location.lng);
     });
   }
+
   mapMarkers = () => {
-    return this.state.journalList.map((data) => (
-      <Marker
-        key={data.id}
-        coordinate={{ latitude: data.lat, longitude: data.lng }}
-      ></Marker>
-    ));
+    return this.state.journalList.map((data) => {
+      this.geocode(data.location);
+      return (
+        <Marker
+          key={data.id}
+          coordinate={{ latitude: data.lat, longitude: data.lng }}
+        ></Marker>
+      );
+    });
   };
   render() {
     const { places, mapApiLoaded, mapInstance, mapApi, clickMe } = this.state;
