@@ -130,14 +130,17 @@ class MyGoogleMap extends Component {
     });
   }
 
-  geocode(){
-    var location = '22 Main st Boston MA'
-    Axios.get('http://localhost:3001/journals',{
-      params:{
+  geocode() {
+    var location = "22 Main st Boston MA";
+    Axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+      params: {
         address: location,
-      }
-  })
-}
+        key: "AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM",
+      },
+    }).then(function (response) {
+      console.log(response);
+    });
+  }
   mapMarkers = () => {
     return this.state.journalList.map((data) => (
       <Marker
@@ -186,7 +189,6 @@ class MyGoogleMap extends Component {
           />
 
           {this.mapMarkers()}
-
         </GoogleMapReact>
 
         <div className="info-wrapper">
