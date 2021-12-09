@@ -185,13 +185,6 @@ class MyGoogleMap extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
-          <Marker
-            text={this.state.address}
-            lat={this.state.lat}
-            lng={this.state.lng}
-            label={this.state.address}
-            journal={this.state.journalList}
-          />
 
           {this.mapMarkers()}
         </GoogleMapReact>
