@@ -178,7 +178,6 @@ class MyGoogleMap extends Component {
             label={this.state.address}
             journal={this.state.journalList}
           />
-          {this.mapMarkers()}
 
         </GoogleMapReact>
 
