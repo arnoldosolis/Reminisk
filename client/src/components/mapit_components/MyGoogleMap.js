@@ -13,19 +13,7 @@ const Wrapper = styled.main`
   height: 75%;
 `;
 
-
 class MyGoogleMap extends Component {
-  state = {
-    journalList: [],
-  };
-
-  componentDidMount() {
-    Axios.get("http://localhost:3001/journals").then((response) => {
-      const list = response.data;
-      this.setState({ list });
-    });
-  }
-
   state = {
     mapApiLoaded: false,
     showingInfoWindow: false,
@@ -41,6 +29,7 @@ class MyGoogleMap extends Component {
     lat: null,
     lng: null,
     label: null,
+    journalList: [],
   };
 
   componentWillMount() {
@@ -132,14 +121,21 @@ class MyGoogleMap extends Component {
       });
     }
   }
+  componentDidMount() {
+    Axios.get("http://localhost:3001/journals").then((response) => {
+      const list = response.data;
+      this.setState({ journalList: list });
+      console.log(this.state.journalList);
+    });
+  }
   mapMarkers = () => {
-    return this.response.data.map(
-    (data) => <Marker
-    key={data.id}
-    coordinate={{ latitude: data.lat, longitude: data.lng }} >
-    </Marker >
-       )
-   }
+    return this.state.journalList.map((data) => (
+      <Marker
+        key={data.id}
+        coordinate={{ latitude: data.lat, longitude: data.lng }}
+      ></Marker>
+    ));
+  };
   render() {
     const { places, mapApiLoaded, mapInstance, mapApi, clickMe } = this.state;
 
@@ -178,7 +174,11 @@ class MyGoogleMap extends Component {
             label={this.state.address}
             journal={this.state.journalList}
           />
+<<<<<<< HEAD
 
+=======
+          {this.mapMarkers()}
+>>>>>>> a68358d88e1a1ddba9ff26e249db03b770b3a808
         </GoogleMapReact>
 
         <div className="info-wrapper">
