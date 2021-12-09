@@ -6,19 +6,12 @@ import styled from "styled-components";
 import Axios from "axios";
 import AutoComplete from "./Autocomplete";
 import Marker from "./Marker";
-import OtherMarker from "./Marker2"
 
 const libraries = ["places"];
 const Wrapper = styled.main`
   width: 100%;
   height: 75%;
 `;
-
-const getPixelPositionOffset = (width, height) => ({
-  x: -(width / 2),
-  y: -(height / 2)
-});
-
 
 
 class MyGoogleMap extends Component {
@@ -48,14 +41,10 @@ class MyGoogleMap extends Component {
     lat: null,
     lng: null,
     label: null,
-    othermarkers: []
   };
 
   componentWillMount() {
     this.setCurrentLocation();
-    this.setState({
-      othermarkers: [{lat: 40.827179863162286, lng: -73.25738684140624, img_src:'https://cdn1.iconfinder.com/data/icons/Map-Markers-Icons-Demo-PNG/256/Map-Marker-Ball-Right-Azure.png'}]
-    })
   }
 
   onMarkerInteraction = (childKey, childProps, mouse) => {
@@ -143,7 +132,14 @@ class MyGoogleMap extends Component {
       });
     }
   }
-
+  mapMarkers = () => {
+    return this.response.data.map(
+    (data) => <Marker
+    key={data.id}
+    coordinate={{ latitude: data.lat, longitude: data.lng }} >
+    </Marker >
+       )
+   }
   render() {
     const { places, mapApiLoaded, mapInstance, mapApi, clickMe } = this.state;
 
@@ -182,11 +178,7 @@ class MyGoogleMap extends Component {
             label={this.state.address}
             journal={this.state.journalList}
           />
-          <OtherMarker
-           lat={this.state.othermarkers.lat}
-           lng={this.state.othermarkers.lng}
-            />
-          }
+          {this.mapMarkers()}
 
         </GoogleMapReact>
 
@@ -197,9 +189,6 @@ class MyGoogleMap extends Component {
           </div>
           <div className="map-details">
             Address: <span>{this.state.address}</span>
-          </div>
-          <div className="button">
-            <Button id = "show Button" onClick>Click here to add {this.onClick} {this.state.address} to journal</Button>
           </div>
         </div>
       </Wrapper>
