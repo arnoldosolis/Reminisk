@@ -72,9 +72,7 @@ class MyGoogleMap extends Component {
 
     this._generateAddress();
   };
-  clickMe = (click) => {
-    alert("The address has been added to the journal page!");
-  };
+
 
   addPlace = (place) => {
     this.setState({
@@ -185,6 +183,13 @@ class MyGoogleMap extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
+        <Marker
+          text={this.state.address}
+          lat={this.state.lat}
+          lng={this.state.lng}
+          label={this.state.address}
+          journal={this.state.journalList}
+        />
 
           {this.mapMarkers()}
         </GoogleMapReact>
