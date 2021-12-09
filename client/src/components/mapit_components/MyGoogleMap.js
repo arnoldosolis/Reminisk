@@ -30,6 +30,7 @@ class MyGoogleMap extends Component {
     lng: null,
     label: null,
     journalList: [],
+    newjournalList: [],
   };
 
   componentWillMount() {
@@ -128,24 +129,21 @@ class MyGoogleMap extends Component {
       console.log(this.state.journalList);
     });
   }
-  mapMarkers = () => {
-    const { mapApi } = this.state;
-    const geocoder = new mapApi.Geocoder();
-    const address = document.getElementById("address").value;
-    geocoder.geocode({address: address } ,
-      (results, status) => {
-        console.log(results);
-        console.log(status);
+  geocode(){
+    var location = '22 Main st Boston MA'
+    Axios.get('http://localhost:3001/journals',{
+      params:{
+        address: location,
       }
-
-
+  })
+}
+  mapMarkers = () => {
     return this.state.journalList.map((data) => (
       <Marker
         key={data.id}
         coordinate={{ latitude: data.lat, longitude: data.lng }}
       ></Marker>
     ));
-  );
   };
   render() {
     const { places, mapApiLoaded, mapInstance, mapApi, clickMe } = this.state;
