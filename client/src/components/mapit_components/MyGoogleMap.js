@@ -37,7 +37,6 @@ class MyGoogleMap extends Component {
     this.setCurrentLocation();
     this.geocode();
   }
-
   onMarkerInteraction = (childKey, childProps, mouse) => {
     this.setState({
       draggable: false,
