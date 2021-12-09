@@ -133,13 +133,22 @@ class MyGoogleMap extends Component {
 
   geocode() {
     var location = "22 Main st Boston MA";
-    Axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
-      params: {
-        address: location,
-        key: "AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM",
-      },
-    }).then(function (response) {
-      console.log(response);
+    let tmp = [];
+    this.state.journalList.map((data) => {
+      console.log(data.location);
+      Axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+        params: {
+          address: location,
+          key: "AIzaSyCKTiKzLSpkhGO_v1h_jGq6CltajbkrskM",
+        },
+      }).then((response) => {
+        console.log(response.data.results[0].geometry.lat);
+        tmp.push({
+          id: data.journallog_id,
+          lat: response.data.results[0].geometry.lat,
+          lng: response.data.results[0].geometry.lat,
+        });
+      });
     });
   }
   mapMarkers = () => {
