@@ -35,6 +35,7 @@ class MyGoogleMap extends Component {
 
   componentWillMount() {
     this.setCurrentLocation();
+    this.geocode();
   }
 
   onMarkerInteraction = (childKey, childProps, mouse) => {
@@ -129,6 +130,7 @@ class MyGoogleMap extends Component {
       console.log(this.state.journalList);
     });
   }
+
   geocode(){
     var location = '22 Main st Boston MA'
     Axios.get('http://localhost:3001/journals',{
