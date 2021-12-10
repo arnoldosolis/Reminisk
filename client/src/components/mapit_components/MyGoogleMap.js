@@ -6,6 +6,10 @@ import styled from "styled-components";
 import Axios from "axios";
 import AutoComplete from "./Autocomplete";
 import Marker from "./Marker";
+import Marker2 from "./Marker2";
+import { InfoWindow, OverlayView } from '@react-google-maps/api';
+import Warning from "./WarningPopup";
+
 
 const libraries = ["places"];
 const Wrapper = styled.main`
@@ -31,24 +35,28 @@ class MyGoogleMap extends Component {
     label: null,
     journalList: [],
     newjournalList: [],
+    warning: false,
+    setWarning: false,
   };
 
   componentWillMount() {
     this.setCurrentLocation();
     this.forNewJournalList();
+    this.determinePopup();
     // this.geocode();
   }
-  onMarkerInteraction = (childKey, childProps, mouse) => {
-    this.setState({
-      draggable: false,
-      lat: mouse.lat,
-      lng: mouse.lng,
-    });
-  };
-  onMarkerInteractionMouseUp = (childKey, childProps, mouse) => {
-    this.setState({ draggable: true });
-    this._generateAddress();
-  };
+
+  // onMarkerInteraction = (childKey, childProps, mouse) => {
+  //   this.setState({
+  //     draggable: false,
+  //     lat: mouse.lat,
+  //     lng: mouse.lng,
+  //   });
+  // };
+  // onMarkerInteractionMouseUp = (childKey, childProps, mouse) => {
+  //   this.setState({ draggable: true });
+  //   this._generateAddress();
+  // };
 
   _onChange = ({ center, zoom }) => {
     this.setState({
@@ -107,6 +115,11 @@ class MyGoogleMap extends Component {
       }
     );
   }
+  determinePopup(){
+    return (<div className="s-cntr">
+        <h1 className="s-hdr">Error: Answer Survey First</h1>
+    </div>);
+}
 
   // Get Current Location Coordinates
   //in wrapper it prints out the coords using setstate
@@ -194,7 +207,6 @@ class MyGoogleMap extends Component {
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => this.apiHasLoaded(map, maps)}
         >
-<<<<<<< HEAD
         <Marker
           text={this.state.address}
           lat={this.state.lat}
@@ -202,9 +214,12 @@ class MyGoogleMap extends Component {
           label={this.state.address}
           journal={this.state.journalList}
         />
-
-=======
->>>>>>> 7e8dd6ce034f4fc37f872041589041b56831ebc5
+        <Marker2
+        title="Click to zoom"
+        lat = {40.7687275}
+        lng={-73.9651798}
+        determinePopup={this.state.warning}
+        />
           {this.mapMarkers()}
         </GoogleMapReact>
 
@@ -217,6 +232,7 @@ class MyGoogleMap extends Component {
             Address: <span>{this.state.address}</span>
           </div>
         </div>
+        <Warning trigger={this.state.warning} setTrigger={this.state.setWarning} />
       </Wrapper>
     );
   }
