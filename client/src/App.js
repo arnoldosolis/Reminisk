@@ -13,7 +13,7 @@ import Home from "./pages/Home";
 import Survey from "./components/surveypage_components/Survey";
 import ScrollToTop from "./components/ScrollToTop";
 import JournalPage from "./pages/JournalPage";
-import { LoginContext } from "./Helper/Context"
+import { LoginContext } from "./Helper/Context";
 import Search from "./components/search_components/Search";
 import ProfilePage from "./pages/ProfilePage";
 import MapIt from "./components/mapit_components/MapIt";
@@ -23,24 +23,72 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
-    <LoginContext.Provider value={{ loggedIn, setLoggedIn}}>
+    <LoginContext.Provider value={{ loggedIn, setLoggedIn }}>
       <Switch>
         <Route exact path="/" component={() => <LoginPage />} />
-        <Route exact path="/registration" component={() => <RegistrationPage />} />
-        <Route exact path="/redirectJournal" component={() => <RedirectJournal />} />
-        <Route exact path="/redirectSurvey" component={() => <RedirectSurvey />} />
-        <Route exact path="/redirectMapit" component={() => <RedirectMapit />} />
-        <Route exact path="/redirectProfile" component={() => <RedirectProfile />} />
-        <Route exact path="/redirectSearch" component={() => <RedirectSearch />} />
+        <Route
+          exact
+          path="/registration"
+          component={() => <RegistrationPage />}
+        />
+        <Route
+          exact
+          path="/redirectJournal"
+          component={() => <RedirectJournal />}
+        />
+        <Route
+          exact
+          path="/redirectSurvey"
+          component={() => <RedirectSurvey />}
+        />
+        <Route
+          exact
+          path="/redirectMapit"
+          component={() => <RedirectMapit />}
+        />
+        <Route
+          exact
+          path="/redirectProfile"
+          component={() => <RedirectProfile />}
+        />
+        <Route
+          exact
+          path="/redirectSearch"
+          component={() => <RedirectSearch />}
+        />
         <ScrollToTop>
           <>
             <Navbar />
-            <Route exact path="/home" component={() => <Home authorized={loggedIn} />} />
-            <Route exact path="/survey" component={() => <Survey authorized={loggedIn} />} />
-            <Route exact path="/journal" component={() => <JournalPage authorized={loggedIn} />} />
-            <Route exact path="/search" component={() => <Search authorized={loggedIn} />} />
-            <Route exact path="/profile" component={() => <ProfilePage authorized={loggedIn} />} />
-            <Route exact path="/map" component={() => <MapIt authorized={loggedIn} />}/>
+            <Route
+              exact
+              path="/home"
+              component={() => <Home authorized={loggedIn} />}
+            />
+            <Route
+              exact
+              path="/survey"
+              component={() => <Survey authorized={loggedIn} />}
+            />
+            <Route
+              exact
+              path="/journal"
+              component={() => <JournalPage authorized={loggedIn} />}
+            />
+            <Route
+              exact
+              path="/search"
+              component={() => <Search authorized={loggedIn} />}
+            />
+            <Route
+              exact
+              path="/profile"
+              component={() => <ProfilePage authorized={loggedIn} />}
+            />
+            <Route
+              exact
+              path="/mapit"
+              component={() => <MapIt authorized={loggedIn} />}
+            />
             <Footer />
           </>
         </ScrollToTop>
