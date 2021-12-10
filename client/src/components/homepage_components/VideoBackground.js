@@ -15,7 +15,7 @@ function VideoBackground() {
                 <Button className="btns" buttonStyle='btn--primary' buttonSize="btn--large" linkTo="/survey">
                     Fill Out Survey
                 </Button>
-                <Button className="btns" buttonStyle='btn--primary' buttonSize="btn--large" linkTo="/mapit">
+                <Button className="btns" buttonStyle='btn--primary' buttonSize="btn--large" linkTo="/map">
                     Map It
                 </Button>
             </div>

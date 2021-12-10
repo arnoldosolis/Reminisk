@@ -103,6 +103,7 @@ function JournalPage({ authorized }) {
         date: date,
         journal: journal,
         imgURL: imgU,
+        location: location,
       }).then(() => {
         setJournalList([
           ...journalList,
@@ -203,7 +204,6 @@ function JournalPage({ authorized }) {
             <input
               type="file"
               onChange={(e) => {
-                //console.log(e.target.files[0]);
                 setImg(e.target.files[0]);
               }}
             />
@@ -211,7 +211,6 @@ function JournalPage({ authorized }) {
               type="text"
               placeholder="Address of image that was taken..."
               onChange={(e) => {
-                //console.log(e.target.files[0]);
                 setLocation(e.target.value);
               }}
             />

@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   position: absolute;
   width: 37px;
   height: 37px;
-  background-image: url(https://icon-library.com/images/pin-icon-png/pin-icon-png-9.jpg);
+  background-image: url(https://icon-library.com/images/pin-icon-png/pin-icon-png-15.jpg);
   background-size: contain;
   background-repeat: no-repeat;
   -webkit-user-select: none;
@@ -19,15 +19,15 @@ const Wrapper = styled.div`
   cursor: grab;
 `;
 
-const Marker = ({ text, onClick }) => <Wrapper alt={text} onClick={onClick} />;
+const Marker2 = ({ text, onClick }) => <Wrapper alt={text} onClick={onClick} />;
 
-Marker.defaultProps = {
+Marker2.defaultProps = {
   onClick: null,
 };
 
-Marker.propTypes = {
+Marker2.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
 };
 
-export default Marker;
+export default Marker2;

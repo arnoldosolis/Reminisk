@@ -64,7 +64,7 @@ app.post("/upload", (req, res) => {
   const location = req.body.location;
 
   db.query(
-    "INSERT INTO journal_log(userlogin_id, journal_date, image, journal_entry) VALUES (?,?,?,?)",
+    "INSERT INTO journal_log(userlogin_id, journal_date, image, journal_entry, location) VALUES (?,?,?,?,?)",
     [userID, date, imgURL, journal, location],
     (err, res) => {
       if (err) {
