@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import "./Navbar.css";
 import { Button } from '../Button';
 import Axios from "axios";
-import { Redirect } from "react-router-dom";
 
 function Navbar() {
     const [clicked, setClicked] = useState(false);
@@ -63,7 +62,7 @@ function Navbar() {
                                 </Link>
                         </li>
                         <li className="nav-item">
-                                <Link to="/map" className="nav-links" onClick={closeMobileMenu}>
+                                <Link to="/mapit" className="nav-links" onClick={closeMobileMenu}>
                                     Map-It
                                 </Link>
                         </li>

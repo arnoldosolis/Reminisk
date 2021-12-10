@@ -1,5 +1,4 @@
 import styles from "./LoginPage.module.css";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Axios from "axios";
 import Modal from "../components/Modal";
@@ -65,13 +64,13 @@ function LoginPage() {
   }, []);
 
   return (
-    <div className={styles.bg}>
-      <div className={styles.box}>
-        <h1 className={styles.Reminisk}>Reminisk</h1>
+    <div id={styles.bg}>
+      <div id={styles.box1}>
+        <h1 id={styles.Reminisk}>Reminisk</h1>
       </div>
-      <div className={styles.box2}>
-        <div className={styles.loginFormBox}>
-          <form className={styles.loginForm} onSubmit={login}>
+      <div id={styles.box2}>
+        <div id={styles.loginFormBox}>
+          <form id={styles.loginForm} onSubmit={login}>
             <span className={styles.inputLabel}>Username</span>
             <input
               type="text"
@@ -86,7 +85,7 @@ function LoginPage() {
               }}
             />
             <span className={styles.inputLabel}>Password</span>
-            <input className={styles.loginInput}
+            <input
               type="password"
               id="password"
               name="password"
@@ -99,11 +98,9 @@ function LoginPage() {
               }}
             />
             <button>Log In</button>
-            <Link to="/registration">
-              <button type="button" id={styles.register}>
-                Sign Up<i className="material-icons right">arrow_forward</i>
-              </button>
-            </Link>
+            <button type="button" id={styles.register} onClick={() => history.push("/registration")}>
+              Sign Up<i className="material-icons right">arrow_forward</i>
+            </button>
           </form>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import styles from "./RegistrationPage.module.css";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Axios from "axios";
 import Modal from "../components/Modal";
 import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "../Helper/Context";
 
 function RegistrationPage() {
   const [name, setName] = useState("");
@@ -11,7 +12,10 @@ function RegistrationPage() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [regSuccessModal, setRegSuccessModal] = useState(false);
+  const { loggedIn, setLoggedIn } = useContext(LoginContext);
   let history = useHistory();
+
+  Axios.defaults.withCredentials = true;
 
   function addUser (event) {
     //prevents page from refreshing after form submission
@@ -38,16 +42,24 @@ function RegistrationPage() {
     history.push("/");
   }
 
+  //checks if user has logged in before and redirects to home page if so
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").then((response) => {
+      if (response.data.logIn === true) {
+        setLoggedIn(true);
+        history.push("/home");
+      }
+      else{ setLoggedIn(false); }
+    });
+  }, []);
+
   return (
-      <div className={styles.bg}>
-        <form className={styles.registrationForm} onSubmit={addUser}>
-          <div>
-            <Link to="/">
-              <button type="button" id={styles.back}>
-                <i className="material-icons left">arrow_back</i>Back
-              </button>
-            </Link>
-          </div>
+      <div id={styles.bg}>
+        <button type="button" id={styles.back} onClick={() => history.push("/")}>
+          <i className="material-icons left">arrow_back</i>Back
+        </button>
+        <form id={styles.registrationForm} onSubmit={addUser}>
+          <div id={styles.formName}>Create Reminisk Account</div>
           <span className={styles.inputLabel}>Name</span>
           <input
             type="text"
@@ -77,10 +89,11 @@ function RegistrationPage() {
             type="password"
             id="password"
             name="password"
+            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain at least one number, one lowercase letter, one uppercase letter, and must be at least 8 or more characters"
             placeholder="Enter Password"
+            maxLength="255"
             required
-            minLength="6"
-            maxLength="16"
             onChange={(event) => {
               setPassword(event.target.value);
             }}
@@ -96,9 +109,9 @@ function RegistrationPage() {
               setEmail(event.target.value);
             }}
           />
-          <button id={styles.join}>Join Reminisk</button>
+          <button>Join Reminisk</button>
         </form>
-        {regSuccessModal && <Modal onClick={redirectToLogin} display={"Registration Successful!"} />}
+        {regSuccessModal && <Modal onClick={redirectToLogin} display={"Registration Successful!"} />}   
       </div> 
   );
 }

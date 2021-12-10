@@ -94,7 +94,12 @@
 }
 
 .confirm-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   float: left;
+  margin-left: 10px;
   padding: 10px;
   background-color: rgb(179, 179, 179);
   color: black;
@@ -104,6 +109,10 @@
 }
 
 .cancel-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   float: right;
   padding: 10px;
   background-color: rgb(179, 179, 179);
@@ -198,4 +207,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.incorrect-lbl {
+  margin-left: 10px;
+  color: red;
+  font-size: medium;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  float: left;
+}
+
+.btn-cntr {
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
 }

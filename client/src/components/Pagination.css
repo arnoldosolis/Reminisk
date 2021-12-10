@@ -1,0 +1,23 @@
+.pagination-cntr {
+    margin-top: 5%;
+  max-width: 80%;
+  height: fit-content;
+  margin: 30px auto;
+  overflow: 30px auto;
+  height: fit-content;
+
+}
+
+.pagination-ul {
+    display: flex;
+    flex-direction: row;
+    align-items: row;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.page-num {
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: bolder;
+}

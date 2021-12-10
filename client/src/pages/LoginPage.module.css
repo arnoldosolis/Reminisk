@@ -1,4 +1,4 @@
-.bg {
+#bg {
   background-image: url("LoginBG.jpg"); 
   width: 100vw;
   height: 100vh;
@@ -8,7 +8,7 @@
   background-attachment: fixed;
 }
 
-.box {
+#box1 {
   background: linear-gradient(90deg, rgba(28, 27, 27, 0.8), rgba(26, 23, 23, 0.32));
   width: 60%;
   height: 100vh;
@@ -16,14 +16,14 @@
   z-index: 2;
 }
 
-.Reminisk {
+#Reminisk {
   margin: 0px;
   text-align: center;
   line-height: 100vh;
   color: #fff;
 }
 
-.box2 {
+#box2 {
   background: linear-gradient(90deg, rgba(28, 27, 27, 0.32), rgba(26, 23, 23, 0));
   width: 40%;
   height: 100vh;
@@ -33,7 +33,7 @@
   z-index: 2;
 }
 
-.loginFormBox {
+#loginFormBox {
   position: absolute;
   top: 30%;
   left: 5%;
@@ -84,6 +84,6 @@ input:hover {
   cursor: pointer;
 }
 
-.loginForm{
+#loginForm{
   padding: 8px;
 }

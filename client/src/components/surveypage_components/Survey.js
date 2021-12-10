@@ -14,7 +14,7 @@ function Survey({authorized}) {
   const [buttonPopup, setButtonPopup] = useState(false);
   const [diclaimerButton, setDiclaimerButton] = useState(false)
   const [problems, setProblems] = useState([])
-  if(!authorized){ return <Redirect to="/" />;}
+  if(!authorized){ return <Redirect to="/redirectSurvey" />;}
   const handleInputOne = () => {
     setResponseOne(true);
   }

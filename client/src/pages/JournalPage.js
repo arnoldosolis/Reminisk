@@ -17,6 +17,7 @@ import Slide from "@mui/material/Slide";
 import List from "@mui/material/List";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+import ListItemButton from "@mui/material/ListItemButton";
 
 import { Image } from "cloudinary-react";
 import { useState, useEffect } from "react";
@@ -76,9 +77,9 @@ function JournalPage({ authorized }) {
   var imgU = "";
   var selectedJournal = 0;
   const [jid, setJid] = useState(0);
-  //if (!authorized) {
-  //  return <Redirect to="/" />;
-  // }
+  if (!authorized) {
+    return <Redirect to="/redirectJournal" />;
+  }
 
   // Need this to allow cloudinary
   Axios.defaults.withCredentials = false;
@@ -132,7 +133,7 @@ function JournalPage({ authorized }) {
           0,
           10
         );
-        console.log("handleClickOpen1", journalList[i]);
+        // console.log("handleClickOpen1", journalList[i]);
         setEntry(journalList[i]);
       }
     }
@@ -163,6 +164,10 @@ function JournalPage({ authorized }) {
       journallog_id: jid,
       col: col,
     });
+  };
+
+  const deleteJournalEntry = (id) => {
+    Axios.delete(`http://localhost:3001/rentry/${id}`);
   };
 
   return (
@@ -254,15 +259,15 @@ function JournalPage({ authorized }) {
               publicId={entry.image}
             />
           </List>
-          <List
+          <ListItemButton
             onClick={() => {
               setCol("journal_date");
               setFillInput(entry.journal_date);
             }}
           >
             {entry.journal_date}
-          </List>
-          <List
+          </ListItemButton>
+          <ListItemButton
             style={{ hover: "pointer" }}
             onClick={() => {
               setCol("journal_entry");
@@ -270,7 +275,7 @@ function JournalPage({ authorized }) {
             }}
           >
             {entry.journal_entry}
-          </List>
+          </ListItemButton>
           <Button
             onClick={handleClose1}
             style={{ width: "200px" }}
@@ -300,6 +305,17 @@ function JournalPage({ authorized }) {
             }}
           >
             Update
+          </Button>
+          <Button
+            style={{ width: "200px" }}
+            class="waves-effect waves-light btn-large black"
+            onClick={() => {
+              deleteJournalEntry(jid);
+              handleClose1();
+              window.location.reload();
+            }}
+          >
+            Delete
           </Button>
         </div>
       </Dialog>

@@ -5,11 +5,14 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
+require("dotenv").config();
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 var userID = 0;
+console.log(userID);
 
 app.use(express.json());
 app.use(
@@ -159,13 +162,13 @@ app.put("/update", (req, res) => {
     );
   }
 });
-// Delete a journal entry
-app.delete("/removeentry", (req, res) => {
-  const journallog_id = req.body.journallog_id;
 
+// Delete a journal entry
+app.delete("/rentry/:id", (req, res) => {
+  const id = req.params.id;
   db.query(
     "DELETE FROM journal_log where journallog_id = ?",
-    journallog_id,
+    id,
     (err, result) => {
       if (err) {
         console.log(err);
@@ -289,7 +292,7 @@ app.post("/logout", (req, res) => {
 });
 
 //local server at port 3001 listens to requests
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("Server is running on port 3001");
 });
 
@@ -358,6 +361,27 @@ app.put("/updateEmail", (req, res) => {
     }
   );
 });
+
+app.get(`/updateEmailAuth/:auth`, (req, res) => {
+  const pass = req.params.auth;
+  console.log(pass)
+  db.query("SELECT password FROM user_login WHERE userlogin_id = ?", 
+  [userID],
+    (err, result) => {
+      if (err) {
+        console.log(err)
+        res.send(err)
+      } else if (result.length > 0) {
+        bcrypt.compare(pass, result[0].password, (err, response) => {
+          if (response) {
+            res.send(true);
+          } else {
+            res.send(false);
+          }
+        });
+      }
+    }
+)});
 
 //server process delete request to delete facility information
 app.delete(`/deletefacility/:facilityid`, (req, res) => {
