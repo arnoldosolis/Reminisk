@@ -74,7 +74,7 @@ function JournalPage({ authorized }) {
   const [upVal, setUpVal] = useState("");
   const [col, setCol] = useState("");
   const [fillInput, setFillInput] = useState("");
-  var imgU = "";
+  var imgUrl = "";
   var selectedJournal = 0;
   const [jid, setJid] = useState(0);
   if (!authorized) {
